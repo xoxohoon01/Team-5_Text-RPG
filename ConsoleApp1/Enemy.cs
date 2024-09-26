@@ -6,11 +6,6 @@
         {
             name = _name;
 
-            level = 1;
-
-            exp = 0;
-            maxExp = 100;
-
             hp = 0;
             maxHp = 0;
             mp = 0;

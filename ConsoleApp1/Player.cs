@@ -2,6 +2,7 @@
 {
     public enum Job
     {
+        None,
         Warrior,
         Archer,
         Thief,
@@ -22,17 +23,22 @@
         public int Mp { get; set; }
         public int Speed { get; set; }
         public int Gold { get; set; }
-        public float CriticalRate { get; set; }
+        public float CriticalChance { get; set; }
         public float CriticalDamage { get; set; }
 
         public Inventory inventory;
+
+        public Player()
+        {
+            inventory = new Inventory();
+        }
 
         public Player(string name, Job job)
         {
             Name = name;
             PlayerJob = job;
             Level = 1;
-            CriticalRate = 0.05f;
+            CriticalChance = 0.05f;
             CriticalDamage = 1.5f;
             Gold = 1500;
             inventory = new Inventory();
@@ -50,7 +56,7 @@
                     Speed = 5;
                     MaxHp = 150;
                     MaxMp = 50;
-                    CriticalRate = 0.05f;
+                    CriticalChance = 0.05f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Archer:
@@ -59,7 +65,7 @@
                     Speed = 8;
                     MaxHp = 130;
                     MaxMp = 70;
-                    CriticalRate = 0.2f;
+                    CriticalChance = 0.2f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Thief:
@@ -68,7 +74,7 @@
                     Speed = 12;
                     MaxHp = 120;
                     MaxMp = 80;
-                    CriticalRate = 0.35f;
+                    CriticalChance = 0.35f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Mage:
@@ -77,7 +83,7 @@
                     Speed = 5;
                     MaxHp = 70;
                     MaxMp = 130;
-                    CriticalRate = 0.15f;
+                    CriticalChance = 0.15f;
                     CriticalDamage = 1.8f;
                     break;
             }

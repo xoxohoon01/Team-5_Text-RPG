@@ -10,7 +10,9 @@ namespace TextRPG
         {
             Player player = new Player();
             Item newItem = new Item();
-            newItem.name = "New";
+            newItem.Name = "New";
+
+            player.inventory.items.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
 
             for (int i = 0; i < 10; i++)
             {
@@ -25,7 +27,7 @@ namespace TextRPG
         {
             while (true)
             {
-                if (_player.name == "")
+                if (_player.Name == "")
                 {
                     Console.Clear();
                     Console.WriteLine("이름을 입력해주세요.");
@@ -33,10 +35,10 @@ namespace TextRPG
                     string name = Console.ReadLine();
                     if (name != "")
                     {
-                        _player.name = name;
+                        _player.Name = name;
                     }
                 }
-                else if (_player.classType == ClassType.None)
+                else if (_player.PlayerJob == Job.None)
                 {
                     Console.Clear();
                     Console.WriteLine("1. 전사");
@@ -51,7 +53,7 @@ namespace TextRPG
                     int classType = int.Parse(Console.ReadLine());
                     if (classType > 0 &&  classType <= 4)
                     {
-                        _player.classType = (ClassType)classType;
+                        _player.PlayerJob = (Job)classType;
                     }
                 }
                 else break;
@@ -99,15 +101,15 @@ namespace TextRPG
         public static void EnterStatus(ref Player _player)
         {
             Console.Clear();
-            Console.WriteLine($"이름: {_player.name}");
-            Console.WriteLine($"직업: {_player.classType}");
-            Console.WriteLine($"레벨: {_player.level}");
+            Console.WriteLine($"이름: {_player.Name}");
+            Console.WriteLine($"직업: {_player.PlayerJob}");
+            Console.WriteLine($"레벨: {_player.Level}");
             Console.WriteLine();
-            Console.WriteLine($"공격력: {_player.damage}");
-            Console.WriteLine($"방어력: {_player.armor}");
-            Console.WriteLine($"속도: {_player.speed}");
-            Console.WriteLine($"치명타확률: {_player.critChance}");
-            Console.WriteLine($"치명타데미지: {_player.critDamage}");
+            Console.WriteLine($"공격력: {_player.Damage}");
+            Console.WriteLine($"방어력: {_player.Defense}");
+            Console.WriteLine($"속도: {_player.Speed}");
+            Console.WriteLine($"치명타확률: {_player.CriticalChance}");
+            Console.WriteLine($"치명타데미지: {_player.CriticalDamage}");
             Console.WriteLine();
             Console.WriteLine("계속하시려면 아무 키나 입력하세요.");
             Console.ReadKey();
@@ -119,10 +121,10 @@ namespace TextRPG
             {
                 Console.Clear();
                 Console.WriteLine("현재 장착중인 장비");
-                Console.WriteLine($"무기: {_player.inventory.weapon.name}");
-                Console.WriteLine($"머리: {_player.inventory.head.name}");
-                Console.WriteLine($"상의: {_player.inventory.top.name}");
-                Console.WriteLine($"하의: {_player.inventory.bottom.name}");
+                Console.WriteLine($"무기: {_player.inventory.weapon.Name}");
+                Console.WriteLine($"머리: {_player.inventory.head.Name}");
+                Console.WriteLine($"상의: {_player.inventory.top.Name}");
+                Console.WriteLine($"하의: {_player.inventory.bottom.Name}");
                 Console.WriteLine();
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine("1. 장비 장착");
@@ -167,14 +169,14 @@ namespace TextRPG
                 {
                     for (int i = 0; i <= 10; i ++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
                 else
                 {
                     for (int i = 0; i <= _player.inventory.items.Count - ((int)_player.inventory.items.Count / 10); i++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
 
