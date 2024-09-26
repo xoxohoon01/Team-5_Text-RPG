@@ -1,9 +1,16 @@
-﻿namespace TextRPG
+﻿using System.Reflection.Emit;
+
+namespace TextRPG
 {
     public enum ClassType { None, Warrior, Rogue, Mage };
 
     class Player : Unit
     {
+        public int level = 1;
+
+        public int exp = 0;
+        public int maxExp = 100;
+
         public ClassType classType;
         public Inventory inventory;
 

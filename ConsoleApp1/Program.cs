@@ -4,19 +4,33 @@ namespace TextRPG
 {
     internal class Program
     {
+
         static void Main()
         {
             Player player = new Player();
+
             EnterTutorial(ref player);
             EnterTown(ref player);
         }
 
         public static void EnterTutorial(ref Player _player)
         {
+            //이름 정하는 내용 
+            //클래스 정하는 내용
         }
 
         public static void EnterTown(ref Player _player)
         {
+            while(true)
+            {
+            }
+        }
+
+        public static void EnterDungeon(ref Player _player)
+        {
+            while(true)
+            {
+            }
         }
 
         public static void SetStatus(ref Player _player, ClassType _classType)
@@ -52,5 +66,6 @@ namespace TextRPG
                 }
             }    
         }
+
     }
 }
