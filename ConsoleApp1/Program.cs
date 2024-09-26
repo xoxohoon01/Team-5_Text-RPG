@@ -2,8 +2,6 @@
 
 namespace TextRPG
 {
-    public enum ClassType { None, Warrior, Rogue, Mage };
-
     internal class Program
     {
         static void Main()
