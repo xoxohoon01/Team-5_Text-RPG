@@ -1,7 +1,7 @@
 ﻿namespace TextRPG
 {
     public class Item
-    { // 아이템 기본 클래스
+    {        // 아이템 기본 클래스
         public string Name { get; set; }             // 아이템 이름
         public string Description { get; set; }      // 아이템 설명
         public ItemType Type { get; set; }           // 아이템 유형
@@ -47,6 +47,7 @@
         {
             new Item("체력 회복 물약", "사용 시 체력을 50 회복", ItemType.Potion, 0, 0, 50, 0, 0, 0, 0),
             new Item("마나 회복 물약", "사용 시 마나를 50 회복", ItemType.Potion, 0, 0, 0, 50, 0, 0, 0),
+            new Item("엘릭서", "사용 시 체력 100 마나를 50 회복", ItemType.Potion, 0, 0, 100, 50, 0, 0, 0),
             new Item("검", "기본 공격력 10 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.2, 20),
             new Item("단검", "기본 공격력 14 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.5, 35),
             new Item("활", "기본 공격력 12 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.3, 30),
