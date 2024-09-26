@@ -1,5 +1,7 @@
 ﻿namespace TextRPG
 {
+    public enum ClassType { None, Warrior, Rogue, Mage };
+
     class Player : Unit
     {
         public ClassType classType;

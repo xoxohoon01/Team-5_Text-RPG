@@ -21,7 +21,6 @@ namespace TextRPG
         {
         }
 
-
         public static void SetStatus(ref Player _player, ClassType _classType)
         {
             _player.classType = _classType;
@@ -55,6 +54,5 @@ namespace TextRPG
                 }
             }    
         }
-        
     }
 }
