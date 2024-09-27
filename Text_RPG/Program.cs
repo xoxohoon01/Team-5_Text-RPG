@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
 
 namespace TextRPG
@@ -9,16 +10,13 @@ namespace TextRPG
         static void Main()
         {
             Player player = new Player();
-            Item newItem = new Item();
-            newItem.Name = "New";
+            player.Name = "";
 
-            player.inventory.items.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
-
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 8; i++)
             {
-                player.inventory.items.Add(newItem);
+                player.inventory.items.Add(new Item("A", "", ItemType.Weapon, 0, 0, 0, 0, 0, 0, 0));
             }
-            
+
             EnterTutorial(ref player);
             EnterTown(ref player);
         }
@@ -42,21 +40,41 @@ namespace TextRPG
                 {
                     Console.Clear();
                     Console.WriteLine("1. 전사");
-                    Console.WriteLine("2. 도적");
-                    Console.WriteLine("3. 마법사");
-                    Console.WriteLine("4. 궁수");
+                    Console.WriteLine("2. 궁수");
+                    Console.WriteLine("3. 도적");
+                    Console.WriteLine("4. 마법사");
                     Console.WriteLine();
                     Console.WriteLine("직업을 선택해주세요.");
                     Console.Write("직업: ");
 
-                    //예외작업 필요
-                    int classType = int.Parse(Console.ReadLine());
-                    if (classType > 0 &&  classType <= 4)
+                    try
                     {
-                        _player.PlayerJob = (Job)classType;
+                        int classType = int.Parse(Console.ReadLine());
+                        if (classType > 0 && classType <= 4)
+                        {
+                            _player.PlayerJob = (Job)classType;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            ShowMsgWrongValue();
+                        }
                     }
+                    catch (FormatException)
+                    {
+                        _player.PlayerJob = Job.None;
+                        Console.Clear();
+                        ShowMsgWrongValue();
+                    }
+
                 }
-                else break;
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{_player.Name}, 당신의 직업은 {_player.PlayerJob}입니다.");
+                    ShowMsgContinue();
+                    break;
+                }
             }
         }
 
@@ -72,29 +90,48 @@ namespace TextRPG
                 Console.WriteLine("5. 휴식");
                 Console.WriteLine("6. 던전");
                 Console.WriteLine();
-                Console.WriteLine("다음 행동을 선택해주세요.");
-                Console.Write("입력: ");
-                int nowAction = int.Parse(Console.ReadLine());
-                if (nowAction == 1)
+                ShowMsgReadLine();
+
+                try
                 {
-                    EnterStatus(ref _player);
+                    int nowAction = int.Parse(Console.ReadLine());
+                    if (nowAction == 1)
+                    {
+                        EnterStatus(ref _player);
+                    }
+                    else if (nowAction == 2)
+                    {
+                        EnterEquipment(ref _player);
+                    }
+                    else if (nowAction == 3)
+                    {
+                        EnterInventory(ref _player);
+                    }
+                    else if (nowAction == 4)
+                    {
+                        EnterShop(ref _player);
+                    }
+                    else if (nowAction == 5)
+                    {
+                        EnterRest(ref _player);
+                    }
+                    else if (nowAction == 6)
+                    {
+                        EnterDungeon(ref _player);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        ShowMsgWrongValue();
+                    }
                 }
-                else if (nowAction == 2)
+
+                catch (FormatException)
                 {
-                    EnterEquipment(ref _player);
-                }
-                else if (nowAction == 3)
-                {
-                    EnterInventory(ref _player);
-                }
-                else if (nowAction == 4)
-                {
-                    EnterShop(ref _player);
-                }
-                else
-                {
+                    Console.Clear();
                     ShowMsgWrongValue();
                 }
+                
             }
         }
 
@@ -130,23 +167,32 @@ namespace TextRPG
                 Console.WriteLine("1. 장비 장착");
                 Console.WriteLine("2. 장비 해제");
                 Console.WriteLine();
-                Console.WriteLine("다음 행동을 선택해주세요.");
-                Console.Write("입력: ");
-                int nowAction = int.Parse(Console.ReadLine());
-                if (nowAction == 0)
+                ShowMsgReadLine();
+
+                try
                 {
-                    break;
+                    int nowAction = int.Parse(Console.ReadLine());
+                    if (nowAction == 0)
+                    {
+                        break;
+                    }
+                    else if (nowAction == 1)
+                    {
+                        EnterChangeEquipment(ref _player);
+                    }
+                    else if (nowAction == 2)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        ShowMsgWrongValue();
+                    }
                 }
-                else if (nowAction == 1)
+                catch (FormatException)
                 {
-                    EnterChangeEquipment(ref _player);
-                }
-                else if (nowAction == 2)
-                {
-                    break;
-                }
-                else
-                {
+                    Console.Clear();
                     ShowMsgWrongValue();
                 }
             }
@@ -159,28 +205,108 @@ namespace TextRPG
             while (true)
             {
                 Console.Clear();
-                if (_player.inventory.items.Count > 10)
+                if (_player.inventory.items.Count <= 0) return;
+                if (_player.inventory.items.Count > 5)
                 {
-                    maxPage = (int)MathF.Ceiling(_player.inventory.items.Count / 10);
+                    maxPage = (int)MathF.Ceiling(_player.inventory.items.Count / 5.0f);
                 }
                 else maxPage = 1;
 
+
+                Console.WriteLine("0. 뒤로가기");
+                Console.WriteLine();
                 if (nowPage != maxPage)
                 {
-                    for (int i = 0; i <= 10; i ++)
+                    for (int i = 0; i < 5; i ++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{i+1}. {_player.inventory.items[((nowPage - 1) * 5) + (i)].Name}");
                     }
+
+                    Console.WriteLine();
+                    if (nowPage > 1)
+                    {
+                        Console.WriteLine("6. 이전 페이지");
+                    }
+                    if (maxPage > nowPage)
+                    {
+                        Console.WriteLine("7. 다음 페이지");
+                    }
+
                 }
                 else
                 {
-                    for (int i = 0; i <= _player.inventory.items.Count - ((int)_player.inventory.items.Count / 10); i++)
+                    if ((_player.inventory.items.Count / 5.0f) % 5 == 0)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        for (int i = 0; i < 5; i++)
+                        {
+                            Console.WriteLine($"{i+1}. {_player.inventory.items[((nowPage - 1) * 5) + (i)].Name}");
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < _player.inventory.items.Count - 5 * (int)(_player.inventory.items.Count / 5); i++)
+                        {
+                            Console.WriteLine($"{i+1}. {_player.inventory.items[((nowPage - 1) * 5) + (i)].Name}");
+                        }
+                    }
+
+                    Console.WriteLine();
+                    if (nowPage > 1)
+                    {
+                        Console.WriteLine("6. 이전 페이지");
+                    }
+                    if (maxPage > nowPage)
+                    {
+                        Console.WriteLine("7. 다음 페이지");
                     }
                 }
 
-                Console.ReadKey();
+                try
+                {
+                    ShowMsgReadLine();
+                    int nowAction = int.Parse(Console.ReadLine());
+                    if (nowAction == 0) break;
+                    else if (nowAction > 0 && nowAction < 6)
+                    {
+                        if (_player.inventory.items.Count > (nowPage - 1) * 5 + (nowAction - 1))
+                        {
+                            switch (_player.inventory.items[((nowPage - 1) * 5) + (nowAction-1)].Type)
+                            {
+                                case ItemType.Weapon:
+                                    break;
+                                case ItemType.Head:
+                                    break;
+                                case ItemType.Armor:
+                                    break;
+                                case ItemType.Pants:
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            ShowMsgWrongValue();
+                        }
+                    }
+                    else if (nowAction == 6)
+                    {
+                        nowPage--;
+                    }
+                    else if (nowAction == 7)
+                    {
+                        nowPage++;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        ShowMsgWrongValue();
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.Clear();
+                    ShowMsgWrongValue();
+                }
             }
         }
 
@@ -241,8 +367,7 @@ namespace TextRPG
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine("1. 휴식하기");
                 Console.WriteLine();
-                Console.WriteLine("다음 행동을 선택해주세요.");
-                Console.Write("입력: ");
+                ShowMsgReadLine();
                 int nowAction = int.Parse(Console.ReadLine());
                 if (nowAction == 0) break;
                 else if (nowAction == 1)
@@ -260,10 +385,16 @@ namespace TextRPG
         {
             while(true)
             {
-
+                break;
             }
         }
-     
+
+        public static void ShowMsgReadLine()
+        {
+            Console.WriteLine("다음 행동을 선택해주세요.");
+            Console.Write("입력: ");
+        }
+
         public static void ShowMsgWrongValue()
         {
             Console.WriteLine("올바른 값을 입력하세요.");
@@ -271,5 +402,12 @@ namespace TextRPG
             Console.ReadKey();
         }
         
+        public static void ShowMsgContinue()
+        {
+            Console.WriteLine();
+            Console.Write("계속하시려면 아무 키나 입력하세요.");
+            Console.ReadKey();
+        }
+
     }
 }
