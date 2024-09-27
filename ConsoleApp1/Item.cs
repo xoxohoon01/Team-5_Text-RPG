@@ -11,9 +11,8 @@
         public int MP { get; set; }                  // MP 증가
         public int Speed { get; set; }               // 속도
         public double CritChance { get; set; }       // 치명타 확률
-        public int CritDamage { get; set; }          // 치명타 데미지
+        public int CritDamage { get; set; }          // 치명타 데미지            
 
-        public int Shop;       
         public Item()
         {
             Name = "";
