@@ -10,12 +10,7 @@ namespace TextRPG
         static void Main()
         {
             Player player = new Player();
-            player.Name = "";
-
-            for (int i = 0; i < 8; i++)
-            {
-                player.inventory.items.Add(new Item("A", "", ItemType.Weapon, 0, 0, 0, 0, 0, 0, 0));
-            }
+            player.Name = "";   //Player.cs에서 생성자에서 이름 결정, 추후에 수정 필요
 
             EnterTutorial(ref player);
             EnterTown(ref player);
@@ -25,6 +20,7 @@ namespace TextRPG
         {
             while (true)
             {
+                //이름이 없을 경우
                 if (_player.Name == "")
                 {
                     Console.Clear();
@@ -36,6 +32,8 @@ namespace TextRPG
                         _player.Name = name;
                     }
                 }
+
+                //이름이 있을 경우 직업 선택
                 else if (_player.PlayerJob == Job.None)
                 {
                     Console.Clear();
@@ -68,6 +66,8 @@ namespace TextRPG
                     }
 
                 }
+
+                //이름과 직업이 있을 경우 튜토리얼 종료
                 else
                 {
                     Console.Clear();
@@ -169,27 +169,36 @@ namespace TextRPG
                 Console.WriteLine();
                 ShowMsgReadLine();
 
+                //숫자를 입력했을 경우
                 try
                 {
                     int nowAction = int.Parse(Console.ReadLine());
+                    //뒤로가기
                     if (nowAction == 0)
                     {
                         break;
                     }
+
+                    //장비 장착
                     else if (nowAction == 1)
                     {
                         EnterChangeEquipment(ref _player);
                     }
+
+                    //장비 해제
                     else if (nowAction == 2)
                     {
                         break;
                     }
+                    
+                    //없는 숫자를 입력했을 경우
                     else
                     {
                         Console.Clear();
                         ShowMsgWrongValue();
                     }
                 }
+                //숫자가 아닌 것을 입력했을 경우
                 catch (FormatException)
                 {
                     Console.Clear();
@@ -200,21 +209,34 @@ namespace TextRPG
 
         public static void EnterChangeEquipment(ref Player _player)
         {
-            int nowPage = 1;
-            int maxPage = 1;
+            int nowPage = 1;    //현재 페이지
+            int maxPage = 1;    //최대 페이지
             while (true)
             {
                 Console.Clear();
-                if (_player.inventory.items.Count <= 0) return;
+                
+                //아이템이 없을 경우 돌아가기
+                if (_player.inventory.items.Count < 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("현재 아이템이 없습니다.");
+                    ShowMsgContinue();
+                    break;
+                }
+                
+                //아이템이 5개보다 많을 경우 페이지 증가
                 if (_player.inventory.items.Count > 5)
                 {
                     maxPage = (int)MathF.Ceiling(_player.inventory.items.Count / 5.0f);
                 }
+                //아이템이 5개 이하일 경우 최대 페이지는 1개
                 else maxPage = 1;
 
 
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine();
+
+                //현재 페이지가 마지막 페이지가 아닐 경우 아이템 5개 표시
                 if (nowPage != maxPage)
                 {
                     for (int i = 0; i < 5; i ++)
@@ -233,6 +255,8 @@ namespace TextRPG
                     }
 
                 }
+
+                //현재 페이지가 마지막 페이지일 경우 5개보다 적은 아이템을 표시할 수도 있음
                 else
                 {
                     if ((_player.inventory.items.Count / 5.0f) % 5 == 0)
@@ -261,13 +285,18 @@ namespace TextRPG
                     }
                 }
 
+                //번호 입력
                 try
                 {
                     ShowMsgReadLine();
                     int nowAction = int.Parse(Console.ReadLine());
                     if (nowAction == 0) break;
+
+                    //아이템 선택 시
                     else if (nowAction > 0 && nowAction < 6)
                     {
+
+                        //번호 선택을 올바르게 했을 경우
                         if (_player.inventory.items.Count > (nowPage - 1) * 5 + (nowAction - 1))
                         {
                             switch (_player.inventory.items[((nowPage - 1) * 5) + (nowAction-1)].Type)
@@ -282,26 +311,36 @@ namespace TextRPG
                                     break;
                             }
                         }
+                        
+                        //없는 번호를 선택했을 경우
                         else
                         {
                             Console.Clear();
                             ShowMsgWrongValue();
                         }
                     }
+
+                    //이전 페이지
                     else if (nowAction == 6)
                     {
                         nowPage--;
                     }
+
+                    //다음 페이지
                     else if (nowAction == 7)
                     {
                         nowPage++;
                     }
+
+                    //없는 번호를 선택했을 경우
                     else
                     {
                         Console.Clear();
                         ShowMsgWrongValue();
                     }
                 }
+
+                //숫자가 아닌 다른 것을 입력했을 때
                 catch (FormatException)
                 {
                     Console.Clear();
