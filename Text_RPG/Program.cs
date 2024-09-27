@@ -12,11 +12,11 @@ namespace TextRPG
             Item newItem = new Item();
             newItem.Name = "New";
 
-            player.inventory.items.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
+            player.inventory.itemList.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
 
             for (int i = 0; i < 10; i++)
             {
-                player.inventory.items.Add(newItem);
+                player.inventory.itemList.Add(newItem);
             }
             
             EnterTutorial(ref player);
@@ -121,10 +121,10 @@ namespace TextRPG
             {
                 Console.Clear();
                 Console.WriteLine("현재 장착중인 장비");
-                Console.WriteLine($"무기: {_player.inventory.weapon.Name}");
-                Console.WriteLine($"머리: {_player.inventory.head.Name}");
-                Console.WriteLine($"상의: {_player.inventory.top.Name}");
-                Console.WriteLine($"하의: {_player.inventory.bottom.Name}");
+                Console.WriteLine($"무기: {_player.inventory.equipmentWeapon.Name}");
+                Console.WriteLine($"머리: {_player.inventory.equipmentHead.Name}");
+                Console.WriteLine($"상의: {_player.inventory.equipmentTop.Name}");
+                Console.WriteLine($"하의: {_player.inventory.equipmentBottom.Name}");
                 Console.WriteLine();
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine("1. 장비 장착");
@@ -159,9 +159,9 @@ namespace TextRPG
             while (true)
             {
                 Console.Clear();
-                if (_player.inventory.items.Count > 10)
+                if (_player.inventory.itemList.Count > 10)
                 {
-                    maxPage = (int)MathF.Ceiling(_player.inventory.items.Count / 10);
+                    maxPage = (int)MathF.Ceiling(_player.inventory.itemList.Count / 10);
                 }
                 else maxPage = 1;
 
@@ -169,14 +169,14 @@ namespace TextRPG
                 {
                     for (int i = 0; i <= 10; i ++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.itemList[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
                 else
                 {
-                    for (int i = 0; i <= _player.inventory.items.Count - ((int)_player.inventory.items.Count / 10); i++)
+                    for (int i = 0; i <= _player.inventory.itemList.Count - ((int)_player.inventory.itemList.Count / 10); i++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.itemList[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
 
