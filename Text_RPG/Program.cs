@@ -12,6 +12,8 @@ namespace TextRPG
             Player player = new Player();
             player.Name = "";   //Player.cs에서 생성자에서 이름 결정, 추후에 수정 필요
 
+            player.inventory.items.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
+
             EnterTutorial(ref player);
             EnterTown(ref player);
         }
@@ -296,20 +298,16 @@ namespace TextRPG
                     else if (nowAction > 0 && nowAction < 6)
                     {
 
+                        if (nowAction == 1)
+                        {
+                            _player.EquipItem(_player.inventory.items[0]);
+                            break;
+                        }
+                            
                         //번호 선택을 올바르게 했을 경우
                         if (_player.inventory.items.Count > (nowPage - 1) * 5 + (nowAction - 1))
                         {
-                            switch (_player.inventory.items[((nowPage - 1) * 5) + (nowAction-1)].Type)
-                            {
-                                case ItemType.Weapon:
-                                    break;
-                                case ItemType.Head:
-                                    break;
-                                case ItemType.Armor:
-                                    break;
-                                case ItemType.Pants:
-                                    break;
-                            }
+                            
                         }
                         
                         //없는 번호를 선택했을 경우
