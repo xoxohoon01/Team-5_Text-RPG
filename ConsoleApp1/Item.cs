@@ -13,6 +13,7 @@
         public double CritChance { get; set; }       // 치명타 확률
         public int CritDamage { get; set; }          // 치명타 데미지
 
+        public int Shop;       
         public Item()
         {
             Name = "";
@@ -61,13 +62,11 @@
                 new Item("활", "기본 공격력 12 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.3, 30),
                 new Item("지팡이", "기본 공격력 13 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.3, 25),
                 new Item("강철 투구", "방어력 5 증가", ItemType.Head, 0, 5, 0, 0, 0, 0, 0),
-                new Item("가죽 갑옷", "방어력 10 증가", ItemType.Armor, 0, 10, 0, 0, 0, 0, 0),
-                new Item("강철 바지", "방어력 7 증가", ItemType.Pants, 0, 7, 0, 0, 0, 0, 0)
+                new Item("가죽 갑옷", "방어력 10 증가", ItemType.Top, 0, 10, 0, 0, 0, 0, 0),
+                new Item("강철 바지", "방어력 7 증가", ItemType.Bottom, 0, 7, 0, 0, 0, 0, 0)
             };
-         }
-
+        }
     }
-
     // 아이템 유형 정의
     public enum ItemType
     {
@@ -75,8 +74,8 @@
         Potion,  // 물약
         Weapon,  // 무기
         Head,    // 머리 장비
-        Armor,   // 상의 장비
-        Pants    // 하의 장비
+        Top,   // 상의 장비
+        Bottom    // 하의 장비
     }
 }
    
