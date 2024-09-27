@@ -21,15 +21,6 @@ namespace TextRPG
 
         public Item equipmentBottom;
 
-        // 아이템 스탯 총합
-        public Item itemAllStats;
-
-        public void Allitem(ref Player _player)
-        {
-            int allatk = equipmentWeapon.AttackPower;
-            int alldef = (equipmentHead.DefensePower + equipmentTop.DefensePower + equipmentBottom.DefensePower);
-        }
-
         public Inventory()
         {
             itemList = new List<Item>();
