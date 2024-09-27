@@ -9,11 +9,10 @@ namespace TextRPG
         static void Main()
         {
             Player player = new Player();
-            Item newItem = new Item();
+            Item newItem = new Item("검", "설명", ItemType.Weapon, 10);
             newItem.Name = "New";
 
             player.inventory.itemList.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
-
             for (int i = 0; i < 10; i++)
             {
                 player.inventory.itemList.Add(newItem);

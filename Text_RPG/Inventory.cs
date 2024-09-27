@@ -68,8 +68,8 @@ namespace TextRPG
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     if (itemList[i].Type == ItemType.Head ||
-                        itemList[i].Type == ItemType.Armor ||
-                        itemList[i].Type == ItemType.Pants)
+                        itemList[i].Type == ItemType.Top ||
+                        itemList[i].Type == ItemType.Bottom)
                     {
                         if (_player.inventory.equipmentHead.isEquip == true)
                         {
@@ -280,7 +280,7 @@ namespace TextRPG
                             num++;
                         }
                     }
-                    else if (armorList[i].Type == ItemType.Armor)
+                    else if (armorList[i].Type == ItemType.Top)
                     {
                         if (_player.inventory.equipmentTop.isEquip == true)
                         {
@@ -293,7 +293,7 @@ namespace TextRPG
                             num++;
                         }
                     }
-                    else if (armorList[i].Type == ItemType.Pants)
+                    else if (armorList[i].Type == ItemType.Bottom)
                     {
                         if (_player.inventory.equipmentBottom.isEquip == true)
                         {
@@ -346,7 +346,7 @@ namespace TextRPG
                                             _player.inventory.equipmentHead = null;
                                         }
                                     }
-                                    else if (armorList[x].Type == ItemType.Armor)
+                                    else if (armorList[x].Type == ItemType.Top)
                                     {
                                         if (_player.inventory.equipmentTop.isEquip == false)
                                         {
@@ -361,7 +361,7 @@ namespace TextRPG
                                             _player.inventory.equipmentTop = null;
                                         }
                                     }
-                                    else if (armorList[x].Type == ItemType.Pants)
+                                    else if (armorList[x].Type == ItemType.Bottom)
                                     {
                                         if (_player.inventory.equipmentBottom.isEquip == false)
                                         {

@@ -143,13 +143,13 @@
                 case ItemType.Weapon:
                     inventory.equipmentWeapon = item;
                     break;
-                case ItemType.Armor:
+                case ItemType.Top:
                     inventory.equipmentTop = item;
                     break;
                 case ItemType.Head:
                     inventory.equipmentHead = item;
                     break;
-                case ItemType.Pants:
+                case ItemType.Bottom:
                     inventory.equipmentBottom = item;
                     break;
             }
@@ -166,7 +166,7 @@
                        
                     }
                     break;
-                case ItemType.Armor:
+                case ItemType.Top:
                     if (inventory.equipmentTop != null)
                     {
                         inventory.armorList.Add(inventory.equipmentTop);
@@ -179,7 +179,7 @@
                         inventory.armorList.Add(inventory.equipmentHead);
                     }
                     break;
-                case ItemType.Pants:
+                case ItemType.Bottom:
                     if(inventory.equipmentBottom != null)
                     {
                         inventory.armorList.Add(inventory.equipmentBottom);
