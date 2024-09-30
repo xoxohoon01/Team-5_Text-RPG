@@ -38,22 +38,14 @@
         
         public Player()
         {
-<<<<<<< Updated upstream
+
             inventory = new Inventory();
-<<<<<<< HEAD
-=======
-            
->>>>>>> Stashed changes
+
             weapon = new Item();
             top = new Item();
             head = new Item();
             bottom = new Item();
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> parent of ede2a8c (Fix : Player.cs)
         }
 
         public Player(string name, Job job)
