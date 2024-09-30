@@ -172,7 +172,7 @@ namespace TextRPG
                 Console.WriteLine("선술집에 오신 것을 환영합니다. 마음껏 쉬다 가세요!\n");
 
                 Console.WriteLine("- 500G을 내면 체력을 회복할 수 있습니다.  (보유 골드 : " + _player.Gold + " G)");
-                Console.WriteLine($"{_player.Name}의 현재 체력 = {_player.Hp}    |   최대 체력 = {_player.MaxHp}\n");
+                Console.WriteLine($"{_player.Name}의 현재 체력 = {_player.HP}    |   최대 체력 = {_player.MaxHP}\n");
 
                 Console.WriteLine("1. 휴식하기");
                 Console.WriteLine("0. 선술집 나가기\n");
@@ -186,13 +186,13 @@ namespace TextRPG
                     {
                         if (_player.Gold > 500)
                         {
-                            if (_player.Hp == _player.MaxHp) // 캐릭터의 체력이 꽉차있을시
+                            if (_player.HP == _player.MaxHP) // 캐릭터의 체력이 꽉차있을시
                             {
                                 Console.WriteLine($"이미 {_player.Name}의 상태는 완벽합니다");
                             }
                             else // 캐릭터의 체력이 안 꽉차있을시
                             {
-                                _player.Hp = _player.MaxHp;
+                                _player.HP = _player.MaxHP;
                                 Console.WriteLine("선술집에서 휴식을 완료했습니다.     ( 소지 골드 -500G ) ");
                                 _player.Gold -= 500;
                             }

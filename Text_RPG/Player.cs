@@ -16,11 +16,11 @@
         public Job PlayerJob { get; set; }
         public int Level { get; set; }
         public int Damage { get; set; }
-        public int Defence { get; set; }
-        public int MaxHp { get; set; }
-        public int Hp { get; set; }
-        public int MaxMp { get; set; }
-        public int Mp { get; set; }
+        public int Defense { get; set; }
+        public int MaxHP { get; set; }
+        public int HP { get; set; }
+        public int MaxMP { get; set; }
+        public int MP { get; set; }
         public int Speed { get; set; }
         public int Gold { get; set; }
         public float CriticalChance { get; set; }
@@ -59,43 +59,43 @@
             {
                 case Job.Warrior:
                     Damage = 14;
-                    Defence = 14;
+                    Defense = 14;
                     Speed = 4;
-                    MaxHp = 150;
-                    MaxMp = 50;
+                    MaxHP = 150;
+                    MaxMP = 50;
                     CriticalChance = 0.1f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Archer:
                     Damage = 15;
-                    Defence = 5;
+                    Defense = 5;
                     Speed = 10;
-                    MaxHp = 125;
-                    MaxMp = 70;
+                    MaxHP = 125;
+                    MaxMP = 70;
                     CriticalChance = 0.25f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Thief:
                     Damage = 12;
-                    Defence = 3;
+                    Defense = 3;
                     Speed = 15;
-                    MaxHp = 100;
-                    MaxMp = 95;
+                    MaxHP = 100;
+                    MaxMP = 95;
                     CriticalChance = 0.35f;
                     CriticalDamage = 1.5f;
                     break;
                 case Job.Mage:
                     Damage = 25;
-                    Defence = 0;
+                    Defense = 0;
                     Speed = 5;
-                    MaxHp = 90;
-                    MaxMp = 120;
+                    MaxHP = 90;
+                    MaxMP = 120;
                     CriticalChance = 0.2f;
                     CriticalDamage = 1.8f;
                     break;
             }
-            Hp = MaxHp;
-            Mp = MaxMp;
+            HP = MaxHP;
+            MP = MaxMP;
         }
 
         public void LevelUp()
@@ -105,34 +105,34 @@
             {
                 case Job.Warrior:
                     Damage += 2;
-                    Defence += 2;
+                    Defense += 2;
                     Speed += 1;
-                    MaxHp += 15;
-                    MaxMp += 5;
+                    MaxHP += 15;
+                    MaxMP += 5;
                     break;
                 case Job.Archer:
                     Damage += 2;
-                    Defence += 1;
+                    Defense += 1;
                     Speed += 2;
-                    MaxHp += 10;
-                    MaxMp += 10;
+                    MaxHP += 10;
+                    MaxMP += 10;
                     break;
                 case Job.Thief:
                     Damage += 2;
-                    Defence += 1;
+                    Defense += 1;
                     Speed += 3;
-                    MaxHp += 5;
-                    MaxMp += 5;
+                    MaxHP += 5;
+                    MaxMP += 5;
                     break;
                 case Job.Mage:
                     Damage += 3;
-                    Defence += 1;
+                    Defense += 1;
                     Speed += 1;
-                    MaxHp += 5;
-                    MaxMp += 15;
+                    MaxHP += 5;
+                    MaxMP += 15;
                     break;
             }
-            Hp = MaxHp; // 레벨업 시 체력 완전 회복
+            HP = MaxHP; // 레벨업 시 체력 완전 회복
             Console.WriteLine($"레벨 업! 현재 레벨: {Level}");
         }
         
@@ -143,13 +143,13 @@
                 case ItemType.Weapon:
                     inventory.item_weapon = item;
                     break;
-                case ItemType.Armor:
-                    inventory.item_top = item;
-                    break;
                 case ItemType.Head:
                     inventory.item_head = item;
                     break;
-                case ItemType.Pants:
+                case ItemType.Top:
+                    inventory.item_top = item;
+                    break;
+                case ItemType.Bottom:
                     inventory.item_bottom = item;
                     break;
             }
@@ -162,27 +162,27 @@
                 case ItemType.Weapon:
                     if (inventory.item_weapon != null)
                     {
-                        inventory.playeritem_weapon.Add(inventory.item_weapon);
+                        inventory.weaponList.Add(inventory.item_weapon);
                        
                     }
                     break;
-                case ItemType.Armor:
+                case ItemType.Top:
                     if (inventory.item_top != null)
                     {
-                        inventory.playeritem_defence.Add(inventory.item_top);
+                        inventory.armorList.Add(inventory.item_top);
                         
                     }
                     break;
                 case ItemType.Head:
                     if(inventory.item_head != null)
                     {
-                        inventory.playeritem_defence.Add(inventory.item_head);
+                        inventory.armorList.Add(inventory.item_head);
                     }
                     break;
-                case ItemType.Pants:
+                case ItemType.Bottom:
                     if(inventory.item_bottom != null)
                     {
-                        inventory.playeritem_defence.Add(inventory.item_bottom);
+                        inventory.armorList.Add(inventory.item_bottom);
                     }
                     break;
             }
@@ -198,7 +198,6 @@
 
             return Math.Clamp(dodgeChance, 0.1f, 0.5f);
         }
-
 
         public int TotalDamageBonus()           //장착시 공격력 보너스
         {

@@ -16,11 +16,11 @@ namespace TextRPG
             Item newItem = new Item();
             newItem.Name = "New";
 
-            player.inventory.player_item.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
+            player.inventory.itemList.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
 
             for (int i = 0; i < 10; i++)
             {
-                player.inventory.player_item.Add(newItem);
+                player.inventory.itemList.Add(newItem);
             }
             
             EnterTutorial(ref player);
@@ -114,7 +114,7 @@ namespace TextRPG
             Console.WriteLine($"레벨: {_player.Level}");
             Console.WriteLine();
             Console.WriteLine($"공격력: {_player.Damage}");
-            Console.WriteLine($"방어력: {_player.Defence}");
+            Console.WriteLine($"방어력: {_player.Defense}");
             Console.WriteLine($"속도: {_player.Speed}");
             Console.WriteLine($"치명타확률: {_player.CriticalChance}");
             Console.WriteLine($"치명타데미지: {_player.CriticalDamage}");
@@ -167,9 +167,9 @@ namespace TextRPG
             while (true)
             {
                 Console.Clear();
-                if (_player.inventory.player_item.Count > 10)
+                if (_player.inventory.itemList.Count > 10)
                 {
-                    maxPage = (int)MathF.Ceiling(_player.inventory.player_item.Count / 10);
+                    maxPage = (int)MathF.Ceiling(_player.inventory.itemList.Count / 10);
                 }
                 else maxPage = 1;
 
@@ -177,14 +177,14 @@ namespace TextRPG
                 {
                     for (int i = 0; i <= 10; i ++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.player_item[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.itemList[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
                 else
                 {
-                    for (int i = 0; i <= _player.inventory.player_item.Count - ((int)_player.inventory.player_item.Count / 10); i++)
+                    for (int i = 0; i <= _player.inventory.itemList.Count - ((int)_player.inventory.itemList.Count / 10); i++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.player_item[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.itemList[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
 
@@ -356,32 +356,32 @@ namespace TextRPG
         }
         public static bool PkmStyleBattle(ref Player _player, int _stage)      //포켓몬 스타일 배틀 추가
         {
-            Monster _monster = GenerateMonster(_stage);                      //몬스터.cs 에 맞춰서 수정
+            //Monster _monster = GenerateMonster(_stage);                      //몬스터.cs 에 맞춰서 수정
             Console.WriteLine($"{_monster.Name}가 나타났다.");
-            bool playerFirst = DetermineFirstAttack(_player, _monster);
+            bool playerFirst = DetermineFirstAttack(ref _player, _monster);
 
-            while (_monster.Hp > 0 && _player.Hp > 0)
+            while (_monster.HP > 0 && _player.HP > 0)
             {
-                Console.WriteLine($"체력: {_player.Hp}, 마나: {_player.Mp}, \n{_monster.Name} 체력: {_monster.Hp}");
+                Console.WriteLine($"체력: {_player.HP}, 마나: {_player.MP}, \n{_monster.Name} 체력: {_monster.HP}");
 
                 if (playerFirst)
                 {
                     Console.WriteLine($"{_player.Name}의 선제공격!");
-                    PlayerTurn(_player, _monster);
-                    if (_monster.Hp <= 0) break;
-                    MonsterAttack(_player, _monster);
+                    PlayerTurn(ref _player, _monster);
+                    if (_monster.HP <= 0) break;
+                    MonsterAttack(ref _player, _monster);
                 }
                 else
                 {
                     MonsterAttack(ref _player, _monster);
-                    if (_player.Hp <= 0) break;
-                    PlayerTurn(_player, _monster);
+                    if (_player.HP <= 0) break;
+                    PlayerTurn(ref _player, _monster);
                 }
 
                 playerFirst = true; // 첫 턴 이후에는 항상 플레이어가 먼저 행동
             }
 
-            if (_player.Hp <= 0)
+            if (_player.HP <= 0)
             {
                 Console.WriteLine("전투에서 패배했습니다...");
                 return false;
@@ -405,7 +405,7 @@ namespace TextRPG
             switch (choice)
             {
                 case 1:
-                    AttackMonster(_player, _monster);
+                    AttackMonster(ref _player, _monster);
                     break;
                 case 2:
                     // SelectSkill(player, monster); // 스킬 사용 기능 구현 필요
@@ -416,21 +416,21 @@ namespace TextRPG
                     Console.WriteLine("아이템 사용 기능은 아직 구현되지 않았습니다.");
                     break;
                 case 4:
-                    if (SelectRun(_player, _monster))
+                    if (SelectRun(ref _player, _monster))
                     {
-                        _monster.Hp = 0; // 도망 성공 시 전투 종료를 위해
+                        _monster.HP = 0; // 도망 성공 시 전투 종료를 위해
                     }
                     break;
                 default:
                     Console.WriteLine("잘못된 선택입니다. 공격으로 대체합니다.");
-                    AttackMonster(_player, _monster);
+                    AttackMonster(ref _player, _monster);
                     break;
             }
         }
 
         public static void AttackMonster(ref Player _player, Monster _monster)     // 1. 공  격 , Monster.cs 맞게 수정
         {
-            int attack = _player.Damage + _player.TotalDamageBonus() - _monster.Defence;        // 데미지(총합 - 몬스터 방어력)
+            int attack = _player.Damage + _player.TotalDamageBonus() - _monster.Defense;        // 데미지(총합 - 몬스터 방어력)
             attack = Math.Max(1, attack);       //최소 1의 데이지                                       
             double criticalChance = _player.CriticalChance + _player.TotalCriticalCanceBonus();     //크리티컬 확률
             
@@ -441,16 +441,16 @@ namespace TextRPG
                 Console.WriteLine("치명타!");
             }
 
-            _monster.Hp -= attack;
+            _monster.HP -= attack;
             Console.WriteLine($"당신이 {_monster.Name}에게 {attack}의 데미지를 입혔습니다.");
         }
 
         public static void MonsterAttack(ref Player _player, Monster _monster)      //몬스터가 유저를 공격 , Monster.cs에 맞게 수정
         {
-            int mdamage = Math.Max(1, _monster.Damage - _player.Defence - _player.TotalDefenseBonus());     //몬스터 데미지
+            int mdamage = Math.Max(1, _monster.Damage - _player.Defense - _player.TotalDefenseBonus());     //몬스터 데미지
             if (random.NextDouble() > _player.DodgeChance())        //공격을 회피
             {
-                _player.Hp -= mdamage;
+                _player.HP -= mdamage;
                 Console.WriteLine($"{_monster.Name}이(가) 당신에게 {mdamage}의 데미지를 입혔습니다.");
             }
             else
@@ -529,9 +529,9 @@ namespace TextRPG
         }
         public static void ReducePlayerHpAfterFailure(ref Player _player)       //던전 실패시 체력 50%감소
         {
-            int reducedHp = _player.Hp / 2;
-            _player.Hp = Math.Max(1, reducedHp); // 최소 1의 체력은 유지
-            Console.WriteLine($"던전 탐험 실패로 체력이 50% 감소했습니다. 현재 체력: {_player.Hp}/{_player.MaxHp}");
+            int reducedHp = _player.HP / 2;
+            _player.HP = Math.Max(1, reducedHp); // 최소 1의 체력은 유지
+            Console.WriteLine($"던전 탐험 실패로 체력이 50% 감소했습니다. 현재 체력: {_player.HP}/{_player.MaxHP}");
             Console.WriteLine("아무 키나 눌러 계속하세요...");
             Console.ReadKey();
         }
