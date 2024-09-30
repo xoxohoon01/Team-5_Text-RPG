@@ -8,7 +8,7 @@ namespace TextRPG
 
         static void Main()
         {
-            Player player = new Player();
+            Player player = new Player(this);
             Item newItem = new Item();
             newItem.Name = "New";
 
