@@ -10,7 +10,7 @@
         Mage
     }
 
-    class Player
+    public class Player
     {
         public string Name { get; set; }                
         public Job PlayerJob { get; set; }

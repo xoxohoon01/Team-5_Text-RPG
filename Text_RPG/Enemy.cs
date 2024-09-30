@@ -92,7 +92,7 @@
                     }
                 }
                 else
-                {
+        {
                     // 적이 먼저 공격
                     int actualDamage = enemy.damage - player.Defense;
                     if (actualDamage < 0) actualDamage = 0;
@@ -105,8 +105,8 @@
                         Console.WriteLine($"{player.Name} has been defeated!");
                         break;
                     }
-                }
-
+        }
+    
                 // 턴 교체
                 playerTurn = !playerTurn;
 
