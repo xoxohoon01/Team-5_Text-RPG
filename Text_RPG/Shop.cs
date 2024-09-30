@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    class Shop
+    public class Shop
     {
         public void ShopMenu(ref Player _player) // 상점가
         {
@@ -147,7 +147,7 @@ namespace TextRPG
                         {
                             Console.WriteLine("구매를 완료했습니다.");
                             _player.Gold -= 0/*item.Price*/;
-                            _player.inventory.haveItem.Add(Item[select - 1]);
+                            _player.inventory.itemList.Add(Item[select - 1]);
                         }
                     }
                 }
