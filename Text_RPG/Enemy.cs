@@ -13,6 +13,7 @@
             switch (type.ToLower())
             {
                 case "goblin":
+                    //일반 몬스터 - 고블린
                     name = "Goblin";
                     hp = 50;
                     maxHp = 50;
@@ -26,6 +27,7 @@
                     break;
 
                 case "orc":
+                    // 일반 몬스터 - 오크
                     name = "Orc";
                     hp = 100;
                     maxHp = 100;
@@ -38,7 +40,22 @@
                     critDamage = 30;
                     break;
 
+                case "boss":
+                    // 보스 몬스터 - 미정
+                    name = "Boss";
+                    hp = 300;
+                    maxHp = 300;
+                    mp = 20;
+                    maxMp = 20;
+                    damage = 50;
+                    armor = 25;
+                    speed = 3;
+                    critChance = 15;
+                    critDamage = 50;
+                    break;
+                    
                 default:
+                    // 알 수 없는 타입
                     name = "Unknown";
                     hp = 0;
                     maxHp = 0;
@@ -52,7 +69,7 @@
                     break;
             }
         }
-        void Battle(Player player, Unit enemy)
+                    public void Battle(Player player, Unit enemy)
         {
             // 속도가 높은 유닛이 먼저 공격
             bool playerTurn = player.Speed >= enemy.speed;
@@ -100,7 +117,11 @@
       }
         public void OnAttack(ref Player _player)
         {
-            _player.Hp = damage - (_player.Defense + _player.TotalDefenseBonus());
+            int damageTaken = damage - (_player.Defense + _player.TotalDefenseBonus());
+            if (damageTaken < 0) damageTaken = 0; // 피해가 0보다 작으면 0으로 설정
+
+            _player.Hp -= damageTaken; // 플레이어의 HP에서 실제 피해를 빼기
+            Console.WriteLine($"{name} attacks {_player.Name} for {damageTaken} damage!");
         }
     }
 }
