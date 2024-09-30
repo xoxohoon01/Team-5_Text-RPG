@@ -16,7 +16,7 @@
         public Job PlayerJob { get; set; }
         public int Level { get; set; }
         public int Damage { get; set; }
-        public int Defense { get; set; }
+        public int Defence { get; set; }
         public int MaxHp { get; set; }
         public int Hp { get; set; }
         public int MaxMp { get; set; }
@@ -77,7 +77,7 @@
             {
                 case Job.Warrior:
                     Damage = 14;
-                    Defense = 14;
+                    Defence = 14;
                     Speed = 4;
                     MaxHp = 150;
                     MaxMp = 50;
@@ -86,7 +86,7 @@
                     break;
                 case Job.Archer:
                     Damage = 15;
-                    Defense = 5;
+                    Defence = 5;
                     Speed = 10;
                     MaxHp = 125;
                     MaxMp = 70;
@@ -95,7 +95,7 @@
                     break;
                 case Job.Thief:
                     Damage = 12;
-                    Defense = 3;
+                    Defence = 3;
                     Speed = 15;
                     MaxHp = 100;
                     MaxMp = 95;
@@ -104,7 +104,7 @@
                     break;
                 case Job.Mage:
                     Damage = 25;
-                    Defense = 0;
+                    Defence = 0;
                     Speed = 5;
                     MaxHp = 90;
                     MaxMp = 120;
@@ -123,28 +123,28 @@
             {
                 case Job.Warrior:
                     Damage += 2;
-                    Defense += 2;
+                    Defence += 2;
                     Speed += 1;
                     MaxHp += 15;
                     MaxMp += 5;
                     break;
                 case Job.Archer:
                     Damage += 2;
-                    Defense += 1;
+                    Defence += 1;
                     Speed += 2;
                     MaxHp += 10;
                     MaxMp += 10;
                     break;
                 case Job.Thief:
                     Damage += 2;
-                    Defense += 1;
+                    Defence += 1;
                     Speed += 3;
                     MaxHp += 5;
                     MaxMp += 5;
                     break;
                 case Job.Mage:
                     Damage += 3;
-                    Defense += 1;
+                    Defence += 1;
                     Speed += 1;
                     MaxHp += 5;
                     MaxMp += 15;
@@ -159,16 +159,16 @@
             switch (item.Type)
             {
                 case ItemType.Weapon:
-                    inventory.equipmentWeapon = item;
+                    inventory.item_weapon = item;
                     break;
-                case ItemType.Top:
-                    inventory.equipmentTop = item;
+                case ItemType.Armor:
+                    inventory.item_top = item;
                     break;
                 case ItemType.Head:
-                    inventory.equipmentHead = item;
+                    inventory.item_head = item;
                     break;
-                case ItemType.Bottom:
-                    inventory.equipmentBottom = item;
+                case ItemType.Pants:
+                    inventory.item_bottom = item;
                     break;
             }
         }
@@ -178,29 +178,29 @@
             switch (item.Type)
             {
                 case ItemType.Weapon:
-                    if (inventory.equipmentWeapon != null)
+                    if (inventory.item_weapon != null)
                     {
-                        inventory.weaponList.Add(inventory.equipmentWeapon);
+                        inventory.playeritem_weapon.Add(inventory.item_weapon);
                        
                     }
                     break;
-                case ItemType.Top:
-                    if (inventory.equipmentTop != null)
+                case ItemType.Armor:
+                    if (inventory.item_top != null)
                     {
-                        inventory.armorList.Add(inventory.equipmentTop);
+                        inventory.playeritem_defence.Add(inventory.item_top);
                         
                     }
                     break;
                 case ItemType.Head:
-                    if(inventory.equipmentHead != null)
+                    if(inventory.item_head != null)
                     {
-                        inventory.armorList.Add(inventory.equipmentHead);
+                        inventory.playeritem_defence.Add(inventory.item_head);
                     }
                     break;
-                case ItemType.Bottom:
-                    if(inventory.equipmentBottom != null)
+                case ItemType.Pants:
+                    if(inventory.item_bottom != null)
                     {
-                        inventory.armorList.Add(inventory.equipmentBottom);
+                        inventory.playeritem_defence.Add(inventory.item_bottom);
                     }
                     break;
             }
@@ -221,48 +221,48 @@
         public int TotalDamageBonus()           //장착시 공격력 보너스
         {
             int totalBonus = 0;
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.AttackPower;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.AttackPower;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.AttackPower;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.AttackPower;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.AttackPower;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.AttackPower;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.AttackPower;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.AttackPower;
             return totalBonus;
         }
 
         public int TotalDefenseBonus()          //장착시 방어력 보너스
         {
             int totalBonus = 0;
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.DefensePower;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.DefensePower;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.DefensePower;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.DefensePower;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.DefensePower;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.DefensePower;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.DefensePower;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.DefensePower;
             return totalBonus;
         }
 
         public int TotalSpeedBonus()            //장착시 스피드 보너스
         {
             int totalBonus = 0;
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.Speed;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.Speed;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.Speed;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.Speed;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.Speed;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.Speed;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.Speed;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.Speed;
             return totalBonus;
         }
         public double TotalCriticalCanceBonus()            //장착시 치명타 보너스
         {
             double totalBonus = 0;
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.CritChance;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.CritChance;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.CritChance;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.CritChance;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.CritChance;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.CritChance;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.CritChance;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.CritChance;
             return totalBonus;
         }
         public double TotalCriticalDamageBonus()            //장착시 치명타 데미지 보너스
         {
             double totalBonus = 0;
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.CritDamage;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.CritDamage;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.CritDamage;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.CritDamage;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.CritDamage;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.CritDamage;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.CritDamage;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.CritDamage;
             return totalBonus;
         }
     }
