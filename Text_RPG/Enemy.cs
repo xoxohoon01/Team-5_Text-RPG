@@ -1,7 +1,7 @@
 ﻿namespace TextRPG
 {
-    class Enemy : Unit
-    {
+    class Monster : Unit
+    {     
         public string Name;
         public int Hp, MaxHp;
         public int Mp, MaxMp;
@@ -9,10 +9,10 @@
         public int CritChance, CritDamage;
 
         public bool IsAlive => hp > 0;
-        public Enemy(string type) { 
-            switch (type.ToLower())
+        public Monster(int type) {
+            switch (type)
             {
-                case "goblin":
+                case 1:
                     //일반 몬스터 - 고블린
                     name = "Goblin";
                     hp = 50;
@@ -26,7 +26,7 @@
                     critDamage = 20;
                     break;
 
-                case "orc":
+                case 2:
                     // 일반 몬스터 - 오크
                     name = "Orc";
                     hp = 100;
@@ -40,7 +40,7 @@
                     critDamage = 30;
                     break;
 
-                case "boss":
+                case 3:
                     // 보스 몬스터 - 미정
                     name = "Boss";
                     hp = 300;
@@ -53,8 +53,9 @@
                     critChance = 15;
                     critDamage = 50;
                     break;
-                    
+
                 default:
+
                     // 알 수 없는 타입
                     name = "Unknown";
                     hp = 0;
@@ -67,12 +68,26 @@
                     critChance = 0;
                     critDamage = 0;
                     break;
+            
             }
         }
                     public void Battle(Player player, Unit enemy)
+
         {
             // 속도가 높은 유닛이 먼저 공격
-            bool playerTurn = player.Speed >= enemy.speed;
+            bool playerTurn = player.Speed >= this.speed;
+
+
+            hp = 0;
+            maxHp = 0;
+            mp = 0;
+            maxMp = 0;
+
+            damage = 0;
+            armor = 0;
+            speed = 0;
+            critChance = 0;
+            critDamage = 0;
 
             while (player.Hp > 0 && enemy.hp > 0)
             {
@@ -94,7 +109,7 @@
                 else
         {
                     // 적이 먼저 공격
-                    int actualDamage = enemy.damage - player.Defense;
+                    int actualDamage = enemy.damage - player.Defence;
                     if (actualDamage < 0) actualDamage = 0;
 
                     player.Hp -= actualDamage;
@@ -117,7 +132,7 @@
       }
         public void OnAttack(ref Player _player)
         {
-            int damageTaken = damage - (_player.Defense + _player.TotalDefenseBonus());
+            int damageTaken = damage - (_player.Defence + _player.TotalDefenseBonus());
             if (damageTaken < 0) damageTaken = 0; // 피해가 0보다 작으면 0으로 설정
 
             _player.Hp -= damageTaken; // 플레이어의 HP에서 실제 피해를 빼기
