@@ -14,6 +14,7 @@ namespace TextRPG
             InitItemDatabase();
         }
 
+        //데이터베이스 (Program.cs에서 메소드 호출할 것)
         public void InitItemDatabase()
         {
             ITEM.Add(new Item());
@@ -29,12 +30,14 @@ namespace TextRPG
             ITEM.Add(new Item("강철 바지", "방어력 7 증가", ItemType.Bottom, 0, 7, 0, 0, 0, 0, 0));
         }
 
+        //데이터 저장 (플레이어 데이터)
         public void SaveDatabase()
         {
             string content = JsonConvert.SerializeObject(PLAYER);
             File.WriteAllText("/UserData.json", content);
         }
 
+        //데이터 불러오기 (플레이어 데이터)
         public void LoadDatabase()
         {
             if (File.Exists("/userData.json"))
