@@ -13,7 +13,7 @@
         public double CritChance { get; set; }       // 치명타 확률
         public int CritDamage { get; set; }          // 치명타 데미지
 
-        public bool isEquip { get; set; }
+        public bool isEquip { get; set; }            // 아이템 장착여부
 
         public Item()
         {
