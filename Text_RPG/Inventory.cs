@@ -2,7 +2,7 @@
 
 namespace TextRPG
 {
-    class Inventory
+    public class Inventory
     {
         //보유중인 아이템
         public List<Item> itemList;

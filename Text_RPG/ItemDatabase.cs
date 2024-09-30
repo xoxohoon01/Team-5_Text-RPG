@@ -1,18 +1,22 @@
-﻿namespace TextRPG
+﻿using Newtonsoft.Json;
+
+namespace TextRPG
 {
-    public class ItemDatabase
+    public class Database
     {
-        //Program.cs에서 Main 맨 위에서 ItemDatabase 인스턴스화 시켜줄 것
+        //Program.cs에서 Main 맨 위에서 Database 인스턴스화 시켜줄 것
 
         public List<Item> ITEM = new List<Item>();
+        public Player PLAYER = new Player();
 
-        public ItemDatabase()
+        public Database()
         {
             InitItemDatabase();
         }
 
         public void InitItemDatabase()
         {
+            ITEM.Add(new Item());
             ITEM.Add(new Item("체력 회복 물약", "사용 시 체력을 50 회복", ItemType.Potion, 0, 0, 50, 0, 0, 0, 0));
             ITEM.Add(new Item("마나 회복 물약", "사용 시 마나를 50 회복", ItemType.Potion, 0, 0, 0, 50, 0, 0, 0));
             ITEM.Add(new Item("엘릭서", "사용 시 체력 100 마나를 50 회복", ItemType.Potion, 0, 0, 100, 50, 0, 0, 0));
@@ -23,6 +27,20 @@
             ITEM.Add(new Item("강철 투구", "방어력 5 증가", ItemType.Head, 0, 5, 0, 0, 0, 0, 0));
             ITEM.Add(new Item("가죽 갑옷", "방어력 10 증가", ItemType.Top, 0, 10, 0, 0, 0, 0, 0));
             ITEM.Add(new Item("강철 바지", "방어력 7 증가", ItemType.Bottom, 0, 7, 0, 0, 0, 0, 0));
+        }
+
+        public void SaveDatabase()
+        {
+            string content = JsonConvert.SerializeObject(PLAYER);
+            File.WriteAllText("/UserData.json", content);
+        }
+
+        public void LoadDatabase()
+        {
+            if (File.Exists("/userData.json"))
+            {
+                PLAYER = JsonConvert.DeserializeObject<Player>(File.ReadAllText("/UserData.json"));
+            }
         }
     }
 }
