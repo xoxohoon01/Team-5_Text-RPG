@@ -40,15 +40,15 @@
         {
 
             inventory = new Inventory();
-
+<<<<<<< HEAD
 
             weapon = new Item();
             top = new Item();
             head = new Item();
             bottom = new Item();
 
-
-
+=======
+>>>>>>> parent of ede2a8c (Fix : Player.cs)
         }
 
         public Player(string name, Job job)
@@ -163,16 +163,6 @@
                     break;
                 case ItemType.Pants:
                     inventory.bottom = item;
-                    inventory.equipmentWeapon = item;
-                    break;
-                case ItemType.Top:
-                    inventory.equipmentTop = item;
-                    break;
-                case ItemType.Head:
-                    inventory.equipmentHead = item;
-                    break;
-                case ItemType.Bottom:
-                    inventory.equipmentBottom = item;
                     break;
             }
         }
@@ -192,42 +182,19 @@
                     if (inventory.top != null)
                     {
                         inventory.items.Add(inventory.top);
-                    }
-                    if (inventory.equipmentWeapon != null)
-                    {
-                        inventory.weaponList.Add(inventory.equipmentWeapon);
-                       
-                    }
-                    break;
-                case ItemType.Top:
-                    if (inventory.equipmentTop != null)
-                    {
-                        inventory.armorList.Add(inventory.equipmentTop);
                         
                     }
                     break;
                 case ItemType.Head:
-
                     if(inventory.head != null)
                     {
                         inventory.items.Add(inventory.head);
                     }
                     break;
                 case ItemType.Pants:
-
-                    if (inventory.bottom != null)
+                    if(inventory.bottom != null)
                     {
                         inventory.items.Add(inventory.bottom);
-                    }
-                    if(inventory.equipmentHead != null)
-                    {
-                        inventory.armorList.Add(inventory.equipmentHead);
-                    }
-                    break;
-                case ItemType.Bottom:
-                    if(inventory.equipmentBottom != null)
-                    {
-                        inventory.armorList.Add(inventory.equipmentBottom);
                     }
                     break;
             }
@@ -248,83 +215,48 @@
         public int TotalDamageBonus()           //장착시 공격력 보너스
         {
             int totalBonus = 0;
-
             if (inventory.weapon != null) totalBonus += inventory.weapon.AttackPower;
             if (inventory.head != null) totalBonus += inventory.head.AttackPower;
             if (inventory.top != null) totalBonus += inventory.top.AttackPower;
             if (inventory.bottom != null) totalBonus += inventory.bottom.AttackPower;
-
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.AttackPower;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.AttackPower;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.AttackPower;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.AttackPower;
-
             return totalBonus;
         }
 
         public int TotalDefenseBonus()          //장착시 방어력 보너스
         {
             int totalBonus = 0;
-
             if (inventory.weapon != null) totalBonus += inventory.weapon.DefensePower;
             if (inventory.head != null) totalBonus += inventory.head.DefensePower;
             if (inventory.top != null) totalBonus += inventory.top.DefensePower;
             if (inventory.bottom != null) totalBonus += inventory.bottom.DefensePower;
-
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.DefensePower;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.DefensePower;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.DefensePower;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.DefensePower;
-
             return totalBonus;
         }
 
         public int TotalSpeedBonus()            //장착시 스피드 보너스
         {
             int totalBonus = 0;
-
             if (inventory.weapon != null) totalBonus += inventory.weapon.Speed;
             if (inventory.head != null) totalBonus += inventory.head.Speed;
             if (inventory.top != null) totalBonus += inventory.top.Speed;
             if (inventory.bottom != null) totalBonus += inventory.bottom.Speed;
-
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.Speed;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.Speed;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.Speed;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.Speed;
-
             return totalBonus;
         }
         public double TotalCriticalCanceBonus()            //장착시 치명타 보너스
         {
             double totalBonus = 0;
-
             if (inventory.weapon != null) totalBonus += inventory.weapon.CritChance;
             if (inventory.head != null) totalBonus += inventory.head.CritChance;
             if (inventory.top != null) totalBonus += inventory.top.CritChance;
             if (inventory.bottom != null) totalBonus += inventory.bottom.CritChance;
-
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.CritChance;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.CritChance;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.CritChance;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.CritChance;
-
             return totalBonus;
         }
         public double TotalCriticalDamageBonus()            //장착시 치명타 데미지 보너스
         {
             double totalBonus = 0;
-
             if (inventory.weapon != null) totalBonus += inventory.weapon.CritDamage;
             if (inventory.head != null) totalBonus += inventory.head.CritDamage;
             if (inventory.top != null) totalBonus += inventory.top.CritDamage;
             if (inventory.bottom != null) totalBonus += inventory.bottom.CritDamage;
-
-            if (inventory.equipmentWeapon != null) totalBonus += inventory.equipmentWeapon.CritDamage;
-            if (inventory.equipmentHead != null) totalBonus += inventory.equipmentHead.CritDamage;
-            if (inventory.equipmentTop != null) totalBonus += inventory.equipmentTop.CritDamage;
-            if (inventory.equipmentBottom != null) totalBonus += inventory.equipmentBottom.CritDamage;
-
             return totalBonus;
         }
     }
