@@ -106,7 +106,7 @@ namespace TextRPG
                     } 
                     else if (select == 3) // 보유 장비 판매창으로 이동
                     {
-                        BlacksmithArmor(ref _player);
+                        BlacksmithSell(ref _player);
                         break;
                     }
                     else
@@ -134,26 +134,92 @@ namespace TextRPG
                 Console.Write(">> ");
 
                 int select;
-                if (int.TryParse(Console.ReadLine(),out select) && 
-                    select >= 0 /*&& select < 상점 무기목록.count*/)
+                if (int.TryParse(Console.ReadLine(),out select))
                 {
-                    if (select == 0)
+                    if (select >= 0 /*&& select < 상점 무기목록.count*/)
                     {
-                        Blacksmith(ref _player);
-                    }
-                    else if (select > 0 && select <= 10/*&& select < 상점 무기목록.count*/)
-                    {
-                        if (_player.Gold >= 0/*item.Price*/)
+                        if (select == 0)
                         {
-                            Console.WriteLine("구매를 완료했습니다.");
-                            _player.Gold -= 0/*item.Price*/;
-                            _player.inventory.itemList.Add(Item[select - 1]);
+                            Blacksmith(ref _player);
                         }
+                        else if (select > 0 && select <= 10/*&& select < 상점 무기목록.count*/)
+                        {
+                            if (_player.Gold >= 0/*item.Price*/)
+                            {
+                                Console.WriteLine("구매를 완료했습니다.\n");
+                                _player.Gold -= 0/*item.Price*/;
+                                _player.inventory.itemList.Add(Item[select - 1]);
+                            }
+                            else if (_player.Gold < 0/*item.Price*/)
+                            {
+                                Console.WriteLine("골드가 부족합니다\n");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                            continue;
+                        }
+                        Console.WriteLine("다음 행동을 선택해주세요.");
+                        Console.WriteLine("0. 구매창 나가기");
+                        Console.WriteLine("1. 다른 장비 구매하기");
+                        Console.Write(">> ");
                     }
                 }
             }
         }
         public void BlacksmithArmor(ref Player _player) // 방어구 구매창
+        {
+            while (true)
+            {
+                Console.WriteLine("- 방어구 구매");
+                Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
+
+                Console.WriteLine("[ 방어구 목록 ]");
+                for (int i = 0; i < 10 /*상점 방어구목록.count 예정*/; i++)
+                {
+                    Console.WriteLine($"{i + 1}. ");
+                }
+                Console.WriteLine("\n구매하실 아이템을 선택해주세요.");
+                Console.WriteLine("0. 대장간 목록으로");
+                Console.Write(">> ");
+
+                int select;
+                if (int.TryParse(Console.ReadLine(), out select))
+                {
+                    if (select >= 0 /*&& select < 상점 방어구목록.count*/)
+                    {
+                        if (select == 0)
+                        {
+                            Blacksmith(ref _player);
+                        }
+                        else if (select > 0 && select <= 10/*&& select < 상점 방어구목록.count*/)
+                        {
+                            if (_player.Gold >= 0/*item.Price*/)
+                            {
+                                Console.WriteLine("구매를 완료했습니다.\n");
+                                _player.Gold -= 0/*item.Price*/;
+                                _player.inventory.itemList.Add(Item[select - 1]);
+                            }
+                            else if (_player.Gold < 0/*item.Price*/)
+                            {
+                                Console.WriteLine("골드가 부족합니다\n");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                            continue;
+                        }
+                        Console.WriteLine("다음 행동을 선택해주세요.");
+                        Console.WriteLine("0. 구매창 나가기");
+                        Console.WriteLine("1. 다른 장비 구매하기");
+                        Console.Write(">> ");
+                    }
+                }
+            }
+        } 
+        public void BlacksmithSell(ref Player _player) // 장비 판매창
         {
 
         }
