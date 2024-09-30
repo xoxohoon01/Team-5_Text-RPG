@@ -31,30 +31,14 @@
         public Item head;
         public Item bottom;
         public Inventory inventory;
-
-        public Item weapon;
-
-        public Item top;
-
-        public Item head;
-
-        public Item bottom;
-        
         public Player()
         {
-<<<<<<< Updated upstream
             inventory = new Inventory();
-=======
-            
->>>>>>> Stashed changes
             weapon = new Item();
             top = new Item();
             head = new Item();
             bottom = new Item();
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
         }
 
         public Player(string name, Job job)
@@ -65,9 +49,7 @@
             CriticalChance = 0.05f;
             CriticalDamage = 1.5f;
             Gold = 1500;
-            
-            
-            
+            inventory = new Inventory();
             InitializeStats();
         }
 
@@ -217,7 +199,7 @@
             return Math.Clamp(dodgeChance, 0.1f, 0.5f);
         }
 
-       
+
         public int TotalDamageBonus()           //장착시 공격력 보너스
         {
             int totalBonus = 0;
