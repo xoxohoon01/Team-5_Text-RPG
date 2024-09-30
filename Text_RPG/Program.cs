@@ -16,11 +16,11 @@ namespace TextRPG
             Item newItem = new Item();
             newItem.Name = "New";
 
-            player.inventory.items.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
+            player.inventory.player_item.Add(new Item("갈치", "신선하다", ItemType.Weapon, 10, 0, 0, 0, 0, 0, 0));
 
             for (int i = 0; i < 10; i++)
             {
-                player.inventory.items.Add(newItem);
+                player.inventory.player_item.Add(newItem);
             }
             
             EnterTutorial(ref player);
@@ -129,10 +129,10 @@ namespace TextRPG
             {
                 Console.Clear();
                 Console.WriteLine("현재 장착중인 장비");
-                Console.WriteLine($"무기: {_player.inventory.weapon.Name}");
-                Console.WriteLine($"머리: {_player.inventory.head.Name}");
-                Console.WriteLine($"상의: {_player.inventory.top.Name}");
-                Console.WriteLine($"하의: {_player.inventory.bottom.Name}");
+                Console.WriteLine($"무기: {_player.inventory.item_weapon.Name}");
+                Console.WriteLine($"머리: {_player.inventory.item_head.Name}");
+                Console.WriteLine($"상의: {_player.inventory.item_top.Name}");
+                Console.WriteLine($"하의: {_player.inventory.item_bottom.Name}");
                 Console.WriteLine();
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine("1. 장비 장착");
@@ -167,9 +167,9 @@ namespace TextRPG
             while (true)
             {
                 Console.Clear();
-                if (_player.inventory.items.Count > 10)
+                if (_player.inventory.player_item.Count > 10)
                 {
-                    maxPage = (int)MathF.Ceiling(_player.inventory.items.Count / 10);
+                    maxPage = (int)MathF.Ceiling(_player.inventory.player_item.Count / 10);
                 }
                 else maxPage = 1;
 
@@ -177,14 +177,14 @@ namespace TextRPG
                 {
                     for (int i = 0; i <= 10; i ++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.player_item[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
                 else
                 {
-                    for (int i = 0; i <= _player.inventory.items.Count - ((int)_player.inventory.items.Count / 10); i++)
+                    for (int i = 0; i <= _player.inventory.player_item.Count - ((int)_player.inventory.player_item.Count / 10); i++)
                     {
-                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.items[((nowPage - 1) * 10) + (i)].Name}");
+                        Console.WriteLine($"{((nowPage - 1) * 10) + (i)}. {_player.inventory.player_item[((nowPage - 1) * 10) + (i)].Name}");
                     }
                 }
 
@@ -268,7 +268,7 @@ namespace TextRPG
         {
             while(true)
             {
-                Console.Clear()
+                Console.Clear();
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.WriteLine("\n1. 초급던전");
                 Console.WriteLine("2. 중급던전");
@@ -356,7 +356,7 @@ namespace TextRPG
         }
         public static bool PkmStyleBattle(ref Player _player, int _stage)      //포켓몬 스타일 배틀 추가
         {
-            Monster _monster = GenerateMonster(stage);                      //몬스터.cs 에 맞춰서 수정
+            Monster _monster = GenerateMonster(_stage);                      //몬스터.cs 에 맞춰서 수정
             Console.WriteLine($"{_monster.Name}가 나타났다.");
             bool playerFirst = DetermineFirstAttack(_player, _monster);
 
@@ -393,7 +393,7 @@ namespace TextRPG
             }
         }
 
-        static void PlayerTurn(ref Player _player, Monster _monster)
+        static void PlayerTurn(ref Player _player, Monster _monster)        //Monster.cs 맞게 수정
         {
             Console.WriteLine("\n1. 공격");
             Console.WriteLine("2. 스킬");
@@ -428,7 +428,7 @@ namespace TextRPG
             }
         }
 
-        public static void AttackMonster(ref Player _player, Monster _monster)     // 1. 공  격
+        public static void AttackMonster(ref Player _player, Monster _monster)     // 1. 공  격 , Monster.cs 맞게 수정
         {
             int attack = _player.Damage + _player.TotalDamageBonus() - _monster.Defence;        // 데미지(총합 - 몬스터 방어력)
             attack = Math.Max(1, attack);       //최소 1의 데이지                                       
@@ -445,7 +445,7 @@ namespace TextRPG
             Console.WriteLine($"당신이 {_monster.Name}에게 {attack}의 데미지를 입혔습니다.");
         }
 
-        public static void MonsterAttack(ref Player _player, Monster _monster)      //몬스터가 플레이어를 공격
+        public static void MonsterAttack(ref Player _player, Monster _monster)      //몬스터가 유저를 공격 , Monster.cs에 맞게 수정
         {
             int mdamage = Math.Max(1, _monster.Damage - _player.Defence - _player.TotalDefenseBonus());     //몬스터 데미지
             if (random.NextDouble() > _player.DodgeChance())        //공격을 회피
@@ -458,7 +458,7 @@ namespace TextRPG
                 Console.WriteLine($"{_monster.Name}의 공격을 회피했습니다!");
             }
         }
-        static bool DetermineFirstAttack(ref Player _player, Monster _monster)      //스피드 선제공격권
+        static bool DetermineFirstAttack(ref Player _player, Monster _monster)      //스피드 선제공격권 , Monster.cs 맞게 수정
         {
             int _playerSpeed = _player.Speed + _player.TotalSpeedBonus();           //유저스피드 : 스탯 + 장비최종 + 스피드
             int speedDifference = _playerSpeed - _monster.Speed;                    //스피드차이 : 유저스피드 - 몬스터스피드
@@ -490,7 +490,7 @@ namespace TextRPG
             Console.ReadKey();
 
         }
-        public static bool SelectRun(ref Player _player, Monster _monster)      // 4. 도  망
+        public static bool SelectRun(ref Player _player, Monster _monster)      // 4. 도  망 , Monster.cs에 맞게 수정
         {
             int escapeChance = 50 + (_player.Speed - _monster.Speed) * 5;       //기본 +(플레이어 스피드-몬스터 스피드) * 5
             escapeChance = Math.Clamp(escapeChance, 10, 90);                    //확률 : 최소 10퍼 ~ 최대 90퍼
