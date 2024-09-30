@@ -192,7 +192,7 @@
         {
             float baseChance = 0.1f;
 
-            float speedDifference = this.Speed; //- monster.Speed;
+            float speedDifference = this.Speed - _monster.Speed;
 
             float dodgeChance = baseChance + (speedDifference * 0.02f);
 
