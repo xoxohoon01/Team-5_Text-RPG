@@ -40,15 +40,12 @@
         {
 
             inventory = new Inventory();
-<<<<<<< HEAD
 
             weapon = new Item();
             top = new Item();
             head = new Item();
             bottom = new Item();
 
-=======
->>>>>>> parent of ede2a8c (Fix : Player.cs)
         }
 
         public Player(string name, Job job)
