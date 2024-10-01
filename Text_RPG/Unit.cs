@@ -2,7 +2,7 @@
 {
     class Unit
     {
-        public string name = "";
+        public string Name = "";
 
         public int HP { get; set; }
         public int MaxHP { get; set; }

@@ -29,7 +29,6 @@ namespace TextRPG
                 {
                     if (select == 0) // 메뉴창으로 나가기
                     {
-                        Program.EnterTown(ref _player);
                         break;
                     }
                     else if (select == 1) // 대장간으로 이동
@@ -147,7 +146,7 @@ namespace TextRPG
                         {
                             Console.WriteLine("구매를 완료했습니다.");
                             _player.Gold -= 0/*item.Price*/;
-                            _player.inventory.itemList.Add(Item[select - 1]);
+                            //_player.inventory.itemList.Add(Item[select - 1]);
                         }
                     }
                 }
@@ -206,7 +205,7 @@ namespace TextRPG
                     }
                     else if (select == 0)
                     {
-                        Program.EnterTown(ref _player); // 메인 화면으로 이동
+                        break;
                     }
                     else
                     {
