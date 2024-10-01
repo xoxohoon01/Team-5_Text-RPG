@@ -57,6 +57,7 @@ namespace TextRPG
             Thread.Sleep(1000);
             int stage = 1;
             int unitCount = 2 + stage * 2;
+
             if (ClearDungeon(ref _player, stage, unitCount))
             {
                 ClearRewards(ref _player, stage);
@@ -103,6 +104,7 @@ namespace TextRPG
             {
                 Console.WriteLine($"\n{i}번째 유닛과 조우했습니다!");
                 Thread.Sleep(1000);
+
                 if (!PkmStyleBattle(ref _player, _stage))                                   //포켓몬 스타일 배틀
                 {
                     Console.WriteLine("던전 탐험에 실패했습니다.");
@@ -112,6 +114,7 @@ namespace TextRPG
             Console.WriteLine("던전을 클리어했습니다!");
             return true;
         }
+
         public static bool PkmStyleBattle(ref Player _player, int _stage)      //포켓몬 스타일 배틀 추가
         {
             Monster _monster = new Monster("goblin");                      //몬스터.cs 에 맞춰서 수정

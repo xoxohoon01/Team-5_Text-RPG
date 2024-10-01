@@ -22,6 +22,7 @@ namespace TextRPG
                 Console.WriteLine();
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력: ");
+
                 try
                 {
                     int nowAction = int.Parse(Console.ReadLine());

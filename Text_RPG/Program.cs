@@ -14,19 +14,11 @@ namespace TextRPG
         public static int screenHeight = 14;
         public static void Main()
         {
-            for (int i = 0; i < 100; i++)
-            {
-                ShowMsgOnBattle($"100번까지 올라갑니다.: {i + 1}");
-                Thread.Sleep(100);
-            }
-
-            /*
             Database database = new Database();
             Player player = new Player();
 
-            EnterTutorial(ref player);
-            EnterTown(ref player);
-            */
+            Tutorial.EnterTutorial(ref player);
+            Town.EnterTown(ref player);
         }
 
         public static void DrawBox()
