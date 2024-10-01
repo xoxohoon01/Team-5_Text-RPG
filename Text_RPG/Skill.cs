@@ -22,34 +22,18 @@ namespace TextRPG
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
         public void UseSkill(ref Player _caster, ref Monster _unit)
         {
-            Console.Clear();
-            Thread.Sleep(1000);
+            Program.ShowMsgOnBattle();
             if (_caster.MP < MPCost)
             {
-                Console.WriteLine($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
-                Thread.Sleep(1000);
-                return;
-            }
-
-            _caster.MP -= MPCost;  // 스킬 사용으로 마나 소모
-            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {Damage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
-
-            _unit.HP -= Damage;  // 피해자의 HP 감소
-
-            if (_unit.HP <= 0)
-            {
-                _unit.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
-                Console.WriteLine($"{_unit.Name}은(는) 쓰러졌습니다.");
-                Thread.Sleep(1000);
+                Program.ShowMsgOnBattle($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
             }
             else
             {
-                Console.WriteLine($"{_unit.Name}의 남은 HP: {_unit.HP}");
-                Thread.Sleep(1000);
+                _caster.MP -= MPCost;  // 스킬 사용으로 마나 소모
+                _unit.HP -= Damage;  // 피해자의 HP 감소
+                Program.ShowMsgOnBattle($"{_caster.Name}이(가) {Name} 스킬을 사용하여");
+                Program.ShowMsgOnBattle($"{_unit.Name}에게 {Damage}의 피해를 입혔습니다.");
             }
-
-            Console.WriteLine($"{_caster.Name}의 남은 MP: {_caster.MP}");
-            Thread.Sleep(1000);
         }
 
         //직업별 스킬 생성 메서드

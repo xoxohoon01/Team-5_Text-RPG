@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 
@@ -44,31 +45,43 @@ namespace TextRPG
         public static void ShowMsgOnBattle(string content)
         {
             DrawBox();
-            string[] contents = content.Split("\n");
-            if ((messageListOnBattle.Count + contents.Length) > (screenHeight - 3))
+            if ((messageListOnBattle.Count + 1) > (screenHeight - 3))
             {
-                messageListOnBattle.RemoveRange(0, (messageListOnBattle.Count + contents.Length) - (screenHeight - 3));
-            }
-
-            foreach(string line in contents)
-            {
-                for (int i = 0; i < messageListOnBattle.Count; i++)
-                {
-                    messageListOnBattle[i].y -= 1;
-                }
-                Message newMessage = new Message(line);
-                messageListOnBattle.Add(newMessage);
+                messageListOnBattle.RemoveAt(0);
             }
 
             for (int i = 0; i < messageListOnBattle.Count; i++)
             {
-                int byteLength = System.Text.Encoding.Default.GetByteCount(content);
-                int sizeOfContent = content.Length + ((byteLength - content.Length) / 2);
+                messageListOnBattle[i].y -= 1;
+            }
+            Message newMessage = new Message(content);
+            messageListOnBattle.Add(newMessage);
+
+            for (int i = 0; i < messageListOnBattle.Count; i++)
+            {
+                int byteLength = System.Text.Encoding.Default.GetByteCount(messageListOnBattle[i].content);
+                int sizeOfContent = messageListOnBattle[i].content.Length + ((byteLength - messageListOnBattle[i].content.Length) / 2);
 
                 Console.SetCursorPosition((screenWidth / 2 - sizeOfContent / 2), (screenHeight - 2) + messageListOnBattle[i].y);
                 Console.Write(messageListOnBattle[i].content);
             }
             
+            Console.SetCursorPosition(0, screenHeight + 1);
+        }
+
+        public static void ShowMsgOnBattle()
+        {
+            DrawBox();
+
+            for (int i = 0; i < messageListOnBattle.Count; i++)
+            {
+                int byteLength = System.Text.Encoding.Default.GetByteCount(messageListOnBattle[i].content);
+                int sizeOfContent = messageListOnBattle[i].content.Length + ((byteLength - messageListOnBattle[i].content.Length) / 2);
+
+                Console.SetCursorPosition((screenWidth / 2 - sizeOfContent / 2), (screenHeight - 2) + messageListOnBattle[i].y);
+                Console.Write(messageListOnBattle[i].content);
+            }
+
             Console.SetCursorPosition(0, screenHeight + 1);
         }
 
