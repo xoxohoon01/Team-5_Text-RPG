@@ -31,11 +31,14 @@
         public Item head;
         public Item bottom;
         public Inventory inventory;
+        public List<Skill> skillList;
+
         public Player()
         {
             Name = "";
 
             inventory = new Inventory();
+            skillList = new List<Skill>();
             weapon = new Item();
             top = new Item();
             head = new Item();
@@ -46,6 +49,7 @@
         {
             Name = name;
             PlayerJob = job;
+            skillList = new List<Skill>();
             Level = 1;
             CriticalChance = 0.05f;
             CriticalDamage = 1.5f;
@@ -97,6 +101,7 @@
             }
             HP = MaxHP;
             MP = MaxMP;
+            skillList.AddRange(Skill.CreateSkills(PlayerJob.ToString()));
         }
 
         public void LevelUp()

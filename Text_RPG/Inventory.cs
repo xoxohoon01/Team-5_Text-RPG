@@ -136,7 +136,7 @@ namespace TextRPG
                         }
                         else if (select == 0) // 나가기
                         {
-                            Program.EnterTown(ref _player);
+                            Town.EnterTown(ref _player);
                             break;
                         }
                         else

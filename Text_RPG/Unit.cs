@@ -1,6 +1,6 @@
 ﻿namespace TextRPG
 {
-    class Unit
+    public class Unit
     {
         public string Name = "";
 
