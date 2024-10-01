@@ -5,6 +5,7 @@
         public string Name { get; set; }             // 아이템 이름
         public string Description { get; set; }      // 아이템 설명
         public ItemType Type { get; set; }           // 아이템 유형
+        public Job WeaponJob { get; set; }           // 직업무기 유형
         public int AttackPower { get; set; }         // 공격력
         public int DefensePower { get; set; }        // 방어력
         public int HP { get; set; }                  // HP 증가
@@ -23,11 +24,13 @@
             Type = ItemType.None;
         }
 
-        public Item(string name, string description, ItemType type, int attackPower, int defensePower, int hp, int mp, int speed, double critChance, int critDamage)
+        public Item(string name, string description, ItemType type, Job weaponJob, int attackPower, 
+                    int defensePower, int hp, int mp, int speed, double critChance, int critDamage)
         {
             Name = name;
             Description = description;
             Type = type;
+            WeaponJob = weaponJob;
             AttackPower = attackPower;
             DefensePower = defensePower;
             HP = hp;
@@ -55,16 +58,16 @@
         {
             return new List<Item>
             {
-                new Item("체력 회복 물약", "사용 시 체력을 50 회복", ItemType.Potion, 0, 0, 50, 0, 0, 0, 0),
-                new Item("마나 회복 물약", "사용 시 마나를 50 회복", ItemType.Potion, 0, 0, 0, 50, 0, 0, 0),
-                new Item("엘릭서", "사용 시 체력 100 마나를 50 회복", ItemType.Potion, 0, 0, 100, 50, 0, 0, 0),
-                new Item("검", "기본 공격력 10 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.2, 20),
-                new Item("단검", "기본 공격력 14 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.5, 35),
-                new Item("활", "기본 공격력 12 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.3, 30),
-                new Item("지팡이", "기본 공격력 13 증가", ItemType.Weapon, 10, 0, 0, 0, 0, 0.3, 25),
-                new Item("강철 투구", "방어력 5 증가", ItemType.Head, 0, 5, 0, 0, 0, 0, 0),
-                new Item("가죽 갑옷", "방어력 10 증가", ItemType.Top, 0, 10, 0, 0, 0, 0, 0),
-                new Item("강철 바지", "방어력 7 증가", ItemType.Bottom, 0, 7, 0, 0, 0, 0, 0)
+                new Item("마나 회복 물약", "사용 시 마나를 50 회복", ItemType.Potion, Job.None, 0, 0, 0, 50, 0, 0, 0),
+                new Item("체력 회복 물약", "사용 시 체력을 50 회복", ItemType.Potion, Job.None, 0, 0, 50, 0, 0, 0, 0),
+                new Item("엘릭서", "사용 시 체력 100 마나를 50 회복", ItemType.Potion, Job.None,0, 0, 100, 50, 0, 0, 0),
+                new Item("검", "기본 공격력 10 증가", ItemType.Weapon, Job.Warrior, 10, 0, 0, 0, 0, 0.2, 20),
+                new Item("단검", "기본 공격력 14 증가", ItemType.Weapon, Job.Thief, 10, 0, 0, 0, 0, 0.5, 35),
+                new Item("활", "기본 공격력 12 증가", ItemType.Weapon, Job.Archer, 10, 0, 0, 0, 0, 0.3, 30),
+                new Item("지팡이", "기본 공격력 13 증가", ItemType.Weapon, Job.Mage, 10, 0, 0, 0, 0, 0.3, 25),
+                new Item("강철 투구", "방어력 5 증가", ItemType.Head, Job.None, 0, 5, 0, 0, 0, 0, 0),
+                new Item("가죽 갑옷", "방어력 10 증가", ItemType.Top, Job.None, 0, 10, 0, 0, 0, 0, 0),
+                new Item("강철 바지", "방어력 7 증가", ItemType.Bottom, Job.None, 0, 7, 0, 0, 0, 0, 0)
             };
          }
 

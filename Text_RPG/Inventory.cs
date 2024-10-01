@@ -241,10 +241,16 @@ namespace TextRPG
                         {
                             if (_player.inventory.item_weapon.isEquip == false)
                             {
-                                for (int i = 0; i < num; i++);
-                                _player.inventory.item_weapon.isEquip = true;
-                                _player.inventory.item_weapon = weaponList[select - 1];
-                                Console.WriteLine("장착을 완료했습니다.");
+                                if (_player.PlayerJob == weaponList[select - 1].WeaponJob)
+                                {
+                                    _player.inventory.item_weapon.isEquip = true;
+                                    _player.inventory.item_weapon = weaponList[select - 1];
+                                    Console.WriteLine("장착을 완료했습니다.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("장착하려는 장비가 직업에 맞지 않습니다.");
+                                }
                             }
                             else if (_player.inventory.item_weapon.isEquip == true)
                             {
