@@ -20,7 +20,7 @@ namespace TextRPG
         }
 
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
-        public void UseSkill(ref Player caster, ref Player target)
+        public void UseSkill(ref Player caster, ref Player Unit)
         {
             if (caster.MP < MPCost)
             {
@@ -29,18 +29,18 @@ namespace TextRPG
             }
 
             caster.MP -= MPCost;  // 스킬 사용으로 마나 소모
-            Console.WriteLine($"{caster.Name}이(가) {Name} 스킬을 사용하여 {target.Name}에게 {Damage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
+            Console.WriteLine($"{caster.Name}이(가) {Name} 스킬을 사용하여 {Unit.Name}에게 {Damage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
 
-            target.HP -= Damage;  // 피해자의 HP 감소
+            Unit.HP -= Damage;  // 피해자의 HP 감소
 
-            if (target.HP <= 0)
+            if (Unit.HP <= 0)
             {
-                target.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
-                Console.WriteLine($"{target.Name}은(는) 쓰러졌습니다.");
+                Unit.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
+                Console.WriteLine($"{Unit.Name}은(는) 쓰러졌습니다.");
             }
             else
             {
-                Console.WriteLine($"{target.Name}의 남은 HP: {target.HP}");
+                Console.WriteLine($"{Unit.Name}의 남은 HP: {Unit.HP}");
             }
 
             Console.WriteLine($"{caster.Name}의 남은 MP: {caster.MP}");
