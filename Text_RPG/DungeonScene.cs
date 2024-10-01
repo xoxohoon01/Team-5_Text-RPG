@@ -17,13 +17,14 @@ namespace TextRPG
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("다음 행동을 선택해주세요.");
+                Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine();
                 Console.WriteLine("1. 초급던전");
                 Console.WriteLine("2. 중급던전");
                 Console.WriteLine("3. 상급던전");
                 Console.WriteLine();
-                Console.WriteLine("0. 뒤로가기");
+                Console.WriteLine("다음 행동을 선택해주세요.");
+                Console.Write("입력: ");
 
                 try
                 {

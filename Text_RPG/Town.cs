@@ -12,6 +12,10 @@ namespace TextRPG
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break; //캐릭터 삭제되면 게임 재시작
+
+                Program.SavePlayerData(_player); //마을로 돌아올 때마다 저장
+
                 Console.Clear();
                 Console.WriteLine("1. 캐릭터 정보");
                 Console.WriteLine("2. 장비");
