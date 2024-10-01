@@ -13,7 +13,7 @@
         { 
             switch (type.ToLower())
             {
-                case 1:
+                case "goblin":
                     //일반 몬스터 - 고블린
                     name = "Goblin";
                     HP = 50;
@@ -27,7 +27,7 @@
                     CritDamage = 20;
                     break;
 
-                case 2:
+                case "orc":
                     // 일반 몬스터 - 오크
                     name = "Orc";
                     HP = 100;
@@ -41,7 +41,7 @@
                     CritDamage = 30;
                     break;
 
-                case 3:
+                case "boss":
                     // 보스 몬스터 - 미정
                     name = "Boss";
                     HP = 300;
