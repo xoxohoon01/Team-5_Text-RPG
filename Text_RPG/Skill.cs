@@ -46,8 +46,6 @@ namespace TextRPG
             Console.WriteLine($"{caster.Name}의 남은 MP: {caster.MP}");
         }
 
-
-
         //직업별 스킬 생성 메서드
         public static Skill[] CreateSkills(string job)
         {
