@@ -15,7 +15,7 @@
             {
                 case "goblin":
                     //일반 몬스터 - 고블린
-                    name = "Goblin";
+                    Name = "Goblin";
                     HP = 50;
                     MaxHP = 50;
                     MP = 10;
@@ -29,7 +29,7 @@
 
                 case "orc":
                     // 일반 몬스터 - 오크
-                    name = "Orc";
+                    Name = "Orc";
                     HP = 100;
                     MaxHP = 100;
                     MP = 5;
@@ -43,7 +43,7 @@
 
                 case "boss":
                     // 보스 몬스터 - 미정
-                    name = "Boss";
+                    Name = "Boss";
                     HP = 300;
                     MaxHP = 300;
                     MP = 20;
@@ -58,7 +58,7 @@
                 default:
 
                     // 알 수 없는 타입
-                    name = "Unknown";
+                    Name = "Unknown";
                     HP = 0;
                     MaxHP = 0;
                     MP = 0;
@@ -86,11 +86,11 @@
                     if (actualDamage < 0) actualDamage = 0;
 
                     enemy.HP -= actualDamage;
-                    Console.WriteLine($"{player.Name} attacks {enemy.name} for {actualDamage} damage!");
+                    Console.WriteLine($"{player.Name} attacks {enemy.Name} for {actualDamage} damage!");
 
                     if (enemy.HP <= 0)
                     {
-                        Console.WriteLine($"{enemy.name} has been defeated!");
+                        Console.WriteLine($"{enemy.Name} has been defeated!");
                         break;
                     }
                 }
@@ -101,7 +101,7 @@
                     if (actualDamage < 0) actualDamage = 0;
 
                     player.HP -= actualDamage;
-                    Console.WriteLine($"{enemy.name} attacks {player.Name} for {actualDamage} damage!");
+                    Console.WriteLine($"{enemy.Name} attacks {player.Name} for {actualDamage} damage!");
 
                     if (player.HP <= 0)
                     {
@@ -115,7 +115,7 @@
 
                 // 상태 출력 (선택 사항)
                 Console.WriteLine($"{player.Name} HP: {player.HP} / {player.MaxHP}");
-                Console.WriteLine($"{enemy.name} HP: {enemy.HP} / {enemy.MaxHP}");
+                Console.WriteLine($"{enemy.Name} HP: {enemy.HP} / {enemy.MaxHP}");
             }
       }
         public void OnAttack(ref Player _player)
@@ -124,7 +124,7 @@
             if (damageTaken < 0) damageTaken = 0; // 피해가 0보다 작으면 0으로 설정
 
             _player.HP -= damageTaken; // 플레이어의 HP에서 실제 피해를 빼기
-            Console.WriteLine($"{name} attacks {_player.Name} for {damageTaken} damage!");
+            Console.WriteLine($"{Name} attacks {_player.Name} for {damageTaken} damage!");
         }
     }
 }

@@ -33,12 +33,13 @@
         public Inventory inventory;
         public Player()
         {
+            Name = "";
+
             inventory = new Inventory();
             weapon = new Item();
             top = new Item();
             head = new Item();
             bottom = new Item();
-
         }
 
         public Player(string name, Job job)
@@ -188,11 +189,11 @@
             }
         }
 
-        public float DodgeChance()//Monster.Attacker          //몬스터 공격 회피
+        public float DodgeChance(int _monsterSpeed)//Monster.Attacker          //몬스터 공격 회피
         {
             float baseChance = 0.1f;
 
-            float speedDifference = this.Speed - _monster.Speed;
+            float speedDifference = this.Speed - _monsterSpeed;
 
             float dodgeChance = baseChance + (speedDifference * 0.02f);
 
