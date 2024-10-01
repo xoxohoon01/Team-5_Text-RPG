@@ -6,9 +6,34 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    public class Shop
+    public static class Shop
     {
-        public void ShopMenu(ref Player _player) // 상점가
+        public static void EnterShop(ref Player _player)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("0. 뒤로가기");
+                Console.WriteLine("1. 아이템 구매");
+                Console.WriteLine("2. 아이템 판매");
+
+                int nowAction = int.Parse(Console.ReadLine());
+                if (nowAction == 0) break;
+                else if (nowAction == 1)
+                {
+                    //EnterBuyItem(ref _player);
+                }
+                else if (nowAction == 2)
+                {
+                    //EnterSellItem(ref _player);
+                }
+                else
+                {
+                    Program.ShowMsgWrongValue();
+                }
+            }
+        }
+        public static void ShopMenu(ref Player _player) // 상점가
         {
             while (true)
             {
@@ -55,7 +80,7 @@ namespace TextRPG
             }
         }
 
-        public void Blacksmith(ref Player _player) // 대장간
+        public static void Blacksmith(ref Player _player) // 대장간
         {
             while (true)
             {
@@ -116,7 +141,7 @@ namespace TextRPG
                 }
             }
         }
-        public void BlacksmithWeapon(ref Player _player) // 무기 구매창
+        public static void BlacksmithWeapon(ref Player _player) // 무기 구매창
         {
             while (true)
             {
@@ -152,17 +177,17 @@ namespace TextRPG
                 }
             }
         }
-        public void BlacksmithArmor(ref Player _player) // 방어구 구매창
+        public static void BlacksmithArmor(ref Player _player) // 방어구 구매창
         {
 
         }
 
-        public void PotionStore(ref Player _player) // 포션상점
+        public static void PotionStore(ref Player _player) // 포션상점
         {
 
         }
 
-        public void Tavern(ref Player _player) // 선술집
+        public static void Tavern(ref Player _player) // 선술집
         {
             while (true)
             {

@@ -1,6 +1,6 @@
 ﻿namespace TextRPG
 {
-    class Monster : Unit
+    public class Monster : Unit
     {
         public string Name;
         public int HP, MaxHP;
