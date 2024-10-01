@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Skill
+    public class Skill
     {
         public string Name { get; set; }
         public int Damage { get; set; }
@@ -20,36 +20,42 @@ namespace TextRPG
         }
 
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
-        public void UseSkill(ref Player caster, ref Player Unit)
+        public void UseSkill(ref Player _caster, ref Monster _unit)
         {
-            if (caster.MP < MPCost)
+            Console.Clear();
+            Thread.Sleep(1000);
+            if (_caster.MP < MPCost)
             {
-                Console.WriteLine($"{caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
+                Console.WriteLine($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
+                Thread.Sleep(1000);
                 return;
             }
 
-            caster.MP -= MPCost;  // 스킬 사용으로 마나 소모
-            Console.WriteLine($"{caster.Name}이(가) {Name} 스킬을 사용하여 {Unit.Name}에게 {Damage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
+            _caster.MP -= MPCost;  // 스킬 사용으로 마나 소모
+            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {Damage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
 
-            Unit.HP -= Damage;  // 피해자의 HP 감소
+            _unit.HP -= Damage;  // 피해자의 HP 감소
 
-            if (Unit.HP <= 0)
+            if (_unit.HP <= 0)
             {
-                Unit.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
-                Console.WriteLine($"{Unit.Name}은(는) 쓰러졌습니다.");
+                _unit.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
+                Console.WriteLine($"{_unit.Name}은(는) 쓰러졌습니다.");
+                Thread.Sleep(1000);
             }
             else
             {
-                Console.WriteLine($"{Unit.Name}의 남은 HP: {Unit.HP}");
+                Console.WriteLine($"{_unit.Name}의 남은 HP: {_unit.HP}");
+                Thread.Sleep(1000);
             }
 
-            Console.WriteLine($"{caster.Name}의 남은 MP: {caster.MP}");
+            Console.WriteLine($"{_caster.Name}의 남은 MP: {_caster.MP}");
+            Thread.Sleep(1000);
         }
 
         //직업별 스킬 생성 메서드
-        public static Skill[] CreateSkills(string job)
+        public static Skill[] CreateSkills(string _job)
         {
-            switch (job.ToLower())
+            switch (_job.ToLower())
             {
                 case "warrior":
                     return new Skill[]
