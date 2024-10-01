@@ -8,7 +8,7 @@ namespace TextRPG
 {
     public static class Shop
     {
-        public static void ShopMenu(ref Player _player) // 상점가
+        public static void EnterShop(ref Player _player) // 상점가
         {
             while (true)
             {
@@ -92,7 +92,7 @@ namespace TextRPG
                 {
                     if (select == 0) // 상점가로 나가기
                     {
-                        ShopMenu(ref _player);
+                        EnterShop(ref _player);
                         break;
                     }
                     else if (select == 1) // 무기 구매화면으로 이동
@@ -271,7 +271,7 @@ namespace TextRPG
                 {
                     if (select == 0) // 뒤로 가기
                     {
-                        ShopMenu(ref _player);
+                        EnterShop(ref _player);
                         break;
                     }
                     else if (select == 1) // 아이템 판매로 이동
@@ -352,7 +352,7 @@ namespace TextRPG
                 {
                     if (select == 0) // 상점가로 나가기
                     {
-                        ShopMenu(ref _player);
+                        EnterShop(ref _player);
                         break;
                     }
                     else if (select == 1) // 포션 구매화면으로 이동
