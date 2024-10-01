@@ -14,7 +14,6 @@ namespace TextRPG
             InitItemDatabase();
         }
 
-        //데이터베이스 (Program.cs에서 메소드 호출할 것) (n줄 - 20이 아이템 번호)
         public void InitItemDatabase()
         {
             ITEM.Add(new Item());
@@ -37,20 +36,18 @@ namespace TextRPG
             ITEM.Add(new Item("컴파운드 보우", "대한민국 양궁 파이팅.", ItemType.Weapon, 50, 0, 0, 0, 10, 0, 0));
             ITEM.Add(new Item("세계수목 대궁", "세계수를 깎아만든 대궁.", ItemType.Weapon, 100, 0, 0, 0, 15, 0, 0));
             ITEM.Add(new Item("아폴론의 활", "하프처럼 생겼다.", ItemType.Weapon, 1000, 0, 0, 0, 40, 0, 0));
-            ITEM.Add(new Item("나뭇가지", "누군가 마력을 넣어놨다.", ItemType.Weapon, 30, 0, 0, 30, 3, 0));
-            ITEM.Add(new Item("효자손", "누군가 마력을 많이 넣어놨다.", ItemType.Weapon, 50, 0, 0, 50, 5, 0));
-            ITEM.Add(new Item("딱총나무 지팡이", "읭가르디움 레비오우 싸.", ItemType.Weapon, 100, 0, 0, 100, 10, 0));
-            ITEM.Add(new Item("네크로노미콘", "악마의 책이 말을 건넨다. 시끄럽다.", ItemType.Weapon, 1000, 0, 0, 200, 20, 0));
+            ITEM.Add(new Item("나뭇가지", "누군가 마력을 넣어놨다.", ItemType.Weapon, 30, 0, 0, 30, 3, 0, 0));
+            ITEM.Add(new Item("효자손", "누군가 마력을 많이 넣어놨다.", ItemType.Weapon, 50, 0, 0, 50, 5, 0, 0));
+            ITEM.Add(new Item("딱총나무 지팡이", "읭가르디움 레비오우 싸.", ItemType.Weapon, 100, 0, 0, 100, 10, 0, 0));
+            ITEM.Add(new Item("네크로노미콘", "악마의 책이 말을 건넨다. 시끄럽다.", ItemType.Weapon, 1000, 0, 0, 200, 20, 0, 0));
         }
 
-        //데이터 저장 (플레이어 데이터)
         public void SaveDatabase()
         {
             string content = JsonConvert.SerializeObject(PLAYER);
             File.WriteAllText("/UserData.json", content);
         }
 
-        //데이터 불러오기 (플레이어 데이터)
         public void LoadDatabase()
         {
             if (File.Exists("/userData.json"))

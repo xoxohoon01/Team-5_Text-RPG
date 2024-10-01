@@ -12,10 +12,18 @@
         public int Speed { get; set; }               // 속도
         public double CritChance { get; set; }       // 치명타 확률
         public int CritDamage { get; set; }          // 치명타 데미지
+        public int Gold { get; set; }                // 판매 골드
+        public bool isEquip { get; set; }            // 아이템 장착여부
 
-        public bool isEquip { get; set; }
+        public Item()
+        {
+            Name = "";
+            Description = "";
 
-        public Item(string name = "", string description = "", ItemType type = ItemType.None, int attackPower = 0, int defensePower = 0, int hp = 0, int mp = 0, int speed = 0, double critChance = 0, int critDamage = 0)
+            Type = ItemType.None;
+        }
+
+        public Item(string name, string description, ItemType type, int attackPower, int defensePower, int hp, int mp, int speed, double critChance, int critDamage)
         {
             Name = name;
             Description = description;
@@ -69,8 +77,8 @@
         Potion,  // 물약
         Weapon,  // 무기
         Head,    // 머리 장비
-        Top,   // 상의 장비
-        Bottom  // 하의 장비
+        Top,     // 상의 장비
+        Bottom   // 하의 장비
     }
 }
    

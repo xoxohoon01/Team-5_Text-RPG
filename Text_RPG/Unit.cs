@@ -2,17 +2,17 @@
 {
     class Unit
     {
-        public string name = "";
+        public string Name = "";
 
-        public int hp;
-        public int maxHp;
-        public int mp;
-        public int maxMp;
+        public int HP { get; set; }
+        public int MaxHP { get; set; }
+        public int MP { get; set; }
+        public int MaxMP { get; set; }
 
-        public int damage;
-        public int armor;
-        public int speed;
-        public int critChance;
-        public int critDamage;
+        public int Damage { get; set; }
+        public int Defense { get; set; }
+        public int Speed { get; set; }
+        public int CritChance { get; set; }
+        public int CritDamage { get; set; }
     }
 }
