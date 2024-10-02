@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 
@@ -12,13 +14,29 @@ namespace TextRPG
         public static Random random = new Random();         //Random 객체 생성
         public static int screenWidth = 64;
         public static int screenHeight = 14;
+        public static bool hasPlayer = false;
+
         public static void Main()
         {
             Database database = new Database();
-            Player player = new Player();
+            Player player = LoadPlayerData();
+            DrawBox();
 
-            Tutorial.EnterTutorial(ref player);
-            Town.EnterTown(ref player);
+            ShowMsgOnBattle("Text RPG");
+            ShowMsgOnBattle("환영합니다.");
+            while(true)
+            {
+                player = LoadPlayerData();
+                if (hasPlayer == false)
+                {
+                    Tutorial.EnterTutorial(ref player);
+                    hasPlayer = true;
+                }
+                else
+                {
+                    Town.EnterTown(ref player);
+                }
+            }
         }
 
         public static void DrawBox()
@@ -44,31 +62,43 @@ namespace TextRPG
         public static void ShowMsgOnBattle(string content)
         {
             DrawBox();
-            string[] contents = content.Split("\n");
-            if ((messageListOnBattle.Count + contents.Length) > (screenHeight - 3))
+            if ((messageListOnBattle.Count + 1) > (screenHeight - 3))
             {
-                messageListOnBattle.RemoveRange(0, (messageListOnBattle.Count + contents.Length) - (screenHeight - 3));
-            }
-
-            foreach(string line in contents)
-            {
-                for (int i = 0; i < messageListOnBattle.Count; i++)
-                {
-                    messageListOnBattle[i].y -= 1;
-                }
-                Message newMessage = new Message(line);
-                messageListOnBattle.Add(newMessage);
+                messageListOnBattle.RemoveAt(0);
             }
 
             for (int i = 0; i < messageListOnBattle.Count; i++)
             {
-                int byteLength = System.Text.Encoding.Default.GetByteCount(content);
-                int sizeOfContent = content.Length + ((byteLength - content.Length) / 2);
+                messageListOnBattle[i].y -= 1;
+            }
+            Message newMessage = new Message(content);
+            messageListOnBattle.Add(newMessage);
+
+            for (int i = 0; i < messageListOnBattle.Count; i++)
+            {
+                int byteLength = System.Text.Encoding.Default.GetByteCount(messageListOnBattle[i].content);
+                int sizeOfContent = messageListOnBattle[i].content.Length + ((byteLength - messageListOnBattle[i].content.Length) / 2);
 
                 Console.SetCursorPosition((screenWidth / 2 - sizeOfContent / 2), (screenHeight - 2) + messageListOnBattle[i].y);
                 Console.Write(messageListOnBattle[i].content);
             }
             
+            Console.SetCursorPosition(0, screenHeight + 1);
+        }
+
+        public static void ShowMsgOnBattle()
+        {
+            DrawBox();
+
+            for (int i = 0; i < messageListOnBattle.Count; i++)
+            {
+                int byteLength = System.Text.Encoding.Default.GetByteCount(messageListOnBattle[i].content);
+                int sizeOfContent = messageListOnBattle[i].content.Length + ((byteLength - messageListOnBattle[i].content.Length) / 2);
+
+                Console.SetCursorPosition((screenWidth / 2 - sizeOfContent / 2), (screenHeight - 2) + messageListOnBattle[i].y);
+                Console.Write(messageListOnBattle[i].content);
+            }
+
             Console.SetCursorPosition(0, screenHeight + 1);
         }
 
@@ -79,5 +109,17 @@ namespace TextRPG
             Console.ReadKey();
         }
         
+        public static void SavePlayerData(Player _player)
+        {
+            string content = JsonConvert.SerializeObject(_player, Formatting.Indented);
+            File.WriteAllText("./PlayerData.json", content);
+        }
+
+        public static Player LoadPlayerData()
+        {
+            if (File.Exists("./PlayerData.json")) return JsonConvert.DeserializeObject<Player>(File.ReadAllText("./PlayerData.json"));
+            else return new Player();
+        }
+
     }
 }

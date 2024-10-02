@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,6 +42,7 @@ namespace TextRPG
                         {
                             _player.PlayerJob = (Job)classType;
                             _player.InitializeStats();
+                            Program.SavePlayerData(_player);
                         }
                     }
                     catch (FormatException)
