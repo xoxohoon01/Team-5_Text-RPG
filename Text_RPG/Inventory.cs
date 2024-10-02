@@ -110,7 +110,7 @@ namespace TextRPG
                     }
                 }
                 // 소모품
-                Console.WriteLine("[ 소모품 ]");
+                Console.WriteLine("\n[ 소모품 ]");
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     if (itemList[i].Type == ItemType.Potion)
@@ -205,6 +205,11 @@ namespace TextRPG
                 int num = 1;
                 Console.WriteLine("[ 무기 목록 ]");
 
+                if (_player.inventory.weaponList == null)
+                {
+                    _player.inventory.weaponList = new List<Item>();
+                }
+
                 for (int i = 0; i < weaponList.Count; i++)
                 {
                     if (weaponList[i].Type == ItemType.Weapon)
@@ -229,8 +234,8 @@ namespace TextRPG
                 Console.WriteLine("\n장착하거나 해제하실 번호를 입력해주세요.");
                 Console.WriteLine("0. 나가기\n");
 
-                Console.WriteLine("원하시는 행동을 입력해주세요.");
-                Console.Write(">> ");
+                Console.WriteLine("다음 행동을 선택해주세요.");
+                Console.Write("입력:");
                 while (true)
                 {
                     int select;
@@ -250,6 +255,7 @@ namespace TextRPG
                                     _player.inventory.item_weapon.isEquip = true;
                                     _player.inventory.item_weapon = weaponList[select - 1];
                                     Console.WriteLine("장착을 완료했습니다.");
+                                    Console.WriteLine("입력: ");
                                 }
                                 else
                                 {
@@ -261,6 +267,7 @@ namespace TextRPG
                                 _player.inventory.item_weapon.isEquip = false;
                                 _player.inventory.item_weapon = null;
                                 Console.WriteLine("해제를 완료했습니다.");
+                                Console.WriteLine("입력: ");
                             }
                         }
                     }
@@ -334,9 +341,9 @@ namespace TextRPG
                     Console.WriteLine("\n장착하거나 해제하실 번호를 입력해주세요.");
                     Console.WriteLine("0. 나가기\n");
 
-                    Console.WriteLine("원하시는 행동을 입력해주세요.");
-                    Console.Write(">> ");
-                    
+                    Console.WriteLine("다음 행동을 선택해주세요.");
+                    Console.WriteLine("입력: ");
+
                     while (true)
                     {
                         int select;
@@ -404,9 +411,9 @@ namespace TextRPG
                             Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요");
                             continue;
                         }
+                        Console.WriteLine("\n0. 나가기");
                         Console.WriteLine("\n장착하거나 해제하실 번호를 입력해주세요.");
-                        Console.WriteLine("0. 나가기");
-                        Console.Write(">>");
+                        Console.Write("입력:");
                     }
                 }
             }
