@@ -263,7 +263,7 @@ namespace TextRPG
             return true;
         }
 
-        public static bool SelectSkill(ref Player _player, ref Monster _monster)     // 2. 스킬
+        public static bool SelectSkill(ref Player _player, ref Monster _monster)
         {
             while (true)
             {
@@ -271,7 +271,7 @@ namespace TextRPG
                 Console.WriteLine("0. 뒤로가기");
                 for (int i = 0; i < _player.skillList.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {_player.skillList[i].Name}");
+                    Console.WriteLine($"{i + 1}. {_player.skillList[i].Name} (Base Damage: {_player.skillList[i].BaseDamage})");
                 }
 
                 string answer = Console.ReadLine();
@@ -281,7 +281,10 @@ namespace TextRPG
                     if (nowAction == 0) return false;
                     else if (nowAction > 0 && nowAction <= _player.skillList.Count)
                     {
-                        _player.skillList[nowAction - 1].UseSkill(ref _player, ref _monster);
+                        Skill selectedSkill = _player.skillList[nowAction - 1];
+                        int baseDamage = selectedSkill.BaseDamage;
+                        int attackerDamage = _player.Damage;  // Player의 Damage 사용
+                        selectedSkill.UseSkill(ref _player, ref _monster);
                         return true;
                     }
                     else
@@ -297,6 +300,7 @@ namespace TextRPG
                 }
             }
         }
+
 
         public static void SelectItem(ref Player _player)      // 3. 아이템 : 미 구 현
         {
