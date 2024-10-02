@@ -24,7 +24,7 @@ namespace TextRPG
         }
 
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
-        public void UseSkill(ref Player _caster, ref Monster _unit, int attackerAttack, int unitDefense)
+        public void UseSkill(ref Player _caster, ref Monster _unit)
         {
             Program.ShowMsgOnBattle();
             if (_caster.MP < MPCost)
@@ -38,7 +38,7 @@ namespace TextRPG
             bool isCriticalHit = new Random().NextDouble() < CritcalChance;
 
             // 최종 피해량 계산
-            float finalDamage = CalculateFinalDamage(attackerAttack, unitDefense, isCriticalHit);
+            float finalDamage = CalculateFinalDamage(_caster.Damage, _unit.Defense, isCriticalHit);
             _unit.HP -= (int)finalDamage;  // 피해자의 HP 감소
 
             Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");

@@ -284,7 +284,7 @@ namespace TextRPG
                         Skill selectedSkill = _player.skillList[nowAction - 1];
                         int baseDamage = selectedSkill.BaseDamage;
                         int attackerDamage = _player.Damage;  // Player의 Damage 사용
-                        selectedSkill.UseSkill(ref _player, ref _monster, baseDamage, attackerDamage);
+                        selectedSkill.UseSkill(ref _player, ref _monster);
                         return true;
                     }
                     else
