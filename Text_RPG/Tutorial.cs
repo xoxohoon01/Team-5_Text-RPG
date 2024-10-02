@@ -28,9 +28,9 @@ namespace TextRPG
                 {
                     Console.Clear();
                     Console.WriteLine("1. 전사");
-                    Console.WriteLine("2. 도적");
-                    Console.WriteLine("3. 마법사");
-                    Console.WriteLine("4. 궁수");
+                    Console.WriteLine("2. 궁수");
+                    Console.WriteLine("3. 도적");
+                    Console.WriteLine("4. 마법사");
                     Console.WriteLine();
                     Console.WriteLine("직업을 선택해주세요.");
                     Console.Write("직업: ");
