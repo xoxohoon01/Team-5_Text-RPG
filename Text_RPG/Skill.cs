@@ -41,19 +41,7 @@ namespace TextRPG
             float finalDamage = CalculateFinalDamage(_caster.Damage, _unit.Defense, isCriticalHit);
             _unit.HP -= (int)finalDamage;  // 피해자의 HP 감소
 
-            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
-
-            if (_unit.HP <= 0)
-            {
-                _unit.HP = 0;  // HP는 0 이하로 떨어지지 않도록 설정
-                Console.WriteLine($"{_unit.Name}은(는) 쓰러졌습니다.");
-                Thread.Sleep(1000);
-            }
-            else
-            {
-                Console.WriteLine($"{_unit.Name}의 남은 HP: {_unit.HP}");
-                Thread.Sleep(1000);
-            }
+            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");         
         }
 
         private float CalculateFinalDamage(int attackerAttack, int unitDefense, bool isCriticalHit)
