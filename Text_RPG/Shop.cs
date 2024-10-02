@@ -2,8 +2,40 @@
 {
     public static class Shop
     {
-     
-   
+        static Database shopItem = new Database();
+
+        static List<Item> equipmentShopWeapon = new List<Item>();
+        static List<Item> equipmentShopArmor = new List<Item>();
+        static List<Item> potionShop = new List<Item>();
+
+        public static void UpdateShopItem()
+        {
+            for (int i = 0; i < shopItem.ITEM.Count; i++)
+            {
+                if (shopItem.ITEM[i].Grade != ItemGrade.Unique)
+                {
+                    if (shopItem.ITEM[i].Type != ItemType.None)
+                    {
+                        if (shopItem.ITEM[i].Type != ItemType.Potion)
+                        {
+                            if (shopItem.ITEM[i].Type != ItemType.Weapon)
+                            {
+                                equipmentShopArmor.Add(shopItem.ITEM[i]);
+                            }
+                            else
+                            {
+                                equipmentShopWeapon.Add(shopItem.ITEM[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        potionShop.Add(shopItem.ITEM[i]);
+                    }
+                }
+            }
+        }
+
         public static void EnterShop(ref Player _player) // 상점가
         {
             while (true)
@@ -64,20 +96,25 @@
 
                 Console.WriteLine("[ 판매 목록 ]\n");
                 Console.WriteLine("- 무기류");
-                for (int i = 0; i < 10; i++) // 상점 목록 미완성
+                for (int i = 0; i < equipmentShopWeapon.Count; i++)
                 {
-                    Console.WriteLine($"무기 목록");
+                    if (equipmentShopWeapon[i].Type == ItemType.Weapon)
+                    {
+                        Console.WriteLine($"- {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}");  // 가격보류
+                    }
                 }
 
                 Console.WriteLine("\n- 방어구류");
-                for (int i = 0; i < 10; i++) // 상점 목록 미완성
+                for (int i = 0; i < equipmentShopArmor.Count; i++) 
                 {
-                    Console.WriteLine($"방어구 목록");
+                    if (equipmentShopArmor[i].Type != ItemType.Weapon)
+                    {
+                        Console.WriteLine($"- {equipmentShopArmor[i].Name}   |   {equipmentShopArmor[i].Description}");  // 가격보류
+                    }
                 }
 
                 Console.WriteLine("\n1. 무기 구매");
                 Console.WriteLine("2. 방어구 구매");
-                Console.WriteLine("3. 보유 장비 판매");
                 Console.WriteLine("3. 보유 아이템 판매");
                 Console.WriteLine("0. 대장간 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -103,7 +140,6 @@
                     }
                     else if (select == 3) // 보유 아이템 판매창으로 이동
                     {
-                        BlacksmithArmor(ref _player);
                         ItemSellMenu(ref _player);
                         break;
                     }
@@ -123,9 +159,12 @@
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
 
                 Console.WriteLine("[ 무기 목록 ]");
-                for (int i = 0; i < 10 /*상점 무기목록.count 예정*/; i++)
+                for (int i = 0; i < equipmentShopWeapon.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. ");
+                    if (equipmentShopWeapon[i].Type == ItemType.Weapon)
+                    {
+                        Console.WriteLine($"- {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}");
+                    }
                 }
                 Console.WriteLine("\n구매하실 아이템을 선택해주세요.");
                 Console.WriteLine("0. 대장간 목록으로");
@@ -133,49 +172,36 @@
 
                 int select;
                 if (int.TryParse(Console.ReadLine(), out select) &&
-                    select >= 0 /*&& select < 상점 무기목록.count*/)
+                    select >= 0 && select < equipmentShopWeapon.Count)
+                {
                     if (int.TryParse(Console.ReadLine(), out select))
                     {
                         if (select == 0)
                         {
                             Blacksmith(ref _player);
+                            break;
                         }
-                        else if (select > 0 && select <= 10/*&& select < 상점 무기목록.count*/)
-                            if (select >= 0 /*&& select < 상점 무기목록.count*/)
+                        else if (select >= 0 && select < equipmentShopWeapon.Count)
+                        {
+                            if (_player.Gold >= 0/*item.Price*/)
                             {
-                                if (_player.Gold >= 0/*item.Price*/)
-                                    if (select == 0)
-                                    {
-                                        Console.WriteLine("구매를 완료했습니다.");
-                                        _player.Gold -= 0/*item.Price*/;
-                                        //_player.inventory.itemList.Add(Item[select - 1]);
-                                        Blacksmith(ref _player);
-                                        break;
-                                    }
-                                    else if (select > 0 && select <= 10/*&& select < 상점 무기목록.count*/)
-                                    {
-                                        if (_player.Gold >= 0/*item.Price*/)
-                                        {
-                                            Console.WriteLine("구매를 완료했습니다.\n");
-                                            _player.Gold -= 0/*item.Price*/;
-                                            //_player.inventory.itemList.Add(Item[select - 1]);
-                                        }
-                                        else if (_player.Gold < 0/*item.Price*/)
-                                        {
-                                            Console.WriteLine("골드가 부족합니다\n");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
-                                        continue;
-                                    }
-                                Console.WriteLine("다음 행동을 선택해주세요.");
-                                Console.WriteLine("0. 구매창 나가기");
-                                Console.WriteLine("1. 다른 장비 구매하기");
-                                Console.Write(">> ");
+                                Console.WriteLine("구매를 완료했습니다.");
+                                _player.Gold -= 0/*item.Price*/;
+                                _player.inventory.itemList.Add(equipmentShopWeapon[select - 1]);
                             }
+                            else
+                            {
+                                Console.WriteLine("골드가 부족합니다\n");
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                            continue;
+                        }
                     }
+                }
             }
         }
         public static void BlacksmithArmor(ref Player _player) // 방어구 구매창
@@ -186,46 +212,41 @@
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
 
                 Console.WriteLine("[ 방어구 목록 ]");
-                for (int i = 0; i < 10 /*상점 방어구목록.count 예정*/; i++)
+                for (int i = 0; i < equipmentShopArmor.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. ");
+                    Console.WriteLine($"{i + 1}. {equipmentShopArmor[i].Name}  |   {equipmentShopArmor[i].Description}");
                 }
                 Console.WriteLine("\n구매하실 아이템을 선택해주세요.");
                 Console.WriteLine("0. 대장간 목록으로");
                 Console.Write(">> ");
 
                 int select;
-                if (int.TryParse(Console.ReadLine(), out select))
+                if (int.TryParse(Console.ReadLine(), out select) &&
+                    select >= 0 && select < equipmentShopArmor.Count)
                 {
-                    if (select >= 0 /*&& select < 상점 방어구목록.count*/)
+                    if (select == 0)
                     {
-                        if (select == 0)
+                        Blacksmith(ref _player);
+                        break;
+                    }
+                    else if (select > 0 && select < equipmentShopArmor.Count)
+                    {
+                        if (_player.Gold >= 0/*item.Price*/)
                         {
-                            Blacksmith(ref _player);
-                            break;
+                            Console.WriteLine("구매를 완료했습니다.\n");
+                            _player.Gold -= 0/*item.Price*/;
+                            _player.inventory.itemList.Add(equipmentShopArmor[select - 1]);
                         }
-                        else if (select > 0 && select <= 10/*&& select < 상점 방어구목록.count*/)
+                        else if (_player.Gold < 0/*item.Price*/)
                         {
-                            if (_player.Gold >= 0/*item.Price*/)
-                            {
-                                Console.WriteLine("구매를 완료했습니다.\n");
-                                _player.Gold -= 0/*item.Price*/;
-                                //_player.inventory.itemList.Add(Item[select - 1]);
-                            }
-                            else if (_player.Gold < 0/*item.Price*/)
-                            {
-                                Console.WriteLine("골드가 부족합니다\n");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                            Console.WriteLine("골드가 부족합니다\n");
                             continue;
                         }
-                        Console.WriteLine("다음 행동을 선택해주세요.");
-                        Console.WriteLine("0. 구매창 나가기");
-                        Console.WriteLine("1. 다른 장비 구매하기");
-                        Console.Write(">> ");
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                        continue;
                     }
                 }
             }
@@ -251,7 +272,7 @@
                 Console.WriteLine("[ 포션 목록 ]");
                 for (int i = 0; i < _player.inventory.itemList.Count; i++)
                 {
-                    if (_player.inventory.itemList[i].Type != ItemType.Potion)
+                    if (_player.inventory.itemList[i].Type == ItemType.Potion)
                     {
                         Console.WriteLine($"- {_player.inventory.itemList[i]}");
                     }
@@ -330,11 +351,10 @@
 
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
 
-                Console.WriteLine("[ 판매 목록 ]\n");
-                Console.WriteLine("- 포션");
-                for (int i = 0; i < 10; i++) // 상점 목록 미완성
+                Console.WriteLine("[ 포션 목록 ]\n");
+                for (int i = 0; i < potionShop.Count; i++) // 상점 목록 미완성
                 {
-                    Console.WriteLine($"포션 목록");
+                    Console.WriteLine($"- {potionShop[i].Name}  |   {potionShop[i].Description}");
                 }
 
                 Console.WriteLine("\n1. 포션 구매");
@@ -378,7 +398,7 @@
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
 
                 Console.WriteLine("[ 포션 목록 ]");
-                for (int i = 0; i < 10 /*상점 포션목록.count 예정*/; i++)
+                for (int i = 0; i < potionShop.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. ");
                 }
@@ -389,19 +409,19 @@
                 int select;
                 if (int.TryParse(Console.ReadLine(), out select))
                 {
-                    if (select >= 0 /*&& select < 상점 포션목록.count*/)
+                    if (select >= 0 && select < potionShop.Count)
                     {
                         if (select == 0)
                         {
                             PotionStore(ref _player);
                             break;
                         }
-                        else if (select > 0 && select <= 10/*&& select < 상점 포션목록.count*/)
+                        else if (select > 0 && select < potionShop.Count)
                         {
                             if (_player.Gold >= 0/*item.Price*/)
                             {
                                 _player.Gold -= 0/*item.Price*/;
-                                //_player.inventory.itemList.Add(Item[select - 1]);
+                                _player.inventory.itemList.Add(potionShop[select - 1]);
                                 Console.WriteLine("구매를 완료했습니다.\n");
                             }
                             else if (_player.Gold < 0/*item.Price*/)
@@ -414,10 +434,6 @@
                             Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
                             continue;
                         }
-                        Console.WriteLine("다음 행동을 선택해주세요.");
-                        Console.WriteLine("0. 구매창 나가기");
-                        Console.WriteLine("1. 다른 포션 구매하기");
-                        Console.Write(">> ");
                     }
                 }
             }
