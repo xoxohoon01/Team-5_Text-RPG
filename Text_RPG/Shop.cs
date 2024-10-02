@@ -2,6 +2,8 @@
 {
     public static class Shop
     {
+     
+   
         public static void EnterShop(ref Player _player) // 상점가
         {
             while (true)
