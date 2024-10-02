@@ -114,97 +114,48 @@ namespace TextRPG
                     throw new ArgumentException("잘못된 직업명입니다.");
             }
         }
-        public static Skill[] CreateInitialSkills(string _job)
+        // 기본 스킬 생성
+        public static Skill CreateBasicSkill(string _job)
         {
-            // 각 직업별로 기본 스킬 하나만 반환
             switch (_job.ToLower())
             {
                 case "warrior":
-                    return new Skill[] { new Skill("Slash", 20, 10, 1.5f, 0.1f) };
-
-                case "thief":
-                    return new Skill[] { new Skill("Backstab", 25, 12, 2.0f, 0.3f) };
-
+                    return new Skill("Slash", 20, 10, 1.5f, 0.1f);
                 case "archer":
-                    return new Skill[] { new Skill("Arrow Shot", 15, 7, 1.2f, 0.1f) };
-
+                    return new Skill("Arrow Shot", 15, 7, 1.2f, 0.1f);
+                case "thief":
+                    return new Skill("Backstab", 25, 12, 2.0f, 0.3f);
                 case "mage":
-                    return new Skill[] { new Skill("Fireball", 30, 15, 1.8f, 0.2f) };
-
+                    return new Skill("Fireball", 30, 15, 1.8f, 0.2f);
                 default:
                     throw new ArgumentException("잘못된 직업명입니다.");
             }
         }
 
-        public static Skill[] CreateAdditionalSkills(string _job, int level)
+        // 추가 스킬 생성 (레벨에 따라 달라짐)
+        public static Skill[] CreateAdditionalSkills(string _job, int _level)
         {
-            // 기본 스킬 목록 생성
-            Skill[] baseSkills = CreateInitialSkills(_job);
-
-            // 기본 스킬 목록을 List로 변환
-            List<Skill> availableSkills = new List<Skill>(baseSkills);
-
-            // 레벨에 따라 추가 스킬 결정
-            if (level >= 3)
+            switch (_job.ToLower())
             {
-                switch (_job.ToLower())
-                {
-                    case "warrior":
-                        availableSkills.Add(new Skill("Shield Bash", 15, 5, 1.2f, 0.05f));
-                        break;
-                    case "thief":
-                        availableSkills.Add(new Skill("Poison Dagger", 20, 10, 1.2f, 0.1f));
-                        break;
-                    case "archer":
-                        availableSkills.Add(new Skill("Rapid Fire", 10, 10, 1.1f, 0.05f));  // 연속 공격
-                        break;
-                    case "mage":
-                        availableSkills.Add(new Skill("Ice Blast", 25, 12, 1.5f, 0.15f));
-                        break;
-                }
+                case "warrior":
+                    if (_level >= 3) return new Skill[] { new Skill("Power Strike", 30, 15, 2.0f, 0.15f) };
+                    if (_level >= 5) return new Skill[] { new Skill("Shield Bash", 15, 5, 1.2f, 0.05f) };
+                    break;
+                case "archer":
+                    if (_level >= 3) return new Skill[] { new Skill("Multi-Shot", 12, 15, 1.3f, 0.15f) };
+                    if (_level >= 5) return new Skill[] { new Skill("Piercing Arrow", 35, 18, 1.5f, 0.2f) };
+                    break;
+                case "thief":
+                    if (_level >= 3) return new Skill[] { new Skill("Poison Dagger", 20, 10, 1.2f, 0.1f) };
+                    if (_level >= 5) return new Skill[] { new Skill("Lucky Strike", 15, 5, 1.5f, 0.2f) };
+                    break;
+                case "mage":
+                    if (_level >= 3) return new Skill[] { new Skill("Ice Blast", 25, 12, 1.5f, 0.15f) };
+                    if (_level >= 5) return new Skill[] { new Skill("Lightning Strike", 40, 21, 2.0f, 0.25f) };
+                    break;
             }
-
-            if (level >= 5)
-            {
-                switch (_job.ToLower())
-                {
-                    case "warrior":
-                        availableSkills.Add(new Skill("Power Strike", 30, 15, 2.0f, 0.15f));
-                        break;
-                    case "thief":
-                        availableSkills.Add(new Skill("Stealth Attack", 40, 21, 2.5f, 0.25f));
-                        break;
-                    case "archer":
-                        availableSkills.Add(new Skill("Multi-Shot", 12, 15, 1.3f, 0.15f));  // 여러 적 공격
-                        break;
-                    case "mage":
-                        availableSkills.Add(new Skill("Lightning Strike", 40, 21, 2.0f, 0.25f));
-                        break;
-                }
-            }
-
-            if (level >= 7)
-            {
-                switch (_job.ToLower())
-                {
-                    case "warrior":
-                        availableSkills.Add(new Skill("War Cry", 10, 8, 1.0f, 0.0f));  // 공격력 증가 효과 추가
-                        break;
-                    case "thief":
-                        availableSkills.Add(new Skill("Lucky Strike", 15, 5, 1.5f, 0.2f));  // 추가 공격 기회 제공
-                        break;
-                    case "archer":
-                        availableSkills.Add(new Skill("Piercing Arrow", 35, 18, 1.5f, 0.2f));
-                        break;
-                    case "mage":
-                        availableSkills.Add(new Skill("Mana Drain", 20, 10, 1.0f, 0.0f));  // MP 회복 효과 추가
-                        break;
-                }
-            }
-
-            return availableSkills.ToArray(); // 추가된 스킬 포함하여 배열로 반환
+            return new Skill[] { }; // 레벨에 맞는 스킬이 없을 때는 빈 배열 반환
         }
-
     }
 }
 

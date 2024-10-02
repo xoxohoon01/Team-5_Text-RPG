@@ -15,6 +15,8 @@
         public string Name { get; set; }                
         public Job PlayerJob { get; set; }
         public int Level { get; set; }
+        public int Experience { get; set; }
+        public int NextLevelExperience { get; set; }
         public int Damage { get; set; }
         public int Defense { get; set; }
         public int MaxHP { get; set; }
@@ -36,7 +38,9 @@
         public Player()
         {
             Name = "";
-
+            Level = 1;
+            Experience = 0;
+            NextLevelExperience = 100;
             inventory = new Inventory();
             skillList = new List<Skill>();
             weapon = new Item();
@@ -51,6 +55,8 @@
             PlayerJob = job;
             skillList = new List<Skill>();
             Level = 1;
+            Experience= 0;
+            NextLevelExperience = 100;
             CriticalChance = 0.05f;
             CriticalDamage = 1.5f;
             Gold = 1500;
@@ -70,6 +76,7 @@
                     MaxMP = 50;
                     CriticalChance = 0.1f;
                     CriticalDamage = 1.5f;
+                    skillList.Add(Skill.CreateBasicSkill(PlayerJob.ToString())); // 기본 스킬만 추가
                     break;
                 case Job.Archer:
                     Damage = 15;
@@ -79,6 +86,7 @@
                     MaxMP = 70;
                     CriticalChance = 0.25f;
                     CriticalDamage = 1.5f;
+                    skillList.Add(Skill.CreateBasicSkill(PlayerJob.ToString()));
                     break;
                 case Job.Thief:
                     Damage = 12;
@@ -88,6 +96,7 @@
                     MaxMP = 95;
                     CriticalChance = 0.35f;
                     CriticalDamage = 1.5f;
+                    skillList.Add(Skill.CreateBasicSkill(PlayerJob.ToString()));
                     break;
                 case Job.Mage:
                     Damage = 25;
@@ -97,16 +106,19 @@
                     MaxMP = 120;
                     CriticalChance = 0.2f;
                     CriticalDamage = 1.8f;
+                    skillList.Add(Skill.CreateBasicSkill(PlayerJob.ToString()));
                     break;
             }
             HP = MaxHP;
             MP = MaxMP;
-            skillList.AddRange(Skill.CreateSkills(PlayerJob.ToString()));
         }
 
         public void LevelUp()
         {
+            Experience -= NextLevelExperience;
             Level++;
+            NextLevelExperience += (int)(NextLevelExperience * 0.2f); // 다음 레벨업에 필요한 경험치 20% 증가
+
             switch (PlayerJob)
             {
                 case Job.Warrior:
@@ -139,12 +151,21 @@
                     break;
             }
             HP = MaxHP; // 레벨업 시 체력 완전 회복
-            
-            skillList.AddRange(Skill.CreateAdditionalSkills(PlayerJob.ToString(), Level)); // 레벨에 따라 추가 스킬을 얻음
 
-            Console.WriteLine($"레벨 업! 현재 레벨: {Level}");
+            // 레벨에 따라 새로운 스킬 추가
+            var newSkills = Skill.CreateAdditionalSkills(PlayerJob.ToString(), Level);
+            foreach (var skill in newSkills)
+            {
+                if (!skillList.Contains(skill)) // 중복 방지를 위해 스킬이 없는 경우에만 추가
+                {
+                    skillList.Add(skill);
+                    Console.WriteLine($"{skill.Name} 스킬을 배웠습니다!");
+                }
+            }
+
+            Console.WriteLine($"레벨 업! 현재 레벨: {Level}, 다음 레벨업까지: {NextLevelExperience} 경험치 필요");
         }
-        
+
         public void EquipItem(Item item)        //아이템 장착
         {
             switch (item.Type)
