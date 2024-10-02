@@ -79,40 +79,87 @@ namespace TextRPG
 
         public static void EncountMonster(ref Player _player, int _difficulty)
         {
-            int unitCount = _difficulty;
+            int unitCount = 3;
 
             while (true)
             {
-                if (unitCount > 0)
+                //일반 몬스터
+                if (unitCount > 1)
                 {
-                    int randomRace = Program.random.Next(4);
+                    int randomRace = Program.random.Next(5);
                     string monsterName = "";
-                    int monsterType = 0;
                     switch (randomRace)
                     {
                         case 0:
                             monsterName = "고블린";
-                            monsterType = 1;
                             break;
                         case 1:
                             monsterName = "오크";
-                            monsterType = 1;
                             break;
                         case 2:
                             monsterName = "슬라임";
-                            monsterType = 1;
                             break;
                         case 3:
                             monsterName = "트롤";
-                            monsterType = 1;
+                            break;
+                        case 4:
+                            monsterName = "새끼 용";
+                            break;
+                    }
+                    Monster newMonster = new Monster(monsterName, _difficulty, 1); //임시 몬스터, 몬스터 설정 이후 지울 것
+                    
+                    //난이도별 몬스터 드랍 골드
+                    if (_difficulty == 1) newMonster.Gold = Program.random.Next(180, 221);
+                    else if (_difficulty == 2) newMonster.Gold = Program.random.Next(280, 321);
+                    else if (_difficulty == 3) newMonster.Gold = Program.random.Next(480, 521);
+
+                    Console.Clear();
+                    Program.ShowMsgOnBattle($"{newMonster.Name}이(가) 나타났습니다!");
+                    Thread.Sleep(1000 / gameSpeed);
+                    Program.ShowMsgOnBattle("");
+                    Thread.Sleep(1000 / gameSpeed);
+                    bool isClear = StartBattle(ref _player, ref newMonster);
+                    if (isClear)
+                    {
+                        unitCount--;
+                    }
+                    else
+                    {
+                        isAlive = false;
+                        break;
+                    }
+                }
+
+                //보스몬스터
+                else if (unitCount == 1)
+                {
+                    int randomRace = Program.random.Next(5);
+                    string monsterName = "";
+                    switch (randomRace)
+                    {
+                        case 0:
+                            monsterName = "고블린 왕";
+                            break;
+                        case 1:
+                            monsterName = "오크 우두머리";
+                            break;
+                        case 2:
+                            monsterName = "킹슬라임";
+                            break;
+                        case 3:
+                            monsterName = "거대트롤";
                             break;
                         case 4:
                             monsterName = "드래곤";
-                            monsterType = 1;
                             break;
                     }
-                    Monster newMonster = new Monster(monsterName, _difficulty, monsterType); //임시 몬스터, 몬스터 설정 이후 지울 것
-                    //몬스터의 이름, 전투력 등 설정할 것
+                    Monster newMonster = new Monster(monsterName, _difficulty, 2); //임시 몬스터, 몬스터 설정 이후 지울 것
+
+                    //난이도별 몬스터 드랍 골드
+                    if (_difficulty == 1) newMonster.Gold = Program.random.Next(180, 221);
+                    else if (_difficulty == 2) newMonster.Gold = Program.random.Next(280, 321);
+                    else if (_difficulty == 3) newMonster.Gold = Program.random.Next(480, 521);
+
                     Console.Clear();
                     Program.ShowMsgOnBattle($"{newMonster.Name}이(가) 나타났습니다!");
                     Thread.Sleep(1000 / gameSpeed);
@@ -393,7 +440,7 @@ namespace TextRPG
             Thread.Sleep(1000 / gameSpeed);
             Program.ShowMsgOnBattle("");
             Thread.Sleep(1000 / gameSpeed);
-            ClearRewards(ref _player, 3);
+            ClearRewards(ref _player, ref _monster);
         }
 
         public static void KillPlayer(ref Player _player, ref Monster _monster)
@@ -413,18 +460,16 @@ namespace TextRPG
             Console.ReadKey();
         }
 
-        private static void ClearRewards(ref Player _player, int _stage)        //클리어 보상 추가
+        private static void ClearRewards(ref Player _player, ref Monster _monster)        //클리어 보상 추가
         {
 
-            // 골드 보상
-            int goldEarned = _stage * 100 + Program.random.Next(1, 101);  // 기본 골드 + 랜덤 보너스
-            _player.Gold += goldEarned;
-            Program.ShowMsgOnBattle($"{goldEarned} 골드를 획득했습니다!");
+            _player.Gold += _monster.Gold;
+            Program.ShowMsgOnBattle($"{_monster.Gold} 골드를 획득했습니다!");
             Thread.Sleep(1000 / gameSpeed);
             Program.ShowMsgOnBattle("");
             Thread.Sleep(1000 / gameSpeed);
 
-            int dropChance = 25 + (_stage * 15);    // 아이템 드롭률 25 + 15 * 난이도 
+            int dropChance = 20;    // 아이템 드롭률 25 + 15 * 난이도 
             // 아이템 보상
             if (Program.random.Next(100) < dropChance)  // 확률로 아이템 드롭
             {

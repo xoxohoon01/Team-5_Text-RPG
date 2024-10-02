@@ -7,6 +7,7 @@
         public int MP, MaxMP;
         public int Damage, Armor, Speed;
         public int CritChance, CritDamage;
+        public int Gold;
 
         public bool IsAlive => HP > 0;
         public Monster(string type)
