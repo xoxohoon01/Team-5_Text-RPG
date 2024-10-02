@@ -272,8 +272,7 @@ namespace TextRPG
                 Program.ShowMsgOnBattle();
                 Console.WriteLine("1. 공격");
                 Console.WriteLine("2. 스킬");
-                Console.WriteLine("3. 아이템");
-                Console.WriteLine("4. 도망");
+                Console.WriteLine("3. 아이템\n");
                 Console.WriteLine("");
                 Console.Write("선택: ");
 
@@ -295,10 +294,9 @@ namespace TextRPG
                     {
                         isDoneActing = SelectSkill(ref _player, ref _monster);
                     }
-                    
-                    //아이템 사용 미구현
                     else if (choice == 3)
                     {
+                        isDoneActing = SelectItem(ref _player, ref _monster);
                     }
                     else if (choice == 4)
                     {
@@ -407,13 +405,84 @@ namespace TextRPG
             }
         }
 
-
-        public static void SelectItem(ref Player _player)      // 3. 아이템 : 미 구 현
+        public static bool SelectItem(ref Player _player, ref Monster _monster)    // 전투중 아이템 사용
         {
-            Console.Clear();
-            Console.WriteLine("아이템 사용은 아직 구현 되지 않았습니다.");
-            Console.ReadKey();
+            while (true)
+            {
+                Program.ShowMsgOnBattle();
+                Console.WriteLine("[ 보유 아이템 목록 ]\n");
 
+                if (_player.inventory.potionList == null)
+                {
+                    _player.inventory.potionList = new List<Item>();
+                }
+                else if (_player.inventory.itemList == null)
+                {
+                    _player.inventory.itemList = new List<Item>();
+                }
+
+                _player.inventory.potionList.Clear();
+
+                for (int i = 0; i < _player.inventory.itemList.Count; i++)
+                {
+                    if (_player.inventory.itemList[i].Type == ItemType.Potion)
+                    {
+                        _player.inventory.potionList.Add(_player.inventory.itemList[i]);
+                        Console.WriteLine($"{i + 1}. {_player.inventory.itemList[i].Name}    {_player.inventory.itemList[i].Description}");
+                    }
+                }
+
+                if (_player.inventory.potionList.Count == 0)
+                {
+                    Console.WriteLine("사용 가능한 아이템이 없습니다.");
+                }
+
+                Console.WriteLine("\n0. 뒤로 가기");
+                Console.WriteLine("사용하실 아이템 번호나 다음 행동번호를 선택해주세요.");
+                Console.Write("입력: ");
+
+                int nowAction;
+                while (true)
+                {
+                    if (int.TryParse(Console.ReadLine(), out nowAction))
+                    {
+                        if (nowAction == 0)
+                        {
+                            return false;
+                        }
+                        else if (nowAction > 0 && nowAction <= _player.inventory.potionList.Count)
+                        {
+                            _player.HP += _player.inventory.potionList[nowAction - 1].HP;
+                            _player.MP += _player.inventory.potionList[nowAction - 1].MP;
+                            if (_player.HP > _player.MaxHP)
+                            {
+                                _player.HP = _player.MaxHP;
+                            }
+                            else if (_player.MP > _player.MaxMP)
+                            {
+                                _player.MP = _player.MaxMP;
+                            }
+                            
+                            for (int i = 0; i < _player.inventory.itemList.Count; i++)
+                            {
+                                if (_player.inventory.itemList[i] == _player.inventory.potionList[nowAction - 1])
+                                { 
+                                    _player.inventory.potionList.Remove(_player.inventory.potionList[nowAction - 1]);
+                                    _player.inventory.itemList.Remove(_player.inventory.itemList[i]);
+                                    break;
+                                }
+                            }
+                            Console.WriteLine("포션이 사용되었습니다.");
+                            Console.Write("입력: ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.");
+                            Console.Write("입력: ");
+                        }
+                    }
+                }
+            }
         }
 
         public static bool SelectRun(ref Player _player, Monster _monster)      // 4. 도망 , Monster.cs에 맞게 수정
