@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System;
 using System.Numerics;
 using System.Reflection.Metadata;
@@ -13,13 +14,29 @@ namespace TextRPG
         public static Random random = new Random();         //Random 객체 생성
         public static int screenWidth = 64;
         public static int screenHeight = 14;
+        public static bool hasPlayer = false;
+
         public static void Main()
         {
             Database database = new Database();
-            Player player = new Player();
+            Player player = LoadPlayerData();
+            DrawBox();
 
-            Tutorial.EnterTutorial(ref player);
-            Town.EnterTown(ref player);
+            ShowMsgOnBattle("Text RPG");
+            ShowMsgOnBattle("환영합니다.");
+            while(true)
+            {
+                player = LoadPlayerData();
+                if (hasPlayer == false)
+                {
+                    Tutorial.EnterTutorial(ref player);
+                    hasPlayer = true;
+                }
+                else
+                {
+                    Town.EnterTown(ref player);
+                }
+            }
         }
 
         public static void DrawBox()
@@ -92,5 +109,17 @@ namespace TextRPG
             Console.ReadKey();
         }
         
+        public static void SavePlayerData(Player _player)
+        {
+            string content = JsonConvert.SerializeObject(_player, Formatting.Indented);
+            File.WriteAllText("./PlayerData.json", content);
+        }
+
+        public static Player LoadPlayerData()
+        {
+            if (File.Exists("./PlayerData.json")) return JsonConvert.DeserializeObject<Player>(File.ReadAllText("./PlayerData.json"));
+            else return new Player();
+        }
+
     }
 }
