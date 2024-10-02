@@ -72,7 +72,8 @@ namespace TextRPG
         public static void ShowMsgOnBattle(string content)
         {
             DrawBox();
-            if ((messageListOnBattle.Count + 1) > (screenHeight - 3))
+
+            if ((messageListOnBattle.Count + 1) > (screenHeight - 6))
             {
                 messageListOnBattle.RemoveAt(0);
             }
@@ -108,6 +109,68 @@ namespace TextRPG
                 Console.SetCursorPosition((screenWidth / 2 - sizeOfContent / 2), (screenHeight - 2) + messageListOnBattle[i].y);
                 Console.Write(messageListOnBattle[i].content);
             }
+
+            Console.SetCursorPosition(0, screenHeight + 1);
+        }
+
+        public static void ShowStatusOnBattle(ref Player _player)
+        {
+            int byteLength = System.Text.Encoding.Default.GetByteCount(_player.Name);
+            int sizeOfContent = _player.Name.Length + ((byteLength - _player.Name.Length) / 2);
+            Console.SetCursorPosition((8 - sizeOfContent / 2), 2);
+            Console.Write($"{_player.Name}");
+
+            string hp = $"{_player.HP}/{_player.MaxHP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(hp);
+            sizeOfContent = hp.Length + ((byteLength - hp.Length) / 2);
+            Console.SetCursorPosition(4, 3);
+            Console.Write("HP: " + hp);
+
+            string mp = $"{_player.MP}/{_player.MaxMP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(mp);
+            sizeOfContent = mp.Length + ((byteLength - mp.Length) / 2);
+            Console.SetCursorPosition(4, 4);
+            Console.Write("MP: " + mp);
+
+            Console.SetCursorPosition(0, screenHeight + 1);
+        }
+
+        public static void ShowStatusOnBattle(ref Player _player, ref Monster _monster)
+        {
+            int byteLength = System.Text.Encoding.Default.GetByteCount(_player.Name);
+            int sizeOfContent = _player.Name.Length + ((byteLength - _player.Name.Length) / 2);
+            Console.SetCursorPosition((8 - sizeOfContent / 2), 2);
+            Console.Write($"{_player.Name}");
+
+            string hp = $"{_player.HP}/{_player.MaxHP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(hp);
+            sizeOfContent = hp.Length + ((byteLength - hp.Length) / 2);
+            Console.SetCursorPosition(4, 3);
+            Console.Write("HP: " + hp);
+
+            string mp = $"{_player.MP}/{_player.MaxMP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(mp);
+            sizeOfContent = mp.Length + ((byteLength - mp.Length) / 2);
+            Console.SetCursorPosition(4, 4);
+            Console.Write("MP: " + mp);
+
+
+            byteLength = System.Text.Encoding.Default.GetByteCount(_monster.Name);
+            sizeOfContent = _monster.Name.Length + ((byteLength - _monster.Name.Length) / 2);
+            Console.SetCursorPosition(((screenWidth - 9) - (sizeOfContent / 2)), 2);
+            Console.Write($"{_monster.Name}");
+
+            hp = $"{_monster.HP}/{_monster.MaxHP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(hp);
+            sizeOfContent = hp.Length + ((byteLength - hp.Length) / 2);
+            Console.SetCursorPosition(screenWidth - 13, 3);
+            Console.Write("HP: " + hp);
+
+            mp = $"{_monster.MP}/{_monster.MaxMP}";
+            byteLength = System.Text.Encoding.Default.GetByteCount(mp);
+            sizeOfContent = mp.Length + ((byteLength - mp.Length) / 2);
+            Console.SetCursorPosition(screenWidth - 13, 4);
+            Console.Write("MP: " + mp);
 
             Console.SetCursorPosition(0, screenHeight + 1);
         }
