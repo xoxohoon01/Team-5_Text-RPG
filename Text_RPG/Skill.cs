@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-     public class Skill
+    public class Skill
     {
         public string Name { get; set; }
         public int BaseDamage { get; set; }
@@ -41,7 +41,7 @@ namespace TextRPG
             float finalDamage = CalculateFinalDamage(_caster.Damage, _unit.Defense, isCriticalHit);
             _unit.HP -= (int)finalDamage;  // 피해자의 HP 감소
 
-            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");         
+            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
         }
 
         private float CalculateFinalDamage(int attackerAttack, int unitDefense, bool isCriticalHit)
@@ -99,14 +99,104 @@ namespace TextRPG
                     return new Skill[]
                     {
                         new Skill("Fireball", 30, 15, 1.8f, 0.2f),
-                        new Skill("Ice Blast", 25, 12, 1.5f, 0.15f),
-                        new Skill("Lightning Strike", 40, 21, 2.0f, 0.25f),
-                        new Skill("Mana Drain", 20, 10, 1.0f, 0.0f)  // MP 회복 효과 추가
+
                     };
 
                 default:
                     throw new ArgumentException("잘못된 직업명입니다.");
             }
         }
+        public static Skill[] CreateInitialSkills(string _job)
+        {
+            // 각 직업별로 기본 스킬 하나만 반환
+            switch (_job.ToLower())
+            {
+                case "warrior":
+                    return new Skill[] { new Skill("Slash", 20, 10, 1.5f, 0.1f) };
+
+                case "thief":
+                    return new Skill[] { new Skill("Backstab", 25, 12, 2.0f, 0.3f) };
+
+                case "archer":
+                    return new Skill[] { new Skill("Arrow Shot", 15, 7, 1.2f, 0.1f) };
+
+                case "mage":
+                    return new Skill[] { new Skill("Fireball", 30, 15, 1.8f, 0.2f) };
+
+                default:
+                    throw new ArgumentException("잘못된 직업명입니다.");
+            }
+        }
+
+        public static Skill[] CreateAdditionalSkills(string _job, int level)
+        {
+            // 기본 스킬 목록 생성
+            Skill[] baseSkills = CreateInitialSkills(_job);
+
+            // 기본 스킬 목록을 List로 변환
+            List<Skill> availableSkills = new List<Skill>(baseSkills);
+
+            // 레벨에 따라 추가 스킬 결정
+            if (level >= 3)
+            {
+                switch (_job.ToLower())
+                {
+                    case "warrior":
+                        availableSkills.Add(new Skill("Shield Bash", 15, 5, 1.2f, 0.05f));
+                        break;
+                    case "thief":
+                        availableSkills.Add(new Skill("Poison Dagger", 20, 10, 1.2f, 0.1f));
+                        break;
+                    case "archer":
+                        availableSkills.Add(new Skill("Rapid Fire", 10, 10, 1.1f, 0.05f));  // 연속 공격
+                        break;
+                    case "mage":
+                        availableSkills.Add(new Skill("Ice Blast", 25, 12, 1.5f, 0.15f));
+                        break;
+                }
+            }
+
+            if (level >= 5)
+            {
+                switch (_job.ToLower())
+                {
+                    case "warrior":
+                        availableSkills.Add(new Skill("Power Strike", 30, 15, 2.0f, 0.15f));
+                        break;
+                    case "thief":
+                        availableSkills.Add(new Skill("Stealth Attack", 40, 21, 2.5f, 0.25f));
+                        break;
+                    case "archer":
+                        availableSkills.Add(new Skill("Multi-Shot", 12, 15, 1.3f, 0.15f));  // 여러 적 공격
+                        break;
+                    case "mage":
+                        availableSkills.Add(new Skill("Lightning Strike", 40, 21, 2.0f, 0.25f));
+                        break;
+                }
+            }
+
+            if (level >= 7)
+            {
+                switch (_job.ToLower())
+                {
+                    case "warrior":
+                        availableSkills.Add(new Skill("War Cry", 10, 8, 1.0f, 0.0f));  // 공격력 증가 효과 추가
+                        break;
+                    case "thief":
+                        availableSkills.Add(new Skill("Lucky Strike", 15, 5, 1.5f, 0.2f));  // 추가 공격 기회 제공
+                        break;
+                    case "archer":
+                        availableSkills.Add(new Skill("Piercing Arrow", 35, 18, 1.5f, 0.2f));
+                        break;
+                    case "mage":
+                        availableSkills.Add(new Skill("Mana Drain", 20, 10, 1.0f, 0.0f));  // MP 회복 효과 추가
+                        break;
+                }
+            }
+
+            return availableSkills.ToArray(); // 추가된 스킬 포함하여 배열로 반환
+        }
+
     }
 }
+

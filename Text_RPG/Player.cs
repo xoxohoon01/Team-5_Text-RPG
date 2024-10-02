@@ -139,6 +139,9 @@
                     break;
             }
             HP = MaxHP; // 레벨업 시 체력 완전 회복
+            
+            skillList.AddRange(Skill.CreateAdditionalSkills(PlayerJob.ToString(), Level)); // 레벨에 따라 추가 스킬을 얻음
+
             Console.WriteLine($"레벨 업! 현재 레벨: {Level}");
         }
         
