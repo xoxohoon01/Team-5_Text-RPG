@@ -20,13 +20,23 @@ namespace TextRPG
         {
             Database database = new Database();
             Player player = LoadPlayerData();
-            DrawBox();
 
+            DrawBox();
+            messageListOnBattle.Clear();
             ShowMsgOnBattle("Text RPG");
             ShowMsgOnBattle("환영합니다.");
-            while(true)
+            ShowMsgOnBattle("");
+            ShowMsgOnBattle("");
+            ShowMsgOnBattle("");
+            ShowMsgOnBattle("");
+
+            Console.WriteLine("게속하시려면 아무 키나 입력하세요.");
+            Console.ReadKey();
+
+            while (true)
             {
                 player = LoadPlayerData();
+                
                 if (hasPlayer == false)
                 {
                     Tutorial.EnterTutorial(ref player);
