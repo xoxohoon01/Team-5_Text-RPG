@@ -85,8 +85,33 @@ namespace TextRPG
             {
                 if (unitCount > 0)
                 {
-                    Monster newMonster = new Monster("orc"); //임시 몬스터, 몬스터 설정 이후 지울 것
-
+                    int randomRace = Program.random.Next(4);
+                    string monsterName = "";
+                    int monsterType = 0;
+                    switch (randomRace)
+                    {
+                        case 0:
+                            monsterName = "고블린";
+                            monsterType = 1;
+                            break;
+                        case 1:
+                            monsterName = "오크";
+                            monsterType = 1;
+                            break;
+                        case 2:
+                            monsterName = "슬라임";
+                            monsterType = 1;
+                            break;
+                        case 3:
+                            monsterName = "트롤";
+                            monsterType = 1;
+                            break;
+                        case 4:
+                            monsterName = "드래곤";
+                            monsterType = 1;
+                            break;
+                    }
+                    Monster newMonster = new Monster(monsterName, _difficulty, monsterType); //임시 몬스터, 몬스터 설정 이후 지울 것
                     //몬스터의 이름, 전투력 등 설정할 것
                     Console.Clear();
                     Program.ShowMsgOnBattle($"{newMonster.Name}이(가) 나타났습니다!");
@@ -110,6 +135,8 @@ namespace TextRPG
                     Thread.Sleep(1000 / gameSpeed);
                     Program.ShowMsgOnBattle("마을로 돌아갑니다.");
                     Thread.Sleep(1000 / gameSpeed);
+                    Console.WriteLine("계속하려면 아무 키나 입력하세요.");
+                    Console.ReadKey();
                     break;
                 }
             }
@@ -165,6 +192,13 @@ namespace TextRPG
                     Program.ShowMsgOnBattle("");
                     Thread.Sleep(1000 / gameSpeed);
 
+                    if (_player.HP <= 0)
+                    {
+                        isAlive = false;
+                        KillPlayer(ref _player, ref _monster);
+                        return false;
+                    }
+
                     Program.ShowMsgOnBattle($"{_player.Name}의 턴!");
                     Thread.Sleep(1000 / gameSpeed);
 
@@ -173,6 +207,12 @@ namespace TextRPG
 
                     Program.ShowMsgOnBattle("");
                     Thread.Sleep(1000 / gameSpeed);
+
+                    if (_monster.HP <= 0)
+                    {
+                        KillMonster(ref _player, ref _monster);
+                        return true;
+                    }
                 }
             }
         }
@@ -246,7 +286,7 @@ namespace TextRPG
             if (Program.random.NextDouble() > _player.DodgeChance(_monster.Speed)) //공격을 회피
             {
                 _player.HP -= monsterDamage;
-                Program.ShowMsgOnBattle($"{_monster.Name}이(가) 당신에게 {monsterDamage}의 데미지를 입혔습니다.");
+                Program.ShowMsgOnBattle($"{_monster.Name}이(가) {_player.Name}에게 {monsterDamage}의 데미지를 입혔습니다.");
             }
             else
             {
@@ -367,7 +407,10 @@ namespace TextRPG
             Thread.Sleep(1000 / gameSpeed);
 
             _player.HP = _player.MaxHP/2; //부활 직후 체력 절반 깎이는 패널티
+            _player.MP = _player.MaxMP;
             Program.ShowMsgOnBattle($"현재 체력: {_player.MaxHP / 2}");
+            Console.WriteLine("계속하려면 아무 키나 입력하세요.");
+            Console.ReadKey();
         }
 
         private static void ClearRewards(ref Player _player, int _stage)        //클리어 보상 추가
@@ -392,15 +435,6 @@ namespace TextRPG
                 Program.ShowMsgOnBattle("");
                 Thread.Sleep(1000 / gameSpeed);
             }
-        }
-
-        public static void ReducePlayerHpAfterFailure(ref Player _player)       //던전 실패시 체력 50%감소
-        {
-            int reducedHp = _player.HP / 2;
-            _player.HP = Math.Max(1, reducedHp); // 최소 1의 체력은 유지
-            Console.WriteLine($"던전 탐험 실패로 체력이 50% 감소했습니다. 현재 체력: {_player.HP}/{_player.MaxHP}");
-            Console.WriteLine("아무 키나 눌러 계속하세요...");
-            Console.ReadKey();
         }
 
     }
