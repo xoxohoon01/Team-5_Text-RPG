@@ -9,6 +9,7 @@
         public int CritChance, CritDamage;
         
         public int Gold;
+        public int Experience;
         public Item dropItem;
 
         public bool IsAlive => HP > 0;
@@ -78,6 +79,9 @@
 
         public Monster(string _name, int _stage, int _type)
         {
+            Database itemDatabase = new Database();
+            Random random = new Random();
+
             Name = _name;
             HP = _stage * (50 * _type);
             MaxHP = _stage * (50 * _type);
@@ -89,12 +93,10 @@
             CritChance = _stage * (10 * _type);
             CritDamage = _stage * (20 * _type);
 
-            if (_stage == 1) Gold = Program.random.Next(180, 221);
-            else if (_stage == 2) Gold = Program.random.Next(280, 321);
-            else if (_stage == 3) Gold = Program.random.Next(480, 521);
+            if (_stage == 1) Gold = random.Next(180, 221);
+            else if (_stage == 2) Gold = random.Next(280, 321);
+            else if (_stage == 3) Gold = random.Next(480, 521);
 
-            Database itemDatabase = new Database();
-            Random random = new Random();
 
             switch (_stage)
             {
@@ -103,6 +105,7 @@
                     //일반몬스터 - (1)단계 아이템 드롭확률
                     if (_type == 1)
                     {
+                        Experience = (random.Next(26,33));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)
@@ -126,6 +129,7 @@
                     //보스몬스터 - (2)단계 아이템 드롭확률
                     else if (_type == 2)
                     {
+                        Experience = (random.Next(45, 55));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)
@@ -154,6 +158,7 @@
                     //일반몬스터 - (2)단계 아이템 드롭확률
                     if (_type == 1)
                     {
+                        Experience = (random.Next(32, 38));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)
@@ -178,6 +183,7 @@
                     //보스몬스터 - (3)단계 아이템 드롭확률
                     else if (_type == 2)
                     {
+                        Experience = (random.Next(64, 68));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)
@@ -206,6 +212,7 @@
                     //일반몬스터 - (3)단계 아이템 드롭확률
                     if (_type == 1)
                     {
+                        Experience = (random.Next(37, 43));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)
@@ -230,6 +237,7 @@
                     //보스몬스터 - (4)단계 아이템 드롭확률
                     else if (_type == 2)
                     {
+                        Experience = (random.Next(67, 73));
                         //드롭 확률
                         bool isDrop = (random.Next(1, 101) <= 10);
                         if (isDrop)

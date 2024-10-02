@@ -531,7 +531,10 @@ namespace TextRPG
 
         private static void ClearRewards(ref Player _player, ref Monster _monster)        //클리어 보상 추가
         {
-
+            _player.Experience += _monster.Experience;
+            Program.ShowMsgOnBattle($"{_player.Name}이(가)");
+            Program.ShowMsgOnBattle($"{_monster.Experience}의 경험치를 획득했습니다!");
+            Thread.Sleep(1000 / gameSpeed);
             _player.Gold += _monster.Gold;
             Program.ShowMsgOnBattle($"{_monster.Gold} 골드를 획득했습니다!");
             Thread.Sleep(1000 / gameSpeed);
