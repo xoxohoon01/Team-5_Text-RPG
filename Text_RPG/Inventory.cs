@@ -12,6 +12,8 @@ namespace TextRPG
 
         public List<Item> armorList;
 
+        public List<Item> potionList;
+
         //장착중인 아이템
         public Item item_weapon;
 
@@ -113,7 +115,8 @@ namespace TextRPG
                 {
                     if (itemList[i].Type == ItemType.Potion)
                     {
-                        Console.WriteLine($"- {itemList[i].Name}");
+                        Console.WriteLine($"- {itemList[i].Name}    |   {itemList[i].Description}");
+                        potionList.Add(itemList[i]);
                     }
                     else
                     {
