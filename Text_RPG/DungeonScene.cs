@@ -469,6 +469,11 @@ namespace TextRPG
             Program.ShowMsgOnBattle("");
             Thread.Sleep(1000 / gameSpeed);
 
+            if (_monster.dropItem != new Item())
+            {
+                _player.inventory.itemList.Add(_monster.dropItem);
+            }
+
             int dropChance = 20;    // 아이템 드롭률 25 + 15 * 난이도 
             // 아이템 보상
             if (Program.random.Next(100) < dropChance)  // 확률로 아이템 드롭

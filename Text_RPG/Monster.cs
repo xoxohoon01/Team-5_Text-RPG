@@ -7,7 +7,9 @@
         public int MP, MaxMP;
         public int Damage, Armor, Speed;
         public int CritChance, CritDamage;
+        
         public int Gold;
+        public Item dropItem;
 
         public bool IsAlive => HP > 0;
         public Monster(string type)
@@ -86,6 +88,171 @@
             Speed = _stage * (8 * _type);
             CritChance = _stage * (10 * _type);
             CritDamage = _stage * (20 * _type);
+
+            if (_stage == 1) Gold = Program.random.Next(180, 221);
+            else if (_stage == 2) Gold = Program.random.Next(280, 321);
+            else if (_stage == 3) Gold = Program.random.Next(480, 521);
+
+            Database itemDatabase = new Database();
+            Random random = new Random();
+
+            switch (_stage)
+            {
+                //초급던전 - (1, 2)단계 아이템 드롭확률
+                case 1:
+                    //일반몬스터 - (1)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    dropItem = itemDatabase.ITEM[9 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    dropItem = itemDatabase.ITEM[25 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    //보스몬스터 - (2)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[8 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[24 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    break;
+
+                //중급던전 - (2, 3)단계 아이템 드롭확률
+                case 2:
+                    //일반몬스터 - (2)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[9 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[25 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    //보스몬스터 - (3)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[10 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[26 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    break;
+
+                //고급던전 - (3, 4)단계 아이템 드롭확률
+                case 3:
+                    //일반몬스터 - (3)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[10 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[26 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    //보스몬스터 - (4)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[11 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[27 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                        }
+                        else dropItem = new Item();
+                    }
+                    break;
+            }
         }
 
         public void Battle(Player player, Unit enemy)
@@ -141,6 +308,183 @@
 
             _player.HP -= damageTaken; // 플레이어의 HP에서 실제 피해를 빼기
             Console.WriteLine($"{Name} attacks {_player.Name} for {damageTaken} damage!");
+        }
+
+        public void OnDeath(ref Player _player, int _stage, int _type)
+        {
+            Database itemDatabase = new Database();
+            Random random = new Random();
+            switch(_stage)
+            {
+                //초급던전 - (1, 2)단계 아이템 드롭확률
+                case 1:
+                    //일반몬스터 - (1)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[9 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[25 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+                            
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    //보스몬스터 - (2)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[8 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[24 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    break;
+
+                //중급던전 - (2, 3)단계 아이템 드롭확률
+                case 2:
+                    //일반몬스터 - (2)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[9 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[25 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    //보스몬스터 - (3)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[10 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[26 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    break;
+
+                //고급던전 - (3, 4)단계 아이템 드롭확률
+                case 3:
+                    //일반몬스터 - (3)단계 아이템 드롭확률
+                    if (_type == 1)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[10 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[26 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    //보스몬스터 - (4)단계 아이템 드롭확률
+                    else if (_type == 2)
+                    {
+                        //드롭 확률
+                        bool isDrop = (random.Next(1, 101) <= 10);
+                        if (isDrop)
+                        {
+                            //무기인지 방어구인지 
+                            int itemNumber = (random.Next(1, 3));
+                            Item droppedItem = new Item();
+                            switch (itemNumber)
+                            {
+                                //무기
+                                case 1:
+                                    droppedItem = itemDatabase.ITEM[11 + (4 * random.Next(0, 4))];
+                                    break;
+                                //방어구
+                                case 2:
+                                    droppedItem = itemDatabase.ITEM[27 + (4 * random.Next(0, 4))];
+                                    break;
+                            }
+
+                            _player.inventory.GetItem(droppedItem);
+                            Program.ShowMsgOnBattle($"{droppedItem.Name}을(를) 획득했습니다.");
+                        }
+                    }
+                    break;
+            }
+            
         }
     }
 }
