@@ -18,11 +18,10 @@ namespace TextRPG
 
                 Console.Clear();
                 Console.WriteLine("1. 캐릭터 정보");
-                Console.WriteLine("2. 장비");
-                Console.WriteLine("3. 인벤토리");
-                Console.WriteLine("4. 상점");
-                Console.WriteLine("5. 휴식");
-                Console.WriteLine("6. 던전");
+                Console.WriteLine("2. 인벤토리");
+                Console.WriteLine("3. 상점");
+                Console.WriteLine("4. 휴식");
+                Console.WriteLine("5. 던전");
                 Console.WriteLine();
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력: ");
@@ -36,21 +35,17 @@ namespace TextRPG
                     }
                     else if (nowAction == 2)
                     {
-                        EquipmentScene.EnterEquipment(ref _player);
+                        _player.inventory.InventoryMenu(ref _player);
                     }
                     else if (nowAction == 3)
                     {
-                        _player.inventory.InventoryMenu(ref _player);
+                        Shop.EnterShop(ref _player);
                     }
                     else if (nowAction == 4)
                     {
-                        Shop.EnterShop(ref _player);
-                    }
-                    else if (nowAction == 5)
-                    {
                         Program.ShowMsgWrongValue();
                     }
-                    else if (nowAction == 6)     //던전입장 추가
+                    else if (nowAction == 5)     //던전입장 추가
                     {
                         DungeonScene.EnterDungeon(ref _player);
                     }
