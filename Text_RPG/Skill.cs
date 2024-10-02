@@ -26,13 +26,10 @@ namespace TextRPG
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
         public void UseSkill(ref Player _caster, ref Monster _unit, int attackerAttack, int unitDefense)
         {
-            Console.Clear();
-            Thread.Sleep(1000);
+            Program.ShowMsgOnBattle();
             if (_caster.MP < MPCost)
             {
-                Console.WriteLine($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
-                Thread.Sleep(1000);
-                return;
+                Program.ShowMsgOnBattle($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
             }
 
             _caster.MP -= MPCost;  // 마나 소모
@@ -57,9 +54,6 @@ namespace TextRPG
                 Console.WriteLine($"{_unit.Name}의 남은 HP: {_unit.HP}");
                 Thread.Sleep(1000);
             }
-
-            Console.WriteLine($"{_caster.Name}의 남은 MP: {_caster.MP}");
-            Thread.Sleep(1000);
         }
 
         private float CalculateFinalDamage(int attackerAttack, int unitDefense, bool isCriticalHit)
