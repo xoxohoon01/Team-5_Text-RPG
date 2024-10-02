@@ -44,6 +44,11 @@
                 Console.WriteLine("상점가에 오신 것을 환영합니다.");
                 Console.WriteLine("어느 상점으로 이동하시겠습니까?\n");
 
+                if (equipmentShopWeapon == null)
+                {
+                    UpdateShopItem();
+                }
+
                 Console.WriteLine("1. 대장간으로 이동");
                 Console.WriteLine("2. 포션 상점으로 이동");
                 Console.WriteLine("3. 선술집으로 이동");
@@ -100,7 +105,7 @@
                 {
                     if (equipmentShopWeapon[i].Type == ItemType.Weapon)
                     {
-                        Console.WriteLine($"- {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}");  // 가격보류
+                        Console.WriteLine($"- {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}  |  {equipmentShopWeapon[i].Gold}G");
                     }
                 }
 
@@ -109,7 +114,7 @@
                 {
                     if (equipmentShopArmor[i].Type != ItemType.Weapon)
                     {
-                        Console.WriteLine($"- {equipmentShopArmor[i].Name}   |   {equipmentShopArmor[i].Description}");  // 가격보류
+                        Console.WriteLine($"- {equipmentShopArmor[i].Name}   |   {equipmentShopArmor[i].Description}  |  {equipmentShopArmor[i].Gold}G");
                     }
                 }
 
@@ -163,7 +168,7 @@
                 {
                     if (equipmentShopWeapon[i].Type == ItemType.Weapon)
                     {
-                        Console.WriteLine($"- {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}");
+                        Console.WriteLine($"{i + 1}. {equipmentShopWeapon[i].Name}   |   {equipmentShopWeapon[i].Description}  |  {equipmentShopWeapon[i].Gold}G");
                     }
                 }
                 Console.WriteLine("\n구매하실 아이템을 선택해주세요.");
@@ -183,13 +188,13 @@
                         }
                         else if (select >= 0 && select < equipmentShopWeapon.Count)
                         {
-                            if (_player.Gold >= 0/*item.Price*/)
+                            if (_player.Gold >= equipmentShopWeapon[select - 1].Gold)
                             {
                                 Console.WriteLine("구매를 완료했습니다.");
-                                _player.Gold -= 0/*item.Price*/;
+                                _player.Gold -= equipmentShopWeapon[select - 1].Gold;
                                 _player.inventory.itemList.Add(equipmentShopWeapon[select - 1]);
                             }
-                            else
+                            else // 골드부족
                             {
                                 Console.WriteLine("골드가 부족합니다\n");
                                 continue;
@@ -214,7 +219,7 @@
                 Console.WriteLine("[ 방어구 목록 ]");
                 for (int i = 0; i < equipmentShopArmor.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {equipmentShopArmor[i].Name}  |   {equipmentShopArmor[i].Description}");
+                    Console.WriteLine($"{i + 1}. {equipmentShopArmor[i].Name}  |   {equipmentShopArmor[i].Description}  |  {equipmentShopArmor[i].Gold}G");
                 }
                 Console.WriteLine("\n구매하실 아이템을 선택해주세요.");
                 Console.WriteLine("0. 대장간 목록으로");
@@ -231,15 +236,15 @@
                     }
                     else if (select > 0 && select < equipmentShopArmor.Count)
                     {
-                        if (_player.Gold >= 0/*item.Price*/)
+                        if (_player.Gold >= equipmentShopArmor[select - 1].Gold)
                         {
                             Console.WriteLine("구매를 완료했습니다.\n");
-                            _player.Gold -= 0/*item.Price*/;
+                            _player.Gold -= equipmentShopArmor[select - 1].Gold;
                             _player.inventory.itemList.Add(equipmentShopArmor[select - 1]);
                         }
-                        else if (_player.Gold < 0/*item.Price*/)
+                        else // 골드부족
                         {
-                            Console.WriteLine("골드가 부족합니다\n");
+                            Console.WriteLine("골드가 부족합니다\n"); 
                             continue;
                         }
                     }
@@ -305,7 +310,7 @@
             }
         }
 
-        public static void SellItem(ref Player _player)
+        public static void SellItem(ref Player _player) // 아이템 판매 메뉴
         {
             while (true)
             {
@@ -329,7 +334,7 @@
                     }
                     else if (select >= 1 && select < _player.inventory.itemList.Count)
                     {
-                        //_player.Gold += (int)(_player.inventory.itemList[select - 1].Price * 0.8);
+                        _player.Gold += (int)(_player.inventory.itemList[select - 1].Gold * 0.7);  // 상점가의 70%
                         _player.inventory.itemList.RemoveAt(select - 1);
                         Console.WriteLine("선택하신 아이템 판매가 완료되었습니다.");
                     }
@@ -352,9 +357,9 @@
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
 
                 Console.WriteLine("[ 포션 목록 ]\n");
-                for (int i = 0; i < potionShop.Count; i++) // 상점 목록 미완성
+                for (int i = 0; i < potionShop.Count; i++)
                 {
-                    Console.WriteLine($"- {potionShop[i].Name}  |   {potionShop[i].Description}");
+                    Console.WriteLine($"- {potionShop[i].Name}   |   {potionShop[i].Description}  |  {potionShop[i].Gold}G");
                 }
 
                 Console.WriteLine("\n1. 포션 구매");
@@ -390,7 +395,7 @@
             }
         }
 
-        public static void PotionBuyMenu(ref Player _player)
+        public static void PotionBuyMenu(ref Player _player) // 포션 구매 메뉴
         {
             while (true)
             {
@@ -418,13 +423,13 @@
                         }
                         else if (select > 0 && select < potionShop.Count)
                         {
-                            if (_player.Gold >= 0/*item.Price*/)
+                            if (_player.Gold >= potionShop[select - 1].Gold)
                             {
-                                _player.Gold -= 0/*item.Price*/;
+                                _player.Gold -= potionShop[select - 1].Gold;
                                 _player.inventory.itemList.Add(potionShop[select - 1]);
                                 Console.WriteLine("구매를 완료했습니다.\n");
                             }
-                            else if (_player.Gold < 0/*item.Price*/)
+                            else // 골드부족
                             {
                                 Console.WriteLine("골드가 부족합니다\n");
                             }
