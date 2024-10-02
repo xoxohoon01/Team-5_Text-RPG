@@ -24,12 +24,17 @@ namespace TextRPG
         }
 
         // 스킬을 사용하여 피해자에게 피해를 입히는 메서드
-        public void UseSkill(ref Player _caster, ref Monster _unit)
+        public bool UseSkill(ref Player _caster, ref Monster _unit)
         {
             Program.ShowMsgOnBattle();
             if (_caster.MP < MPCost)
             {
-                Program.ShowMsgOnBattle($"{_caster.Name}은(는) MP가 부족하여 {Name} 스킬을 사용할 수 없습니다.");
+                Program.ShowMsgOnBattle($"{_caster.Name}은(는) MP가 부족하여");
+                Program.ShowMsgOnBattle($"{Name} 스킬을 사용할 수 없습니다.");
+                Thread.Sleep(1000 / DungeonScene.gameSpeed);
+                Program.ShowMsgOnBattle("");
+                Thread.Sleep(1000 / DungeonScene.gameSpeed);
+                return false;
             }
 
             _caster.MP -= MPCost;  // 마나 소모
@@ -40,8 +45,9 @@ namespace TextRPG
             // 최종 피해량 계산
             float finalDamage = CalculateFinalDamage(_caster.Damage, _unit.Defense, isCriticalHit);
             _unit.HP -= (int)finalDamage;  // 피해자의 HP 감소
-
-            Console.WriteLine($"{_caster.Name}이(가) {Name} 스킬을 사용하여 {_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다. (MP 소모: {MPCost})");
+            Program.ShowMsgOnBattle($"{_caster.Name}이(가) {Name} 스킬을 사용하여");
+            Program.ShowMsgOnBattle($"{_unit.Name}에게 {(int)finalDamage}의 피해를 입혔습니다.");
+            return true;
 
             if (_unit.HP <= 0)
             {
