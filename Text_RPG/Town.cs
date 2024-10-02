@@ -40,7 +40,7 @@ namespace TextRPG
                     }
                     else if (nowAction == 3)
                     {
-                        InventoryScene.EnterInventory(ref _player);
+                        _player.inventory.InventoryMenu(ref _player);
                     }
                     else if (nowAction == 4)
                     {

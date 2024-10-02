@@ -79,33 +79,117 @@ namespace TextRPG
 
         public static void EncountMonster(ref Player _player, int _difficulty)
         {
-            int unitCount = _difficulty;
+            int unitCount = 3;
 
             while (true)
             {
-                Console.Clear();
-
-                if (unitCount > 0)
+                //일반 몬스터
+                if (unitCount > 1)
                 {
-                    Monster newMonster = new Monster("orc"); //임시 몬스터, 몬스터 설정 이후 지울 것
+                    int randomRace = Program.random.Next(5);
+                    string monsterName = "";
+                    switch (randomRace)
+                    {
+                        case 0:
+                            monsterName = "고블린";
+                            break;
+                        case 1:
+                            monsterName = "오크";
+                            break;
+                        case 2:
+                            monsterName = "슬라임";
+                            break;
+                        case 3:
+                            monsterName = "트롤";
+                            break;
+                        case 4:
+                            monsterName = "새끼 용";
+                            break;
+                    }
+                    Monster newMonster = new Monster(monsterName, _difficulty, 1); //임시 몬스터, 몬스터 설정 이후 지울 것
                     
-                    //몬스터의 이름, 전투력 등 설정할 것
+                    //난이도별 몬스터 드랍 골드
+                    if (_difficulty == 1) newMonster.Gold = Program.random.Next(180, 221);
+                    else if (_difficulty == 2) newMonster.Gold = Program.random.Next(280, 321);
+                    else if (_difficulty == 3) newMonster.Gold = Program.random.Next(480, 521);
 
+                    Console.Clear();
                     Program.ShowMsgOnBattle($"{newMonster.Name}이(가) 나타났습니다!");
                     Thread.Sleep(1000 / gameSpeed);
                     Program.ShowMsgOnBattle("");
                     Thread.Sleep(1000 / gameSpeed);
-                    StartBattle(ref _player, ref newMonster);
+                    bool isClear = StartBattle(ref _player, ref newMonster);
+                    if (isClear)
+                    {
+                        unitCount--;
+                    }
+                    else
+                    {
+                        isAlive = false;
+                        break;
+                    }
                 }
 
-                if (isAlive == false)
+                //보스몬스터
+                else if (unitCount == 1)
                 {
+                    int randomRace = Program.random.Next(5);
+                    string monsterName = "";
+                    switch (randomRace)
+                    {
+                        case 0:
+                            monsterName = "고블린 왕";
+                            break;
+                        case 1:
+                            monsterName = "오크 우두머리";
+                            break;
+                        case 2:
+                            monsterName = "킹슬라임";
+                            break;
+                        case 3:
+                            monsterName = "거대트롤";
+                            break;
+                        case 4:
+                            monsterName = "드래곤";
+                            break;
+                    }
+                    Monster newMonster = new Monster(monsterName, _difficulty, 2); //임시 몬스터, 몬스터 설정 이후 지울 것
+
+                    //난이도별 몬스터 드랍 골드
+                    if (_difficulty == 1) newMonster.Gold = Program.random.Next(180, 221);
+                    else if (_difficulty == 2) newMonster.Gold = Program.random.Next(280, 321);
+                    else if (_difficulty == 3) newMonster.Gold = Program.random.Next(480, 521);
+
+                    Console.Clear();
+                    Program.ShowMsgOnBattle($"{newMonster.Name}이(가) 나타났습니다!");
+                    Thread.Sleep(1000 / gameSpeed);
+                    Program.ShowMsgOnBattle("");
+                    Thread.Sleep(1000 / gameSpeed);
+                    bool isClear = StartBattle(ref _player, ref newMonster);
+                    if (isClear)
+                    {
+                        unitCount--;
+                    }
+                    else
+                    {
+                        isAlive = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    Program.ShowMsgOnBattle("던전을 클리어했습니다!");
+                    Thread.Sleep(1000 / gameSpeed);
+                    Program.ShowMsgOnBattle("마을로 돌아갑니다.");
+                    Thread.Sleep(1000 / gameSpeed);
+                    Console.WriteLine("계속하려면 아무 키나 입력하세요.");
+                    Console.ReadKey();
                     break;
                 }
             }
         }
 
-        public static void StartBattle(ref Player _player, ref Monster _monster)
+        public static bool StartBattle(ref Player _player, ref Monster _monster)
         {
             while (true)
             {
@@ -123,6 +207,7 @@ namespace TextRPG
                     if (_monster.HP <= 0)
                     {
                         KillMonster(ref _player, ref _monster);
+                        return true;
                     }
 
                     Program.ShowMsgOnBattle($"{_monster.Name}의 턴!");
@@ -140,7 +225,7 @@ namespace TextRPG
                         KillPlayer(ref _player, ref _monster);
                         Console.WriteLine("계속하려면 아무 키나 입력하세요.");
                         Console.ReadKey();
-                        break;
+                        return false;
                     }
                 }
                 else
@@ -154,6 +239,13 @@ namespace TextRPG
                     Program.ShowMsgOnBattle("");
                     Thread.Sleep(1000 / gameSpeed);
 
+                    if (_player.HP <= 0)
+                    {
+                        isAlive = false;
+                        KillPlayer(ref _player, ref _monster);
+                        return false;
+                    }
+
                     Program.ShowMsgOnBattle($"{_player.Name}의 턴!");
                     Thread.Sleep(1000 / gameSpeed);
 
@@ -162,6 +254,12 @@ namespace TextRPG
 
                     Program.ShowMsgOnBattle("");
                     Thread.Sleep(1000 / gameSpeed);
+
+                    if (_monster.HP <= 0)
+                    {
+                        KillMonster(ref _player, ref _monster);
+                        return true;
+                    }
                 }
             }
         }
@@ -228,11 +326,14 @@ namespace TextRPG
         //몬스터 턴 (기본공격)
         public static void MonsterTurn(ref Player _player, ref Monster _monster)
         {
+            Program.ShowMsgOnBattle($"{_monster.Name}의 공격!");
+            Thread.Sleep(1000 / gameSpeed);
+
             int monsterDamage = Math.Max(1, _monster.Damage - _player.Defense - _player.TotalDefenseBonus()); //몬스터 데미지
             if (Program.random.NextDouble() > _player.DodgeChance(_monster.Speed)) //공격을 회피
             {
                 _player.HP -= monsterDamage;
-                Program.ShowMsgOnBattle($"{_monster.Name}이(가) 당신에게 {monsterDamage}의 데미지를 입혔습니다.");
+                Program.ShowMsgOnBattle($"{_monster.Name}이(가) {_player.Name}에게 {monsterDamage}의 데미지를 입혔습니다.");
             }
             else
             {
@@ -284,8 +385,13 @@ namespace TextRPG
                         Skill selectedSkill = _player.skillList[nowAction - 1];
                         int baseDamage = selectedSkill.BaseDamage;
                         int attackerDamage = _player.Damage;  // Player의 Damage 사용
-                        selectedSkill.UseSkill(ref _player, ref _monster);
-                        return true;
+                        bool isUsedSkill = selectedSkill.UseSkill(ref _player, ref _monster);
+                        if (isUsedSkill)
+                        {
+
+                            return true;
+                        }
+                        else return false;
                     }
                     else
                     {
@@ -331,7 +437,10 @@ namespace TextRPG
         public static void KillMonster(ref Player _player, ref Monster _monster)
         {
             Program.ShowMsgOnBattle($"{_monster.Name}을(를) 처치하였습니다!");
-            ClearRewards(ref _player, 3);
+            Thread.Sleep(1000 / gameSpeed);
+            Program.ShowMsgOnBattle("");
+            Thread.Sleep(1000 / gameSpeed);
+            ClearRewards(ref _player, ref _monster);
         }
 
         public static void KillPlayer(ref Player _player, ref Monster _monster)
@@ -345,36 +454,32 @@ namespace TextRPG
             Thread.Sleep(1000 / gameSpeed);
 
             _player.HP = _player.MaxHP/2; //부활 직후 체력 절반 깎이는 패널티
+            _player.MP = _player.MaxMP;
             Program.ShowMsgOnBattle($"현재 체력: {_player.MaxHP / 2}");
+            Console.WriteLine("계속하려면 아무 키나 입력하세요.");
+            Console.ReadKey();
         }
 
-        private static void ClearRewards(ref Player _player, int _stage)        //클리어 보상 추가
+        private static void ClearRewards(ref Player _player, ref Monster _monster)        //클리어 보상 추가
         {
 
-            // 골드 보상
-            int goldEarned = _stage * 100 + Program.random.Next(1, 101);  // 기본 골드 + 랜덤 보너스
-            _player.Gold += goldEarned;
-            Console.WriteLine($"{goldEarned} 골드를 획득했습니다!");
+            _player.Gold += _monster.Gold;
+            Program.ShowMsgOnBattle($"{_monster.Gold} 골드를 획득했습니다!");
+            Thread.Sleep(1000 / gameSpeed);
+            Program.ShowMsgOnBattle("");
+            Thread.Sleep(1000 / gameSpeed);
 
-            int dropChance = 25 + (_stage * 15);    // 아이템 드롭률 25 + 15 * 난이도 
+            int dropChance = 20;    // 아이템 드롭률 25 + 15 * 난이도 
             // 아이템 보상
             if (Program.random.Next(100) < dropChance)  // 확률로 아이템 드롭
             {
                 Item item = new Item();
                 _player.inventory.GetItem(item); //획득 아이템 바꿀 것
-                Console.WriteLine($"'{item.Name}'을(를) 획득했습니다! - {item.Description}");
+                Program.ShowMsgOnBattle($"'{item.Name}'을(를) 획득했습니다!");
+                Thread.Sleep(1000 / gameSpeed);
+                Program.ShowMsgOnBattle("");
+                Thread.Sleep(1000 / gameSpeed);
             }
-
-            Console.ReadKey();
-        }
-
-        public static void ReducePlayerHpAfterFailure(ref Player _player)       //던전 실패시 체력 50%감소
-        {
-            int reducedHp = _player.HP / 2;
-            _player.HP = Math.Max(1, reducedHp); // 최소 1의 체력은 유지
-            Console.WriteLine($"던전 탐험 실패로 체력이 50% 감소했습니다. 현재 체력: {_player.HP}/{_player.MaxHP}");
-            Console.WriteLine("아무 키나 눌러 계속하세요...");
-            Console.ReadKey();
         }
 
     }
