@@ -49,6 +49,7 @@ namespace TextRPG
         {
             while(true)
             {
+                Console.Clear();
                 Console.WriteLine("[ 아이템 목록 ]\n");
                 // 무기 목록
                 Console.WriteLine("[ 무기 ]");

@@ -19,6 +19,9 @@ namespace TextRPG
                 Console.WriteLine($"직업: {_player.PlayerJob}");
                 Console.WriteLine($"레벨: {_player.Level}");
                 Console.WriteLine();
+                Console.WriteLine($"HP: {_player.HP}/{_player.MaxHP}");
+                Console.WriteLine($"MP: {_player.MP}/{_player.MaxMP}");
+                Console.WriteLine();
                 Console.WriteLine($"공격력: {_player.Damage}");
                 Console.WriteLine($"방어력: {_player.Defense}");
                 Console.WriteLine($"속도: {_player.Speed}");

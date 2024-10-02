@@ -7,6 +7,7 @@
         public int MP, MaxMP;
         public int Damage, Armor, Speed;
         public int CritChance, CritDamage;
+        public int Gold;
 
         public bool IsAlive => HP > 0;
         public Monster(string type)
@@ -72,6 +73,21 @@
             
             }
         }
+
+        public Monster(string _name, int _stage, int _type)
+        {
+            Name = _name;
+            HP = _stage * (50 * _type);
+            MaxHP = _stage * (50 * _type);
+            MP = _stage * (10 * _type);
+            MaxMP = _stage * (10 * _type);
+            Damage = _stage * (15 * _type);
+            Defense = _stage * (5 * _type);
+            Speed = _stage * (8 * _type);
+            CritChance = _stage * (10 * _type);
+            CritDamage = _stage * (20 * _type);
+        }
+
         public void Battle(Player player, Unit enemy)
         {
             // 속도가 높은 유닛이 먼저 공격
