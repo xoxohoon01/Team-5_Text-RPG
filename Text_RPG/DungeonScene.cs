@@ -370,7 +370,7 @@ namespace TextRPG
             finalDamage = Math.Max(1, finalDamage); //최소 1의 데이지                                       
 
             //크리티컬 데미지 계산
-            double criticalChance = _player.CriticalChance + _player.TotalCriticalCanceBonus(); //크리티컬 확률
+            double criticalChance = _player.CriticalChance + _player.TotalCriticalChanceBonus(); //크리티컬 확률
             if (Program.random.NextDouble() < criticalChance)
             {
                 double criticalMultiplier = _player.CriticalDamage + _player.TotalCriticalDamageBonus(); //크리티컬 데미지 계수
@@ -557,19 +557,10 @@ namespace TextRPG
             Program.ShowMsgOnBattle("");
             Program.ShowStatusOnBattle(ref _player);
             Thread.Sleep(1000 / gameSpeed);
-
             if (_monster.dropItem != new Item())
             {
                 _player.inventory.itemList.Add(_monster.dropItem);
-            }
-
-            int dropChance = 20;    // 아이템 드롭률 25 + 15 * 난이도 
-            // 아이템 보상
-            if (Program.random.Next(100) < dropChance)  // 확률로 아이템 드롭
-            {
-                Item item = new Item();
-                _player.inventory.GetItem(item); //획득 아이템 바꿀 것
-                Program.ShowMsgOnBattle($"'{item.Name}'을(를) 획득했습니다!");
+                Program.ShowMsgOnBattle($"'{_monster.dropItem.Name}'을(를) 획득했습니다!");
                 Program.ShowStatusOnBattle(ref _player);
                 Thread.Sleep(1000 / gameSpeed);
                 Program.ShowMsgOnBattle("");

@@ -52,34 +52,57 @@ namespace TextRPG
         {
             while(true)
             {
-                Console.Clear();
-                Console.WriteLine("[ 아이템 목록 ]\n");
-                // 무기 목록
-                Console.WriteLine("[ 무기 ]");
                 weaponList.Clear();
                 armorList.Clear();
                 potionList.Clear();
+
+                Console.Clear();
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine("[ 아이템 목록 ]");
+
+                // 무기 목록
+                Console.SetCursorPosition(0, 2);
+                Console.WriteLine("[ 무기 ]");
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     if (itemList[i].Type == ItemType.Weapon)
                     {
                         weaponList.Add(itemList[i]);
+                        Console.SetCursorPosition(0, 2 + weaponList.Count);
                         if (_player.inventory.item_weapon.isEquip == true &&
                             _player.inventory.item_weapon.Name == _player.inventory.itemList[i].Name)
-                        { 
-                            Console.WriteLine($"- [무기]{itemList[i].Name}    |   공격력 + {itemList[i].AttackPower}");
+                        {
+                            Console.WriteLine($"- [무기]{itemList[i].Name}");
                         }
                         else
                         {
-                            Console.WriteLine($"- {itemList[i].Name}    |   공격력 + {itemList[i].AttackPower}");
+                            Console.WriteLine($"- {itemList[i].Name}");
                         }
                     }
                     else
                     {
                     }
                 }
-                    //방어구 목록
-                Console.WriteLine("\n[ 방어구 ]");
+
+                // 소모품
+                Console.SetCursorPosition(45, 2);
+                Console.WriteLine("[ 소모품 ]");
+                for (int i = 0; i < itemList.Count; i++)
+                {
+                    if (itemList[i].Type == ItemType.Potion)
+                    {
+                        potionList.Add(itemList[i]);
+                        Console.SetCursorPosition(45, 2 + potionList.Count);
+                        Console.WriteLine($"- {itemList[i].Name}");
+                    }
+                    else
+                    {
+                    }
+                }
+
+                //방어구
+                Console.SetCursorPosition(0, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 2);
+                Console.WriteLine("[ 방어구 ]");
                 for (int i = 0; i < itemList.Count; i++)
                 {
                     if (itemList[i].Type == ItemType.Head ||
@@ -87,45 +110,48 @@ namespace TextRPG
                         itemList[i].Type == ItemType.Bottom)
                     {
                         armorList.Add(itemList[i]);
+                        Console.SetCursorPosition(0, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 2 + armorList.Count);
                         if (_player.inventory.item_head.isEquip == true &&
                             _player.inventory.item_head.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [머리]{itemList[i].Name}    |   방어력 + {itemList[i].DefensePower}");
+                            Console.WriteLine($"- [머리]{itemList[i].Name}");
                         }
                         else if (_player.inventory.item_top.isEquip == true &&
                             _player.inventory.item_top.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [상의]{itemList[i].Name}    |   방어력 + {itemList[i].DefensePower}");
+                            Console.WriteLine($"- [상의]{itemList[i].Name}");
                         }
                         else if (_player.inventory.item_bottom.isEquip == true &&
                             _player.inventory.item_bottom.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [하의]{itemList[i].Name}    |   방어력 + {itemList[i].DefensePower}");
+                            Console.WriteLine($"- [하의]{itemList[i].Name}");
                         }
                         else
                         {
-                            Console.WriteLine($"- {itemList[i].Name}    |   방어력 + {itemList[i].DefensePower}");
+                            Console.WriteLine($"- {itemList[i].Name}");
                         }
                     }
                     else
                     {
                     }
                 }
-                // 소모품
-                Console.WriteLine("\n[ 소모품 ]");
-                for (int i = 0; i < itemList.Count; i++)
-                {
-                    if (itemList[i].Type == ItemType.Potion)
-                    {
-                        potionList.Add(itemList[i]);
-                        Console.WriteLine($"- {itemList[i].Name}    |   {itemList[i].Description}");
-                    }
-                    else
-                    {
-                    }
-                }
-                Console.WriteLine("\n1. 장비 장착");
-                Console.WriteLine("0. 나가기\n");
+
+                //장착중인 아이템
+                Console.SetCursorPosition(45, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 2);
+                Console.WriteLine("[ 장착중 ]");
+                Console.SetCursorPosition(45, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 3);
+                Console.Write($"무기: {item_weapon.Name}");
+                Console.SetCursorPosition(45, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 4);
+                Console.Write($"투구: {item_head.Name}");
+                Console.SetCursorPosition(45, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 5);
+                Console.Write($"상의: {item_top.Name}");
+                Console.SetCursorPosition(45, (int)MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 6);
+                Console.Write($"하의: {item_bottom.Name}");
+
+                Console.SetCursorPosition(0, (int)(MathF.Max(MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 2 + armorList.Count, MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 6) + 2));
+                Console.WriteLine("1. 장비 장착");
+                Console.WriteLine("0. 나가기");
+                Console.WriteLine();
 
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력:");
@@ -302,12 +328,12 @@ namespace TextRPG
                         if (_player.inventory.item_head.isEquip == true &&
                             _player.inventory.item_head.Name == _player.inventory.armorList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [머리]{armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. [머리]{armorList[i].Name}");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. {armorList[i].Name}");
                             num++;
                         }
                     }
@@ -316,12 +342,12 @@ namespace TextRPG
                         if (_player.inventory.item_top.isEquip == true &&
                             _player.inventory.item_top.Name == _player.inventory.armorList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [상의]{armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. [상의]{armorList[i].Name}");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. {armorList[i].Name}");
                             num++;
                         }
                     }

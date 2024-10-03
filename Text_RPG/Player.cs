@@ -259,7 +259,7 @@
             if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.Speed;
             return totalBonus;
         }
-        public double TotalCriticalCanceBonus()            //장착시 치명타 보너스
+        public double TotalCriticalChanceBonus()            //장착시 치명타 보너스
         {
             double totalBonus = 0;
             if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.CritChance;
@@ -271,10 +271,10 @@
         public double TotalCriticalDamageBonus()            //장착시 치명타 데미지 보너스
         {
             double totalBonus = 0;
-            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.CritDamage;
-            if (inventory.item_head != null) totalBonus += inventory.item_head.CritDamage;
-            if (inventory.item_top != null) totalBonus += inventory.item_top.CritDamage;
-            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.CritDamage;
+            if (inventory.item_weapon != null) totalBonus += inventory.item_weapon.CritDamage / 100;
+            if (inventory.item_head != null) totalBonus += inventory.item_head.CritDamage / 100;
+            if (inventory.item_top != null) totalBonus += inventory.item_top.CritDamage / 100;
+            if (inventory.item_bottom != null) totalBonus += inventory.item_bottom.CritDamage / 100;
             return totalBonus;
         }
     }

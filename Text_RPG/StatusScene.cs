@@ -22,11 +22,11 @@ namespace TextRPG
                 Console.WriteLine($"HP: {_player.HP}/{_player.MaxHP}");
                 Console.WriteLine($"MP: {_player.MP}/{_player.MaxMP}");
                 Console.WriteLine();
-                Console.WriteLine($"공격력: {_player.Damage}");
-                Console.WriteLine($"방어력: {_player.Defense}");
-                Console.WriteLine($"속도: {_player.Speed}");
-                Console.WriteLine($"치명타확률: {_player.CriticalChance}");
-                Console.WriteLine($"치명타데미지: {_player.CriticalDamage}");
+                Console.WriteLine($"공격력: {_player.Damage} {(_player.TotalDamageBonus() != 0 ? $"(+{_player.TotalDamageBonus()})" : "")}");
+                Console.WriteLine($"방어력: {_player.Defense} {(_player.TotalDefenseBonus() != 0 ? $"(+{_player.TotalDefenseBonus()})" : "")}");
+                Console.WriteLine($"속도: {_player.Speed} {(_player.TotalSpeedBonus() != 0 ? $"(+{_player.TotalSpeedBonus()})" : "")}");
+                Console.WriteLine($"치명타확률: {_player.CriticalChance*100} {(_player.TotalCriticalChanceBonus() != 0 ? $"(+{_player.TotalCriticalChanceBonus()*100})" : "")}");
+                Console.WriteLine($"치명타데미지: {_player.CriticalDamage} {(_player.TotalCriticalDamageBonus() != 0 ? $"(+{_player.TotalCriticalDamageBonus()})" : "")}");
                 Console.WriteLine();
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine();

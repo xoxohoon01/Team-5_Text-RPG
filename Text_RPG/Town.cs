@@ -20,8 +20,7 @@ namespace TextRPG
                 Console.WriteLine("1. 캐릭터 정보");
                 Console.WriteLine("2. 인벤토리");
                 Console.WriteLine("3. 상점");
-                Console.WriteLine("4. 휴식");
-                Console.WriteLine("5. 던전");
+                Console.WriteLine("4. 던전");
                 Console.WriteLine();
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력: ");
@@ -41,11 +40,7 @@ namespace TextRPG
                     {
                         Shop.EnterShop(ref _player);
                     }
-                    else if (nowAction == 4)
-                    {
-                        Program.ShowMsgWrongValue();
-                    }
-                    else if (nowAction == 5)     //던전입장 추가
+                    else if (nowAction == 4)     //던전입장 추가
                     {
                         DungeonScene.EnterDungeon(ref _player);
                     }
