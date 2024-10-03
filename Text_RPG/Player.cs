@@ -47,6 +47,7 @@
             top = new Item();
             head = new Item();
             bottom = new Item();
+            Gold = 30000;
         }
 
         public Player(string name, Job job)

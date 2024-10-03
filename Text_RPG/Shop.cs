@@ -33,7 +33,6 @@
                             potionShop.Add(shopItem.ITEM[i]);
                         }
                     }
- 
                 }
             }
         }
@@ -434,7 +433,7 @@
                             {
                                 PotionStore(ref _player);
                             }
-                            else if (select > 0 && select < potionShop.Count)
+                            else if (select > 0 && select <= potionShop.Count)
                             {
                                 if (_player.Gold >= potionShop[select - 1].Gold)
                                 {
