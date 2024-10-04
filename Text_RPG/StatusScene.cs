@@ -29,8 +29,8 @@ namespace TextRPG
                 Console.WriteLine($"치명타데미지: {_player.CriticalDamage} {(_player.TotalCriticalDamageBonus() != 0 ? $"(+{_player.TotalCriticalDamageBonus()})" : "")}");
                 Console.WriteLine();
                 Console.WriteLine("0. 뒤로가기");
-                Console.WriteLine();
                 Console.WriteLine("1. 캐릭터 삭제");
+                Console.WriteLine();
                 Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력: ");
 

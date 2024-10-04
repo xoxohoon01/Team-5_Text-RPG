@@ -149,8 +149,8 @@ namespace TextRPG
                 Console.Write($"하의: {item_bottom.Name}");
 
                 Console.SetCursorPosition(0, (int)(MathF.Max(MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 2 + armorList.Count, MathF.Max(2 + weaponList.Count, 2 + potionList.Count) + 6) + 2));
-                Console.WriteLine("1. 장비 장착");
                 Console.WriteLine("0. 나가기");
+                Console.WriteLine("1. 장비 장착");
                 Console.WriteLine();
 
                 Console.WriteLine("다음 행동을 선택해주세요.");
@@ -187,9 +187,10 @@ namespace TextRPG
                 Console.Clear();
                 Console.WriteLine("[ 장착 메뉴 ]\n");
 
+                Console.WriteLine("0. 뒤로 가기");
+                Console.WriteLine();
                 Console.WriteLine("1. 무기 장착");
                 Console.WriteLine("2. 방어구 장착");
-                Console.WriteLine("0. 뒤로 가기");
 
                 Console.WriteLine("\n다음 행동을 선택해주세요.");
                 Console.Write("입력: ");

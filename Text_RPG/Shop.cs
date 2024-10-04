@@ -50,7 +50,7 @@
                 Console.WriteLine("2. 포션 상점으로 이동");
                 Console.WriteLine("3. 선술집으로 이동\n");
 
-                Console.WriteLine("다음 행동을 선택해주세요");
+                Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력 : ");
 
                 int select;
@@ -119,7 +119,7 @@
                 Console.WriteLine("1. 무기 구매");
                 Console.WriteLine("2. 방어구 구매");
                 Console.WriteLine("3. 보유 아이템 판매\n");
-                Console.WriteLine("다음 행동을 선택해주세요");
+                Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력 : ");
 
                 int select;
@@ -287,7 +287,7 @@
 
                 Console.WriteLine("\n0. 상점가로 이동");
                 Console.WriteLine("1. 판매하기");
-                Console.WriteLine("다음 행동을 선택해주세요");
+                Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력 : ");
 
                 int select;
@@ -326,7 +326,7 @@
 
                 Console.WriteLine("\n0. 뒤로 가기");
                 Console.WriteLine("\n판매하실 아이템 번호나 다음 행동을 입력해주세요. 판매가는 원가의 70%입니다.");
-                Console.WriteLine("다음 행동을 선택해주세요");
+                Console.WriteLine("다음 행동을 선택해주세요.");
                 Console.Write("입력 : ");
 
                 int select;
