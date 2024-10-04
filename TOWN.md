@@ -1,10 +1,10 @@
-# 마을
+![image](https://github.com/user-attachments/assets/bbfa8134-78c7-4845-935c-570739511e67)# 마을
 ![image](https://github.com/user-attachments/assets/b427d3cb-8846-4a93-a4a0-fad37a6abd0b)</br>
 마을에서는 여러가지 메뉴를 선택할 수 있습니다.
-1. 캐릭터 정보
-2. 인벤토리
-3. 상점가
-4. 던전
+1. [캐릭터 정보](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/STATUS.md)
+2. [인벤토리](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/INVENTORY.md)
+3. [상점가](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/SHOP.md)
+4. [던전](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/DUNGEON.md)
 
 ### 캐릭터 정보
 ![image](https://github.com/user-attachments/assets/b7751b9e-e38d-4f2c-94fe-82a88b78165b)</br>
