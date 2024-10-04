@@ -7,7 +7,7 @@
 3단계 던전의 보스몬스터를 토벌할 시 한정 아이템을 획득할 수 있습니다.</br>
 
 ### 메뉴 소개
-
+[마을](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/TOWN.md)</br>
 ![image](https://github.com/user-attachments/assets/b427d3cb-8846-4a93-a4a0-fad37a6abd0b)
 
 ![image](https://github.com/user-attachments/assets/0a23675f-73d4-4a98-8d6d-4a57b6fd3bbf)
