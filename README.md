@@ -8,7 +8,7 @@
 
 ### 메뉴 소개
 [마을](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/TOWN.md)</br>
-[캐릭터 정보](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/TOWN.md)</br>
+[캐릭터 정보](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/STATUS.md)</br>
 [인벤토리](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/INVENTORY.md)</br>
 [상점](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/SHOP.md)</br>
 [던전](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/DUNGEON.md)</br>
