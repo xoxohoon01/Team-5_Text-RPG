@@ -72,11 +72,11 @@ namespace TextRPG
                         if (_player.inventory.item_weapon.isEquip == true &&
                             _player.inventory.item_weapon.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [무기]{itemList[i].Name}");
+                            Console.WriteLine($"- [무기]{itemList[i].Name}    (ATK:{itemList[i].AttackPower})");
                         }
                         else
                         {
-                            Console.WriteLine($"- {itemList[i].Name}");
+                            Console.WriteLine($"- {itemList[i].Name}    (ATK:{itemList[i].AttackPower})");
                         }
                     }
                     else
@@ -114,21 +114,22 @@ namespace TextRPG
                         if (_player.inventory.item_head.isEquip == true &&
                             _player.inventory.item_head.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [머리]{itemList[i].Name}");
+                            Console.WriteLine($"- [머리]{itemList[i].Name}    (DEF:{itemList[i].DefensePower}, HP:{itemList[i].HP})");
+    
                         }
                         else if (_player.inventory.item_top.isEquip == true &&
                             _player.inventory.item_top.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [상의]{itemList[i].Name}");
+                            Console.WriteLine($"- [상의]{itemList[i].Name}    (DEF:{itemList[i].DefensePower}, HP:{itemList[i].HP})");
                         }
                         else if (_player.inventory.item_bottom.isEquip == true &&
                             _player.inventory.item_bottom.Name == _player.inventory.itemList[i].Name)
                         {
-                            Console.WriteLine($"- [하의]{itemList[i].Name}");
+                            Console.WriteLine($"- [하의]{itemList[i].Name}    (DEF:{itemList[i].DefensePower}, HP:{itemList[i].HP})");
                         }
                         else
                         {
-                            Console.WriteLine($"- {itemList[i].Name}");
+                            Console.WriteLine($"- {itemList[i].Name}    (DEF:{itemList[i].DefensePower}, HP:{itemList[i].HP})");
                         }
                     }
                     else
@@ -245,12 +246,12 @@ namespace TextRPG
                         if (_player.inventory.item_weapon.isEquip == true &&
                             _player.inventory.item_weapon.Name == _player.inventory.weaponList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [무기]{weaponList[i].Name}    |   공격력 + {weaponList[i].AttackPower}");
+                            Console.WriteLine($"{num}. [무기]{weaponList[i].Name}    (ATK:{weaponList[i].AttackPower})");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {weaponList[i].Name}    |   공격력 + {weaponList[i].AttackPower}");
+                            Console.WriteLine($"{num}. {weaponList[i].Name}    (ATK:{weaponList[i].AttackPower})");
                             num++;
                         }
                     }
@@ -329,12 +330,12 @@ namespace TextRPG
                         if (_player.inventory.item_head.isEquip == true &&
                             _player.inventory.item_head.Name == _player.inventory.armorList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [머리]{armorList[i].Name}");
+                            Console.WriteLine($"{num}. [머리]{armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {armorList[i].Name}");
+                            Console.WriteLine($"{num}. {armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                     }
@@ -343,12 +344,12 @@ namespace TextRPG
                         if (_player.inventory.item_top.isEquip == true &&
                             _player.inventory.item_top.Name == _player.inventory.armorList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [상의]{armorList[i].Name}");
+                            Console.WriteLine($"{num}. [상의]{armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {armorList[i].Name}");
+                            Console.WriteLine($"{num}. {armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                     }
@@ -357,12 +358,12 @@ namespace TextRPG
                         if (_player.inventory.item_bottom.isEquip == true &&
                             _player.inventory.item_bottom.Name == _player.inventory.armorList[i].Name)
                         {
-                            Console.WriteLine($"{num}. [하의]{armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. [하의]{armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                         else
                         {
-                            Console.WriteLine($"{num}. {armorList[i].Name}    |   방어력 + {armorList[i].DefensePower}");
+                            Console.WriteLine($"{num}. {armorList[i].Name}    (DEF:{armorList[i].DefensePower}, HP:{armorList[i].HP})");
                             num++;
                         }
                     }
