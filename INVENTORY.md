@@ -1,4 +1,5 @@
 # 인벤토리
+### [마을](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/TOWN.md)</br>
 ![image](https://github.com/user-attachments/assets/84da8c30-cfc5-40e2-a1bf-32dd24b437c0)</br>
 인벤토리에서는 보유중인 아이템을 확인할 수 있습니다.</br>
 장비를 장착하거나 해제할 수도 있습니다.</br>
