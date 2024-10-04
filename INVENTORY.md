@@ -1,10 +1,6 @@
 # 마을
 ![image](https://github.com/user-attachments/assets/b427d3cb-8846-4a93-a4a0-fad37a6abd0b)</br>
-마을에서는 여러가지 메뉴를 선택할 수 있습니다.
-1. 캐릭터 정보
-2. 인벤토리
-3. 상점가
-4. 던전
+마을에서는 여러가지 메뉴를 선택할 수 있습니다.</br>
 
 ### 캐릭터 정보
 ![image](https://github.com/user-attachments/assets/b7751b9e-e38d-4f2c-94fe-82a88b78165b)</br>
