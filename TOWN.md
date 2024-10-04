@@ -1,4 +1,5 @@
 # 마을
+#### [README 최상위](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/README.md)
 ![image](https://github.com/user-attachments/assets/b427d3cb-8846-4a93-a4a0-fad37a6abd0b)</br>
 마을에서는 여러가지 메뉴를 선택할 수 있습니다.
 1. [캐릭터 정보](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/STATUS.md)
