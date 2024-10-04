@@ -190,8 +190,16 @@ namespace TextRPG
 
         public static Player LoadPlayerData()
         {
-            if (File.Exists("./PlayerData.json")) return JsonConvert.DeserializeObject<Player>(File.ReadAllText("./PlayerData.json"));
-            else return new Player();
+            if (File.Exists("./PlayerData.json"))
+            {
+                hasPlayer = true;
+                return JsonConvert.DeserializeObject<Player>(File.ReadAllText("./PlayerData.json"));
+            }
+            else
+            {
+                hasPlayer = false;
+                return new Player();
+            }
         }
 
     }

@@ -16,6 +16,7 @@ namespace TextRPG
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("0. 뒤로가기");
                 Console.WriteLine();
@@ -86,6 +87,7 @@ namespace TextRPG
 
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 //일반 몬스터
                 if (unitCount > 1)
                 {

@@ -52,6 +52,7 @@ namespace TextRPG
         {
             while(true)
             {
+                if (Program.hasPlayer == false) break;
                 weaponList.Clear();
                 armorList.Clear();
                 potionList.Clear();
@@ -185,6 +186,7 @@ namespace TextRPG
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("[ 장착 메뉴 ]\n");
 
@@ -230,6 +232,7 @@ namespace TextRPG
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 int num = 1;
                 Console.WriteLine("[ 무기 목록 ]");
@@ -319,6 +322,7 @@ namespace TextRPG
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 int num = 1;
 

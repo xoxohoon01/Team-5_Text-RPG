@@ -41,6 +41,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("상점가에 오신 것을 환영합니다.");
                 Console.WriteLine("어느 상점으로 이동하시겠습니까?\n");
@@ -88,6 +89,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("대장간에 온걸 환영하네. 여러 장비들 구경하고 가게나.\n");
 
@@ -156,6 +158,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("[ 무기 구매 ]");
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
@@ -210,6 +213,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("[ 방어구 구매 ]");
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
@@ -263,6 +267,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("판매가는 기존 아이템 가격의 70% 입니다.\n");
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
@@ -317,6 +322,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("[ 아이템 목록 ]");
                 for (int i = 0; i < _player.inventory.itemList.Count; i++)
@@ -358,6 +364,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("포션 상점에 어서오세요! 많이 구경하고 가세요!\n");
 
@@ -409,6 +416,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("[ 포션 구매 ]");
                 Console.WriteLine($"{_player.Name}의 소지 골드 : {_player.Gold}G\n");
@@ -463,6 +471,7 @@
         {
             while (true)
             {
+                if (Program.hasPlayer == false) break;
                 Console.Clear();
                 Console.WriteLine("선술집에 오신 것을 환영합니다. 마음껏 쉬다 가세요!\n");
 

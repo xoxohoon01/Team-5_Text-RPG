@@ -47,7 +47,7 @@
             top = new Item();
             head = new Item();
             bottom = new Item();
-            Gold = 30000;
+            Gold = 500;
         }
 
         public Player(string name, Job job)
@@ -60,7 +60,7 @@
             NextLevelExperience = 100;
             CriticalChance = 0.05f;
             CriticalDamage = 1.5f;
-            Gold = 1500;
+            Gold = 500;
             inventory = new Inventory();
             InitializeStats();
         }
