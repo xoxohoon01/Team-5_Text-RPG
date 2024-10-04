@@ -5,6 +5,9 @@
 던전의 난이도는 총 3개입니다. </br>
 각 던전에서 몬스터를 토벌할 시 경험치와 골드를 획득할 수 있고, 확률적으로 아이템도 드랍됩니다.</br>
 3단계 던전의 보스몬스터를 토벌할 시 한정 아이템을 획득할 수 있습니다.</br>
+
+### 메뉴 소개
+
 ![image](https://github.com/user-attachments/assets/b427d3cb-8846-4a93-a4a0-fad37a6abd0b)
 
 ![image](https://github.com/user-attachments/assets/0a23675f-73d4-4a98-8d6d-4a57b6fd3bbf)
