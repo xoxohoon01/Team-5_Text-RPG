@@ -1,4 +1,5 @@
 #  캐릭터 정보
+### [마을](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/TOWN.md)</br>
 ![image](https://github.com/user-attachments/assets/e98c08d3-ae79-4a6e-a44a-36c1ed9c83eb)</br>
 캐릭터 정보창에서는</br>
 캐릭터의 이름과 직업, 각종 스테이터스를 확인할 수 있습니다.</br>
