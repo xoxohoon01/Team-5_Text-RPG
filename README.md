@@ -1,5 +1,5 @@
 # Team 5 - Text RPG
-![image](https://github.com/user-attachments/assets/ceb168d6-7d20-4b1e-b076-f24baba4a760)
+![image](https://github.com/xoxohoon01/Team-5_Text-RPG/blob/main/Main.png)
 ### 2번째 프로젝트 Text RPG입니다
 진행 방식은 캐릭터 생성 후 스펙업을 해서 던전을 클리어하는 것입니다.</br>
 던전의 난이도는 총 3개입니다. </br>
